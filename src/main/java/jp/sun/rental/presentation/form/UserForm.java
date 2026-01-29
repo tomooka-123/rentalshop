@@ -1,11 +1,11 @@
-package jp.sun.rental.domain.entity;
+package jp.sun.rental.presentation.form;
 
 import lombok.Data;
 
 @Data
-public class UserEntity {
+public class UserForm {
 
-	private int userId;
+	private String userId;
 	
 	private String userName;
 	
