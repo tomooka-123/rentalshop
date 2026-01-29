@@ -15,27 +15,27 @@ import jp.sun.rental.presentation.form.UserInsertForm;
 public class UserController {
 	
 	//フィールド
-	UserInsertService userInsertService;
+	private UserInsertService userInsertService;
 	
-	//コンストラクターインジェクション
+	//コンストラクター
 	public UserController(UserInsertService userInsertService) {
 		this.userInsertService = userInsertService;
 	}
 	
-	// 「～/top」にGet通信されたとき、TOP画面を返す
+	//TOP画面を表示する
 	@GetMapping(value = "/top")
 	public String toTop() {
 		return "top";
 	}
 
-	// 「～/login」にGet通信されたとき、ログイン画面を返す
+	//ログイン画面を表示する
 	/* @GetMapping(value = "/login")
 	public String login() {
 		return "login";
 	} */
 	
 	
-	// 「～/user/insert」にGet通信されたとき、ユーザー登録画面を返す
+	//ユーザー登録入力画面を表示する
 	@GetMapping(value = "/user/insert")
 	public String toUserInsert(Model model) {
 		
@@ -45,12 +45,12 @@ public class UserController {
 		return "user/insert";
 	}
 	
-	// 「～/user/insert」にPost通信されたとき、登録確認画面を返す
+	//ユーザー登録確認画面を表示する
 	@PostMapping(value = "/user/insert")
 	public String userInsertReview(@Validated @ModelAttribute UserInsertForm userInsertForm, BindingResult result, Model model) throws Exception{
 		
 		if (result.hasErrors()) {
-			return "error";
+			return "user/insert";
 		}
 		
 		model.addAttribute("userInsertForm", userInsertForm);
@@ -58,11 +58,11 @@ public class UserController {
 		return "user/review";
 	}
 	
-	// 「～」にPost通信されたとき、ユーザー登録を実行し、登録完了画面を返す
+	//ユーザー情報をDBに登録し、ユーザー登録完了画面を表示する
 	@PostMapping(value = "/user/insert/submit")
 	public String userInsert(@ModelAttribute UserInsertForm userInsertForm, Model model) {
 		
-		int numberOfRow = userInsertService.userInsert(userInsertForm);
+		int numberOfRow = userInsertService.registUser(userInsertForm);
 		
 		if (numberOfRow == 0) {
 			model.addAttribute("message","登録に失敗しました。");
@@ -73,5 +73,7 @@ public class UserController {
 		
 		return "user/success";
 	}
+	
+	
 	
 }
