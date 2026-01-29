@@ -2,8 +2,11 @@ package jp.sun.rental.presentation.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import jp.sun.rental.presentation.form.UserInsertForm;
 
@@ -15,12 +18,6 @@ public class UserController {
 	//コンストラクターインジェクション
 	public UserController() {
 		
-	}
-	
-	//セッションセッションオブジェクトの生成
-	@ModelAttribute("userInsertForm")
-	public UserInsertForm setupUserInsertForm() {
-		return new UserInsertForm();
 	}
 	
 	/* 「～/top」にGet通信されたとき、TOP画面を返す */
@@ -37,20 +34,31 @@ public class UserController {
 	
 	/* 「～/user/insert」にGet通信されたとき、ユーザー登録画面を返す*/
 	@GetMapping(value = "/user/insert")
-	public String toUserInsert(Model model, UserInsertForm userInsertForm) {
+	public String toUserInsert(Model model) {
 		
 		//登録情報取得用Formオブジェクトを登録
-		model.addAttribute("userInsertForm", userInsertForm);
+		model.addAttribute("userInsertForm", new UserInsertForm());
 		
 		return "user/insert";
 	}
 	
-	/* 「～/user/insert」にPost通信されたとき、登録確認画面を返す
-	 * 登録情報を受け取る（ModelからFormで）
+	/* 「～/user/insert」にPost通信されたとき、登録確認画面(user/review)を返す */
+	@PostMapping(value = "/user/insert")
+	public String userInsertReview(@Validated @ModelAttribute UserInsertForm userInsertForm, BindingResult result, Model model) throws Exception{
+		
+		if (result.hasErrors()) {
+			return "error";
+		}
+		
+		model.addAttribute("userInsertForm", userInsertForm);
+		
+		return "user/review";
+	}
+	
+	/* 「～」にPost通信されたとき、ユーザー登録を実行し、登録完了画面(user/success)を返す
+	 * 登録情報を受け取る
 	 * →Serviceに投げる
 	 * →結果を受け取る（成功したという情報）
-	 * →Viewに遷移する(user/confirm) */
-	
-	/* 「～」にPost通信されたとき、ユーザー登録を実行し、登録完了画面(user/success)を返す*/
+	 * →Viewに遷移する */
 	
 }
