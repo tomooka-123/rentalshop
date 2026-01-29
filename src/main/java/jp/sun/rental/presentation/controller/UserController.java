@@ -8,31 +8,34 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import jp.sun.rental.application.service.UserInsertService;
 import jp.sun.rental.presentation.form.UserInsertForm;
 
 @Controller
 public class UserController {
 	
 	//フィールド
+	UserInsertService userInsertService;
 	
 	//コンストラクターインジェクション
-	public UserController() {
-		
+	public UserController(UserInsertService userInsertService) {
+		this.userInsertService = userInsertService;
 	}
 	
-	/* 「～/top」にGet通信されたとき、TOP画面を返す */
+	// 「～/top」にGet通信されたとき、TOP画面を返す
 	@GetMapping(value = "/top")
 	public String toTop() {
 		return "top";
 	}
 
-	/* 「～/login」にGet通信されたとき、ログイン画面を返す*/
+	// 「～/login」にGet通信されたとき、ログイン画面を返す
 	/* @GetMapping(value = "/login")
 	public String login() {
 		return "login";
 	} */
 	
-	/* 「～/user/insert」にGet通信されたとき、ユーザー登録画面を返す*/
+	
+	// 「～/user/insert」にGet通信されたとき、ユーザー登録画面を返す
 	@GetMapping(value = "/user/insert")
 	public String toUserInsert(Model model) {
 		
@@ -42,7 +45,7 @@ public class UserController {
 		return "user/insert";
 	}
 	
-	/* 「～/user/insert」にPost通信されたとき、登録確認画面(user/review)を返す */
+	// 「～/user/insert」にPost通信されたとき、登録確認画面を返す
 	@PostMapping(value = "/user/insert")
 	public String userInsertReview(@Validated @ModelAttribute UserInsertForm userInsertForm, BindingResult result, Model model) throws Exception{
 		
@@ -55,10 +58,20 @@ public class UserController {
 		return "user/review";
 	}
 	
-	/* 「～」にPost通信されたとき、ユーザー登録を実行し、登録完了画面(user/success)を返す
-	 * 登録情報を受け取る
-	 * →Serviceに投げる
-	 * →結果を受け取る（成功したという情報）
-	 * →Viewに遷移する */
+	// 「～」にPost通信されたとき、ユーザー登録を実行し、登録完了画面を返す
+	@PostMapping(value = "/user/insert/submit")
+	public String userInsert(@ModelAttribute UserInsertForm userInsertForm, Model model) {
+		
+		int numberOfRow = userInsertService.userInsert(userInsertForm);
+		
+		if (numberOfRow == 0) {
+			model.addAttribute("message","登録に失敗しました。");
+			return "error";
+		}
+		
+		model.addAttribute("message", "ご登録ありがとうございます！");
+		
+		return "user/success";
+	}
 	
 }
