@@ -22,7 +22,7 @@ public class UserRepository {
 	public List<UserEntity> getUsersAllList() throws Exception {
 		
 		StringBuilder sb = createCommonSQL();
-		sb.append(" ORDER BY user_id");
+		sb.append(" ORDER BY u.user_id");
 		String sql = sb.toString();
 		
 		List<UserEntity> usersList = jdbcTemplate.query(sql, userMapper);
@@ -33,9 +33,9 @@ public class UserRepository {
 	public List<UserEntity> getUsersByName(String name) throws Exception {
 		
 		StringBuilder sb = createCommonSQL();
-		sb.append(" WHERE user_name");
+		sb.append(" WHERE u.user_name");
 		sb.append( "LIKE ?");
-		sb.append(" ORDER BY user_id");
+		sb.append(" ORDER BY u.user_id");
 		String sql = sb.toString();
 		
 		name = name.replaceAll("%", "\\%");
@@ -52,8 +52,11 @@ public class UserRepository {
 		StringBuilder sb = null;
 		
 		sb.append("SELECT");
-		sb.append(" user_id, user_name, password, email, tell, authority");
-		sb.append(" FROM users");
+		sb.append(" u.user_id, u.user_name, u.password, u.email, u.tell, u.authority");
+		sb.append(", m.card, m.user_point, m.address, m.post, m.plan");
+		sb.append(" FROM users u");
+		sb.append(" JOIN members m");
+		sb.append(" ON u.user_id = m.user_id");
 		
 		return sb;
 	}
