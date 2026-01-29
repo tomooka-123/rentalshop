@@ -68,7 +68,7 @@ public class UserController {
 	
 	//ユーザー情報をDBに登録し、ユーザー登録完了画面を表示する
 	@PostMapping(value = "/user/insert/submit")
-	public String userInsert(@ModelAttribute UserInsertForm userInsertForm, Model model) {
+	public String userInsert(@ModelAttribute UserInsertForm userInsertForm, Model model) throws Exception{
 		
 		int numberOfRow = userInsertService.registUser(userInsertForm);
 		

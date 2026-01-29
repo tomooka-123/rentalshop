@@ -1,4 +1,4 @@
-package jp.sun.rental.domain;
+package jp.sun.rental.domain.repository;
 
 import java.util.List;
 
@@ -17,6 +17,21 @@ public class UserRepository {
 	
 	public UserRepository (JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
+	}
+	
+	//ユーザー情報をDBに登録するメソッド
+	public int regist(UserEntity entity) throws Exception {
+		StringBuilder sb = new StringBuilder();
+		sb.append("INSERT INTO users (user_id, user_name, password, email, tell, authority)");
+		sb.append("VALUES (?, ?, ?, ?, ?, ?)");
+		String sql = sb.toString();
+		
+		Object[] parameters = { entity.getUserId(), entity.getUserName(), entity.getPassword(), entity.getEmail(), entity.getTell(), entity.getAuthority()};
+
+		int numberOfRow = 0;
+		numberOfRow = jdbcTemplate.update(sql,parameters);
+		
+		return numberOfRow;
 	}
 	
 	public List<UserEntity> getUsersAllList() throws Exception {

@@ -3,8 +3,8 @@ package jp.sun.rental.application.service;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import jp.sun.rental.domain.UserRepository;
 import jp.sun.rental.domain.entity.UserEntity;
+import jp.sun.rental.domain.repository.UserRepository;
 import jp.sun.rental.presentation.form.UserInsertForm;
 
 @Service
@@ -13,7 +13,6 @@ public class UserInsertService {
 	//フィールド
 	private UserRepository userRepository;
 	private ModelMapper modelMapper;
-				
 
 	//コンストラクター
 	public UserInsertService(UserRepository userRepository, ModelMapper modelMapper) {
@@ -21,8 +20,8 @@ public class UserInsertService {
 		this.modelMapper = modelMapper;
 	}
 	
-	//ユーザー情報をDBに登録するメソッド(これから書く)
-	public int registUser(UserInsertForm form) {
+	//ユーザー情報をDBに登録するメソッド
+	public int registUser(UserInsertForm form) throws Exception{
 		
 		UserEntity entity = null;
 		entity = convert(form);
