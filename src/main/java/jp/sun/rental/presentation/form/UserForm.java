@@ -13,5 +13,7 @@ public class UserForm {
 	
 	private String email;
 	
+	private String tell;
+	
 	private String authority;
 }

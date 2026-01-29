@@ -21,13 +21,18 @@ public class UserSearchService {
 		this.modelMapper = modelMapper;
 	}
 	
-	public List<UserForm> getUserForm(UserForm form) throws Exception {
+	public List<UserForm> getUsersList(UserForm form) throws Exception {
 		
 		List<UserEntity> entityList = null;
 		List<UserForm> formList = null;
-		UserEntity entity = null;
 		
-		String userId = form.getUserId();
+		String userName = form.getUserName();
+		
+		if(userName.isEmpty()) {
+			entityList = userRepository.getUsersByName(userName);
+		}else {
+			entityList = userRepository.getUsersAllList();
+		}
 		
 		formList = convert(entityList);
 		
