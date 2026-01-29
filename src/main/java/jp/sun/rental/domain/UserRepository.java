@@ -7,7 +7,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import jp.sun.rental.domain.entity.UserEntity;
-import jp.sun.rental.infrastructure.UserRowMapper;
+import jp.sun.rental.infrastructure.mapper.UserRowMapper;
 
 @Repository
 public class UserRepository {
