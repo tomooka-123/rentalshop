@@ -1,4 +1,4 @@
-package jp.sun.rental.presentation.contoroller;
+package jp.sun.rental.presentation.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
