@@ -1,4 +1,4 @@
-package jp.sun.rental.infrastructure;
+package jp.sun.rental.infrastructure.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
