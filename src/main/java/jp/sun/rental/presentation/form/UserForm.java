@@ -1,11 +1,13 @@
 package jp.sun.rental.presentation.form;
 
+import java.io.Serializable;
+
 import lombok.Data;
 
 @Data
-public class UserForm {
+public class UserForm implements Serializable {
 
-	private String userId;
+	private int userId;
 	
 	private String userName;
 	
@@ -16,4 +18,7 @@ public class UserForm {
 	private String tell;
 	
 	private String authority;
+	
+	private MemberForm members;
+	
 }
