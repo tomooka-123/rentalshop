@@ -46,6 +46,7 @@ public class UserRepository {
 		return usersList;
 	}
 	
+	@SuppressWarnings("null")
 	public StringBuilder createCommonSQL() {
 		
 		StringBuilder sb = null;
