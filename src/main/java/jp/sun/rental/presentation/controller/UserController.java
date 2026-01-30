@@ -74,7 +74,7 @@ public class UserController {
 		
 		if (numberOfRow < 2) {
 			model.addAttribute("error","登録に失敗しました。");
-			return "error";
+			return "error/error";
 		}
 		
 		model.addAttribute("message", "ご登録ありがとうございます！");
