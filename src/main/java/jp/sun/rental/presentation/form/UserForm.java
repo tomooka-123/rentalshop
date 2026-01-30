@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class UserForm implements Serializable {
 
-	private int userId;
+	private String userId;
 	
 	private String userName;
 	
