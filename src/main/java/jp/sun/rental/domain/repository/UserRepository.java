@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import jp.sun.rental.domain.entity.MemberEntity;
 import jp.sun.rental.domain.entity.UserEntity;
 import jp.sun.rental.infrastructure.mapper.UserRowMapper;
 
@@ -19,14 +20,29 @@ public class UserRepository {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 	
-	//ユーザー情報をDBに登録するメソッド
-	public int regist(UserEntity entity) throws Exception {
+	//ユーザー情報をusersテーブルに登録するメソッド
+	public int registUser(UserEntity entity) throws Exception {
 		StringBuilder sb = new StringBuilder();
 		sb.append("INSERT INTO users (user_id, user_name, password, email, tell, authority)");
-		sb.append("VALUES (?, ?, ?, ?, ?, ?)");
+		sb.append(" VALUES (?, ?, ?, ?, ?, ?)");
 		String sql = sb.toString();
 		
 		Object[] parameters = { entity.getUserId(), entity.getUserName(), entity.getPassword(), entity.getEmail(), entity.getTell(), entity.getAuthority()};
+
+		int numberOfRow = 0;
+		numberOfRow = jdbcTemplate.update(sql,parameters);
+		
+		return numberOfRow;
+	}
+	
+	//ユーザー情報をmemberテーブルに登録するメソッド
+	public int registMember(MemberEntity entity) throws Exception {
+		StringBuilder sb = new StringBuilder();
+		sb.append("INSERT INTO member (user_id, card, user_point, post, address, plan)");
+		sb.append(" VALUES (?, ?, ?, ?, ?, ?)");
+		String sql = sb.toString();
+		
+		Object[] parameters = { entity.getUserId(), entity.getCard(), entity.getUserPoint(), entity.getPost(), entity.getAddress(), entity.getPlan()};
 
 		int numberOfRow = 0;
 		numberOfRow = jdbcTemplate.update(sql,parameters);
