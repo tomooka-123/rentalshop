@@ -18,4 +18,6 @@ public class MemberForm implements Serializable {
 	private String post;
 	
 	private String plan;
+	
+	private String name;
 }

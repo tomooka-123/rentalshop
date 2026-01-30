@@ -16,4 +16,6 @@ public class MemberEntity {
 	private String post;
 	
 	private String plan;
+	
+	private String name;
 }
