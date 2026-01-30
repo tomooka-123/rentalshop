@@ -34,7 +34,7 @@ public class UserRepository {
 		
 		StringBuilder sb = createCommonSQL();
 		sb.append(" WHERE u.user_name");
-		sb.append( "LIKE ?");
+		sb.append(" LIKE ?");
 		sb.append(" ORDER BY u.user_id");
 		String sql = sb.toString();
 		
@@ -46,16 +46,15 @@ public class UserRepository {
 		return usersList;
 	}
 	
-	@SuppressWarnings("null")
 	public StringBuilder createCommonSQL() {
 		
-		StringBuilder sb = null;
+		StringBuilder sb = new StringBuilder();
 		
 		sb.append("SELECT");
 		sb.append(" u.user_id, u.user_name, u.password, u.email, u.tell, u.authority");
 		sb.append(", m.card, m.user_point, m.address, m.post, m.plan");
 		sb.append(" FROM users u");
-		sb.append(" JOIN members m");
+		sb.append(" JOIN member m");
 		sb.append(" ON u.user_id = m.user_id");
 		
 		return sb;

@@ -41,7 +41,7 @@ public class UserController {
 		}else {
 			List<UserForm> formList = userSearchService.getUsersList(userForm);
 			if (formList != null && !formList.isEmpty()) {
-				model.addAttribute("UserForm", formList);
+				model.addAttribute("userFormList", formList);
 			}
 		}
 		
