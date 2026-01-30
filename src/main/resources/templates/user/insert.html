@@ -60,7 +60,6 @@
 						<label><input type="radio" th:field="*{plan}" value="silver">Silverプラン</label><br>
 						<label><input type="radio" th:field="*{plan}" value="gold">Goldプラン</label>
 						<span th:if="${#fields.hasErrors('plan')}" th:errors="*{plan}" class="errors"></span>
-						
 					</td>
 				</tr>
 				<tr>
@@ -73,7 +72,7 @@
 				<tr>
 					<th><label for="password">パスワード</label></th>
 					<td>
-						<input th:field="*{password}">
+						<input type="password" th:field="*{password}">
 						<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="errors"></span>
 					</td>
 				</tr>
