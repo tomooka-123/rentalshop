@@ -28,7 +28,7 @@ public class UserSearchService {
 		
 		String userName = form.getUserName();
 		
-		if(userName.isEmpty()) {
+		if(!userName.isEmpty()) {
 			entityList = userRepository.getUsersByName(userName);
 		}else {
 			entityList = userRepository.getUsersAllList();
