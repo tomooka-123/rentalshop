@@ -19,6 +19,7 @@ public class ItemRepository {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 	
+	//商品情報を全取得する
 	public List<ItemEntity> getItemsAllList() throws Exception {
 		
 		StringBuilder sb = createCommonSQL();
@@ -30,6 +31,7 @@ public class ItemRepository {
 		return itemsList;
 	}
 	
+	//入力された商品名をもとにデータをあいまい検索する
 	public List<ItemEntity> getItemsByName(String name) throws Exception {
 		
 		StringBuilder sb = createCommonSQL();
@@ -46,6 +48,7 @@ public class ItemRepository {
 		return itemsList;
 	}
 	
+	//SELECT文のテンプレート記述
 	public StringBuilder createCommonSQL() {
 		
 		StringBuilder sb = new StringBuilder();

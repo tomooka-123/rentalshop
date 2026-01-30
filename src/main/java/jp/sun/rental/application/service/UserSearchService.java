@@ -21,6 +21,7 @@ public class UserSearchService {
 		this.modelMapper = modelMapper;
 	}
 	
+	//フォームの情報を元にユーザーを検索する
 	public List<UserForm> getUsersList(UserForm form) throws Exception {
 		
 		List<UserEntity> entityList = null;
@@ -28,6 +29,7 @@ public class UserSearchService {
 		
 		String userName = form.getUserName();
 		
+		//ユーザーネームが空なら全件検索、そうでないなら入力内容に応じてあいまい検索
 		if(!userName.isEmpty()) {
 			entityList = userRepository.getUsersByName(userName);
 		}else {
@@ -39,6 +41,7 @@ public class UserSearchService {
 		return formList;
 	}
 	
+	//DBから取得したエンティティをhtml出力用のフォームに変換
 	private List<UserForm> convert(List<UserEntity> entityList){
 		
 		List<UserForm> formList = new ArrayList<UserForm>();
