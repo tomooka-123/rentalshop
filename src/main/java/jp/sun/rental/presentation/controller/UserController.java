@@ -73,7 +73,7 @@ public class UserController {
 		int numberOfRow = userInsertService.registUser(userInsertForm);
 		
 		if (numberOfRow < 2) {
-			model.addAttribute("message","登録に失敗しました。");
+			model.addAttribute("error","登録に失敗しました。");
 			return "error";
 		}
 		
@@ -105,7 +105,7 @@ public class UserController {
 		}else {
 			List<UserForm> formList = userSearchService.getUsersList(userForm);
 			if (formList != null && !formList.isEmpty()) {
-				model.addAttribute("UserForm", formList);
+				model.addAttribute("userFormList", formList);
 			}
 		}
 		

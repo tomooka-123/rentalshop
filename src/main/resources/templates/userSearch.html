@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>UserSerach</title>
+</head>
+<body>
+	<div id="wrapper">
+		<header th:insert="~{header :: header_area}"></header>
+		<main>
+			<div id="form-area">
+				<form th:if="${userForm != null}" th:action="@{/search/user}" th:object="${userForm}" method="post">
+					<div class="form-row">
+						検索条件を指定する場合は「氏名」を入力してください。
+					</div>
+					<div class="form-row">
+<!--						<label for="userId">ユーザーID</label>-->
+<!--						<input th:field="*{userId}">-->
+						
+						<label for="userId">氏名</label>
+						<input th:field="*{userName}">
+						
+						<input type="submit" value="検索する" name="user" class="btn">
+					</div>
+				<th:block th:each="error : ${#fields.detailedErrors()}">
+					<span th:text="${error.message}" class="errors"></span><br>		
+				</th:block>
+				<span th:text="${errors}" class="errors"></span>
+				</form>
+				
+				<div id="result-area">
+					<div th:if="!${#lists.isEmpty(userFormList)}">
+						<table>
+							<tr>
+								<th>ユーザーID</th>
+								<th>氏名</th>
+								<th>パスワード</th>
+								<th>メールアドレス</th>
+								<th>電話番号</th>
+								<th>権限</th>
+								<th>カード番号</th>
+								<th>ポイント</th>
+								<th>住所</th>
+								<th>郵便番号</th>
+								<th>契約プラン</th>
+								
+							</tr>
+							<td:block th:each="users : ${userFormList}">
+								<tr>
+									<td th:text="${users.userId }" class="userId"></td>
+									<td th:text="${users.userName}" class="userName"></td>
+									<td th:text="${users.password }" class="password"></td>
+									<td th:text="${users.email }" class="mail"></td>
+									<td th:text="${users.tell }" class="tell"></td>
+									<td th:text="${users.authority }" class="authority"></td>
+									<td th:text="${users.members.card }" class="card"></td>
+									<td th:text="${users.members.userPoint }" class="point"></td>
+									<td th:text="${users.members.address }" class="address"></td>
+									<td th:text="${users.members.post }" class="post"></td>
+									<td th:text="${users.members.plan }" class="plan"></td>
+								</tr>
+							</th:block>
+						</table>
+					</div>
+				</div>
+			</div>
+		</main>
+	</div>
+</body>
+</html>
