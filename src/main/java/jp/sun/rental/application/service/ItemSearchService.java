@@ -21,7 +21,7 @@ public class ItemSearchService {
 		this.modelMapper = modelMapper;
 	}
 	
-	public List<ItemForm> getUsersList(ItemForm form) throws Exception {
+	public List<ItemForm> getItemsList(ItemForm form) throws Exception {
 		
 		List<ItemEntity> entityList = null;
 		List<ItemForm> formList = null;
