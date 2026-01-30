@@ -1,4 +1,4 @@
-package jp.sun.rental.domain;
+package jp.sun.rental.domain.repository;
 
 import java.util.List;
 
