@@ -34,11 +34,11 @@ public class ItemController {
 	@PostMapping(value = "/search/item")
 	public String searchUsers(@ModelAttribute ItemForm itemForm, BindingResult result, Model model) throws Exception {
 		if (result.hasErrors()) {
-			return "userSearch";
+			return "itemSearch";
 		}else {
 			List<ItemForm> formList = itemSearchService.getItemsList(itemForm);
 			if (formList != null && !formList.isEmpty()) {
-				model.addAttribute("userFormList", formList);
+				model.addAttribute("itemFormList", formList);
 			}
 		}
 		

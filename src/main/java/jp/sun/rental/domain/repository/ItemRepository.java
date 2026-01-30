@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import jp.sun.rental.domain.entity.ItemEntity;
 import jp.sun.rental.infrastructure.mapper.ItemRowMapper;
 
+@Repository
 public class ItemRepository {
 
 	private RowMapper<ItemEntity> userMapper = new ItemRowMapper();
@@ -33,7 +35,7 @@ public class ItemRepository {
 		StringBuilder sb = createCommonSQL();
 		sb.append(" WHERE item_name");
 		sb.append(" LIKE ?");
-		sb.append(" ORDER BY otem_id");
+		sb.append(" ORDER BY item_id");
 		String sql = sb.toString();
 		
 		name = name.replaceAll("%", "\\%");
