@@ -16,4 +16,6 @@ public class UserEntity {
 	private String tell;
 	
 	private String authority;
+	
+	private MemberEntity members;
 }

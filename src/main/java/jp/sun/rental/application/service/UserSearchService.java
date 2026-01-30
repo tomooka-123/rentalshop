@@ -6,8 +6,8 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import jp.sun.rental.domain.UserRepository;
 import jp.sun.rental.domain.entity.UserEntity;
+import jp.sun.rental.domain.repository.UserRepository;
 import jp.sun.rental.presentation.form.UserForm;
 
 @Service
