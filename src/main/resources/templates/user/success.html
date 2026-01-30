@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<!--	<link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">	-->
+	<title>完了しました</title>
+</head>
+<body>
+	<header th:insert="~{header :: header_area}"></header>
+	<main>
+		
+		<span th:text="${message}"></span>
+		
+		<a href="/login">ログイン</a>
+		
+	</main>
+</body>
+</html>

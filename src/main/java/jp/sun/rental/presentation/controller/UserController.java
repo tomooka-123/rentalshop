@@ -5,23 +5,87 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import jp.sun.rental.application.service.UserInsertService;
 import jp.sun.rental.application.service.UserSearchService;
 import jp.sun.rental.presentation.form.MemberForm;
 import jp.sun.rental.presentation.form.UserForm;
+import jp.sun.rental.presentation.form.UserInsertForm;
 
 @Controller
 public class UserController {
-
-	private UserSearchService userSearchService;
 	
-	public UserController(UserSearchService userSearchService) {
+	//フィールド
+	private UserInsertService userInsertService;
+	private UserSearchService userSearchService;
+
+	//コンストラクター
+	public UserController(UserInsertService userInsertService, UserSearchService userSearchService) {
+		this.userInsertService = userInsertService;
 		this.userSearchService = userSearchService;
 	}
 	
+	//TOP画面を表示する
+	@GetMapping(value = "/top")
+	public String toTop() {
+		return "top";
+	}
+
+	//ログイン画面を表示する
+	/* @GetMapping(value = "/login")
+	public String login() {
+		return "login";
+	} */
+	
+	
+	
+	//ユーザー登録入力画面を表示する
+	@GetMapping(value = "/user/insert")
+	public String toUserInsert(Model model) {
+		
+		//登録情報取得用Formオブジェクトを登録
+		model.addAttribute("userInsertForm", new UserInsertForm());
+		
+		return "user/insert";
+	}
+	
+	//ユーザー登録確認画面を表示する
+	@PostMapping(value = "/user/insert")
+	public String userInsertReview(@Validated @ModelAttribute UserInsertForm userInsertForm, BindingResult result, Model model) throws Exception{
+		
+		if (result.hasErrors()) {
+			return "user/insert";
+		}
+		
+		model.addAttribute("userInsertForm", userInsertForm);
+		
+		return "user/review";
+	}
+	
+	//ユーザー情報をDBに登録し、ユーザー登録完了画面を表示する
+	@PostMapping(value = "/user/insert/submit")
+	public String userInsert(@ModelAttribute UserInsertForm userInsertForm, Model model) throws Exception{
+		
+		int numberOfRow = userInsertService.registUser(userInsertForm);
+		
+		if (numberOfRow < 2) {
+			model.addAttribute("error","登録に失敗しました。");
+			return "error/error";
+		}
+		
+		model.addAttribute("message", "ご登録ありがとうございます！");
+		
+		return "user/success";
+	}
+	
+	
+	
+	
+	//管理者用ユーザー検索メソッド
 	@GetMapping(value = "/search/user")
 	public String toUserSearch(Model model) {
 		
@@ -47,5 +111,8 @@ public class UserController {
 		
 		return "userSearch";
 	}
+	
+	
+	
 	
 }
