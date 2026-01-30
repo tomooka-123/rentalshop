@@ -1,0 +1,28 @@
+package jp.sun.rental.infrastructure.mapper;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import org.springframework.jdbc.core.RowMapper;
+
+import jp.sun.rental.domain.entity.ItemEntity;
+
+public class ItemRowMapper implements RowMapper<ItemEntity> {
+	
+	@Override
+	public ItemEntity mapRow (ResultSet rs, int owNum) throws SQLException{
+		ItemEntity itemEntity = new ItemEntity();
+		
+		itemEntity.setItemId(rs.getInt("item_id"));
+		itemEntity.setItemName(rs.getString("item_name"));
+		itemEntity.setGenreId(rs.getInt("genre_id"));
+		itemEntity.setItemImg(rs.getString("item_img"));
+		itemEntity.setItemUpdate(rs.getDate("item_update"));
+		itemEntity.setArtist(rs.getString("artist"));
+		itemEntity.setDirector(rs.getString("director"));
+		itemEntity.setItemPoint(rs.getInt("item_point"));
+		
+		return itemEntity;
+	}
+
+}
