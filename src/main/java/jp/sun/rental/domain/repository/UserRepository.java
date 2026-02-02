@@ -26,11 +26,11 @@ public class UserRepository {
 	//ユーザー情報をusersテーブルに登録するメソッド
 	public int registUser(UserEntity entity) throws Exception {
 		StringBuilder sb = new StringBuilder();
-		sb.append("INSERT INTO users (user_id, user_name, password, email, tell, authority)");
-		sb.append(" VALUES (?, ?, ?, ?, ?, ?)");
+		sb.append("INSERT INTO users (user_name, password, email, tell, authority)");
+		sb.append(" VALUES (?, ?, ?, ?, ?)");
 		String sql = sb.toString();
 		
-		Object[] parameters = { entity.getUserId(), entity.getUserName(), entity.getPassword(), entity.getEmail(), entity.getTell(), entity.getAuthority()};
+		Object[] parameters = { entity.getUserName(), entity.getPassword(), entity.getEmail(), entity.getTell(), entity.getAuthority()};
 		
 		int numberOfRow = 0;
 		numberOfRow = jdbcTemplate.update(sql,parameters);
@@ -41,11 +41,11 @@ public class UserRepository {
 	//ユーザー情報をmemberテーブルに登録するメソッド
 	public int registMember(MemberEntity entity) throws Exception {
 		StringBuilder sb = new StringBuilder();
-		sb.append("INSERT INTO member (user_id, card, user_point, post, address, plan)");
+		sb.append("INSERT INTO member (card, user_point, post, address, plan, name)");
 		sb.append(" VALUES (?, ?, ?, ?, ?, ?)");
 		String sql = sb.toString();
 		
-		Object[] parameters = { entity.getUserId(), entity.getCard(), entity.getUserPoint(), entity.getPost(), entity.getAddress(), entity.getPlan()};
+		Object[] parameters = { entity.getCard(), entity.getUserPoint(), entity.getPost(), entity.getAddress(), entity.getPlan(), entity.getName()};
 
 		int numberOfRow = 0;
 		numberOfRow = jdbcTemplate.update(sql,parameters);

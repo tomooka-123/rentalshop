@@ -11,6 +11,8 @@ public class UserInsertForm implements Serializable {
 	
 	private String userName;
 	
+	private String name;
+	
 	private String email;
 	
 	private String tell;
@@ -19,13 +21,13 @@ public class UserInsertForm implements Serializable {
 	
 	private String address;
 	
-	private String plan;	
+	private String plan;
 	
 	private String card;	
 	
 	private String password;
 	
-	//private String authority;
+	private String authority;
 	
 	private String userPoint;
 	
