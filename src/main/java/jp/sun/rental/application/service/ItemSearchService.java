@@ -21,6 +21,7 @@ public class ItemSearchService {
 		this.modelMapper = modelMapper;
 	}
 	
+	//フォームの情報を元にユーザーを検索する
 	public List<ItemForm> getItemsList(ItemForm form) throws Exception {
 		
 		List<ItemEntity> entityList = null;
@@ -28,6 +29,7 @@ public class ItemSearchService {
 		
 		String itemName = form.getItemName();
 		
+		//商品名が空なら全件検索、そうでないなら入力内容に応じてあいまい検索
 		if(!itemName.isEmpty()) {
 			entityList = itemRepository.getItemsByName(itemName);
 		}else {
@@ -39,6 +41,7 @@ public class ItemSearchService {
 		return formList;
 	}
 	
+	//DBから取得したエンティティをhtml出力用のフォームに変換
 	private List<ItemForm> convert(List<ItemEntity> entityList){
 		
 		List<ItemForm> formList = new ArrayList<ItemForm>();

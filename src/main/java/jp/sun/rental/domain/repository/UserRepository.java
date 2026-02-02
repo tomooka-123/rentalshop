@@ -59,6 +59,7 @@ public class UserRepository {
 	
 	
 	
+	//ユーザー情報を全取得する
 	public List<UserEntity> getUsersAllList() throws Exception {
 		
 		StringBuilder sb = createCommonSQL();
@@ -70,6 +71,7 @@ public class UserRepository {
 		return usersList;
 	}
 	
+	//入力された名前をもとにデータをあいまい検索する
 	public List<UserEntity> getUsersByName(String name) throws Exception {
 		
 		StringBuilder sb = createCommonSQL();
@@ -86,6 +88,7 @@ public class UserRepository {
 		return usersList;
 	}
 	
+	//SELECT文のテンプレート記述
 	public StringBuilder createCommonSQL() {
 		
 		StringBuilder sb = new StringBuilder();
