@@ -11,17 +11,17 @@
 		<form th:action="@{/user/insert/submit}" th:object="${userInsertForm}" method="post">
 			<table>
 				<tr>
-					<th>ID</th>
+					<th>ユーザー名</th>
 					<td>
-						<span th:text="${userInsertForm.userId}"></span>
-						<input type="hidden" th:field="*{userId}">
+						<span th:text="${userInsertForm.userName}"></span>
+						<input type="hidden" th:field="*{userName}">
 					</td>
 				</tr>
 				<tr>
 					<th>氏名</th>
 					<td>
-						<span th:text="${userInsertForm.userName}"></span>
-						<input type="hidden" th:field="*{userName}">
+						<span th:text="${userInsertForm.name}"></span>
+						<input type="hidden" th:field="*{name}">
 					</td>
 				</tr>
 				<tr>
@@ -76,6 +76,7 @@
 				<tr>
 					<td colspan="2">
 						<input type="hidden" th:field="*{userPoint}" value="0">
+						<input type="hidden" th:field="*{authority}" value="GENERAL">
 						<input type="submit" value="登録確定" class="btn">
 						<span th:text="${error}" class="errors"></span>
 					</td>
