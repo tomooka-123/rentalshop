@@ -11,9 +11,9 @@ public class MemberEntity {
 	
 	private int userPoint;
 	
-	private String address;
-	
 	private String post;
+	
+	private String address;
 	
 	private String plan;
 	
