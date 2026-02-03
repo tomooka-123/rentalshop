@@ -54,7 +54,7 @@ public class UserRepository {
 		return numberOfRow;
 	}
 	
-	//emailでユーザー検索してuserIdを返す（ユーザー登録時＆バリデーションチェック時に使用する）
+	//emailで検索してuserIdを返す（ユーザー登録時＆バリデーションチェック時に使用する）
 	public int getUserIdByEmail(String email) throws Exception{
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT user_id FROM users WHERE email = ?");
@@ -63,7 +63,7 @@ public class UserRepository {
 		return userId;
 	}
 	
-	//userNameでユーザー検索してuserIdを返す（バリデーションチェックに使用する）
+	//userNameで検索してuserIdを返す（バリデーションチェックに使用する）
 	public int getUserIdByUserName(String userName) throws Exception{
 		
 		StringBuilder sb = new StringBuilder();

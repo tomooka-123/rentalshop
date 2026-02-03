@@ -86,10 +86,10 @@ public class UserController {
 		
 		int numberOfRow = userInsertService.registUser(userInsertForm);
 		
-		/*if (numberOfRow < 2) {
+		if (numberOfRow < 2) {
 			model.addAttribute("error","登録に失敗しました。");
 			return "error/error";
-		}*/
+		}
 		
 		model.addAttribute("message", "ご登録ありがとうございます！");
 		

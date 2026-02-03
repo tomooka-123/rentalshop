@@ -29,6 +29,7 @@ public class UniqueUserNameValidator implements ConstraintValidator<UniqueUserNa
 				return true;
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			return true;
 		}
 

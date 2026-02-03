@@ -29,6 +29,7 @@ public class UniqueEmailValidator implements ConstraintValidator<UniqueEmail, St
 				return true;
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			return true;
 		}
 		
