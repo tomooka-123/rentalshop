@@ -7,6 +7,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import jp.sun.rental.common.annotation.UniqueEmail;
+import jp.sun.rental.common.annotation.UniqueUserName;
 import jp.sun.rental.common.validator.groups.ValidGroup1;
 import jp.sun.rental.common.validator.groups.ValidGroup2;
 import jp.sun.rental.common.validator.groups.ValidGroup3;
@@ -20,6 +22,7 @@ public class UserInsertForm implements Serializable {
 	//ユーザー名ダブり禁止を追加する, groups = ValidGroup3.class
 	@NotEmpty(message = "ユーザー名は必須入力です", groups = ValidGroup1.class)
 	@Pattern(regexp = "^[a-zA-Z0-9_.-]{5,20}$", message = "ユーザー名は5〜20文字の半角英数字のみ使用できます", groups = ValidGroup2.class)
+	@UniqueUserName(message = "このユーザー名は既に登録されています", groups = ValidGroup3.class)
 	private String userName;
 	
 	@NotEmpty(message = "氏名は必須入力です", groups = ValidGroup1.class)
@@ -29,6 +32,7 @@ public class UserInsertForm implements Serializable {
 	//メールダブり禁止を追加する, groups = ValidGroup3.class
 	@NotEmpty(message = "メールアドレスは必須入力です", groups = ValidGroup1.class)
 	@Email(message = "メールアドレス形式で入力してください", groups = ValidGroup2.class)
+	@UniqueEmail(message = "このメールアドレスは既に登録されています", groups = ValidGroup3.class)
 	private String email;
 	
 	@NotEmpty(message = "電話番号は必須入力です", groups = ValidGroup1.class)

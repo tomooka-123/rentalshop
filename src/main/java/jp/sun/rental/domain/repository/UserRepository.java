@@ -36,11 +36,8 @@ public class UserRepository {
 		resultUser = jdbcTemplate.update(sql,userParameters);
 		
 		//usersテーブルからuser_idを取得する
-		sb = new StringBuilder();
-		sb.append("SELECT user_id FROM users WHERE email = ?");
-		sql = sb.toString();
-		int id = jdbcTemplate.queryForObject(sql, int.class , userEntity.getEmail());
-		memberEntity.setUserId(id);
+		int userId = getUserIdByEmail(userEntity.getEmail());
+		memberEntity.setUserId(userId);
 		
 		//memberテーブルに登録する
 		sb = new StringBuilder();
@@ -55,6 +52,26 @@ public class UserRepository {
 		
 		int numberOfRow = resultUser + resultMember;
 		return numberOfRow;
+	}
+	
+	//emailでユーザー検索してuserIdを返す（ユーザー登録時＆バリデーションチェック時に使用する）
+	public int getUserIdByEmail(String email) throws Exception{
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT user_id FROM users WHERE email = ?");
+		String sql = sb.toString();
+		int userId = jdbcTemplate.queryForObject(sql, int.class , email);
+		return userId;
+	}
+	
+	//userNameでユーザー検索してuserIdを返す（バリデーションチェックに使用する）
+	public int getUserIdByUserName(String userName) throws Exception{
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT user_id FROM users WHERE user_name = ?");
+		String sql = sb.toString();
+		int userId = jdbcTemplate.queryForObject(sql, int.class , userName);
+		
+		return userId;
 	}
 	
 	
