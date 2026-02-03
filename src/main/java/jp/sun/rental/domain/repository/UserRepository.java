@@ -88,6 +88,18 @@ public class UserRepository {
 		return usersList;
 	}
 	
+	//単一ユーザーを検索する
+	public UserEntity getOnlyUserByName(String name) throws Exception {
+		
+		StringBuilder sb = createCommonSQL();
+		sb.append(" WHERE u.user_name = ?");
+		String sql = sb.toString();
+		
+		UserEntity userEntity = jdbcTemplate.queryForObject(sql, userMapper, name);
+		
+		return userEntity;
+	}
+	
 	//SELECT文のテンプレート記述
 	public StringBuilder createCommonSQL() {
 		
@@ -95,9 +107,9 @@ public class UserRepository {
 		
 		sb.append("SELECT");
 		sb.append(" u.user_id, u.user_name, u.password, u.email, u.tell, u.authority");
-		sb.append(", m.card, m.user_point, m.address, m.post, m.plan");
+		sb.append(", m.card, m.user_point, m.address, m.post, m.plan, m.name");
 		sb.append(" FROM users u");
-		sb.append(" JOIN member m");
+		sb.append(" LEFT OUTER JOIN member m");
 		sb.append(" ON u.user_id = m.user_id");
 		
 		return sb;
