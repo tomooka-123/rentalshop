@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ja">
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
 <head>
 <meta charset="UTF-8">
 <title>UserSerach</title>
@@ -9,13 +9,6 @@
 		<header th:insert="~{header :: header_area}"></header>
 		<main>
 			<div id="form-area">
-				<form th:action="@{/logout}" method="post">
-					<div>
-						<span sec:authentication="name"></span>さんログイン中
-						<input type="submit" value="ログアウト" class="btn">
-					</div>	
-				</form>
-				
 				<form th:if="${userForm != null}" th:action="@{/search/user}" th:object="${userForm}" method="post">
 					<div class="form-row">
 						検索条件を指定する場合は「氏名」を入力してください。
