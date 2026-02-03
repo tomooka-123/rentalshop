@@ -22,36 +22,42 @@ public class UserRepository {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 	
-	
-	//ユーザー情報をusersテーブルに登録するメソッド
-	public int registUser(UserEntity entity) throws Exception {
+	//ユーザー情報を2つのテーブルに登録するメソッド
+	public int regist(UserEntity userEntity, MemberEntity memberEntity) throws Exception {
+		//usersテーブルに登録する
 		StringBuilder sb = new StringBuilder();
-		sb.append("INSERT INTO users (user_id, user_name, password, email, tell, authority)");
-		sb.append(" VALUES (?, ?, ?, ?, ?, ?)");
+		sb.append("INSERT INTO users (user_name, password, email, tell, authority)");
+		sb.append(" VALUES (?, ?, ?, ?, ?)");
 		String sql = sb.toString();
 		
-		Object[] parameters = { entity.getUserId(), entity.getUserName(), entity.getPassword(), entity.getEmail(), entity.getTell(), entity.getAuthority()};
+		Object[] userParameters = { userEntity.getUserName(), userEntity.getPassword(), userEntity.getEmail(), userEntity.getTell(), userEntity.getAuthority()};
 		
-		int numberOfRow = 0;
-		numberOfRow = jdbcTemplate.update(sql,parameters);
+		int resultUser = 0;
+		resultUser = jdbcTemplate.update(sql,userParameters);
 		
-		return numberOfRow;
-	}
-	
-	//ユーザー情報をmemberテーブルに登録するメソッド
-	public int registMember(MemberEntity entity) throws Exception {
-		StringBuilder sb = new StringBuilder();
-		sb.append("INSERT INTO member (user_id, card, user_point, post, address, plan)");
-		sb.append(" VALUES (?, ?, ?, ?, ?, ?)");
-		String sql = sb.toString();
+		//usersテーブルからuser_idを取得する
+		sb = new StringBuilder();
+		sb.append("SELECT user_id FROM users WHERE email = ?");
+		sql = sb.toString();
+		int id = jdbcTemplate.queryForObject(sql, int.class , userEntity.getEmail());
+		memberEntity.setUserId(id);
 		
-		Object[] parameters = { entity.getUserId(), entity.getCard(), entity.getUserPoint(), entity.getPost(), entity.getAddress(), entity.getPlan()};
+		//memberテーブルに登録する
+		sb = new StringBuilder();
+		sb.append("INSERT INTO member (user_id, card, user_point, post, address, plan, name)");
+		sb.append(" VALUES (?, ?, ?, ?, ?, ?, ?)");
+		sql = sb.toString();
+		
+		Object[] memberParameters = { memberEntity.getUserId(), memberEntity.getCard(), memberEntity.getUserPoint(), memberEntity.getPost(), memberEntity.getAddress(), memberEntity.getPlan(), memberEntity.getName()};
 
-		int numberOfRow = 0;
-		numberOfRow = jdbcTemplate.update(sql,parameters);
+		int resultMember = 0;
+		resultMember = jdbcTemplate.update(sql,memberParameters);
 		
+		int numberOfRow = resultUser + resultMember;
 		return numberOfRow;
 	}
+	
+	
 	
 	//ユーザー情報を全取得する
 	public List<UserEntity> getUsersAllList() throws Exception {

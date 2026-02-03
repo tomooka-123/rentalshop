@@ -32,10 +32,10 @@ public class UserInsertService {
 		userEntity = convertUser(form);
 		memberEntity = convertMember(form);
 		
-		int userResultRow = userRepository.registUser(userEntity);
-		int memberResultRow = userRepository.registMember(memberEntity);
+		userEntity.setAuthority("GENERAL");
+		memberEntity.setUserPoint(0);
 		
-		int resultRow = userResultRow + memberResultRow;
+		int resultRow = userRepository.regist(userEntity, memberEntity);
 		
 		return resultRow;
 	}

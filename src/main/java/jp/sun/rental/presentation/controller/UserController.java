@@ -6,9 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import jp.sun.rental.application.service.UserInsertService;
 import jp.sun.rental.application.service.UserSearchService;
@@ -17,6 +20,7 @@ import jp.sun.rental.presentation.form.UserForm;
 import jp.sun.rental.presentation.form.UserInsertForm;
 
 @Controller
+@SessionAttributes("userInsertForm")
 public class UserController {
 	
 	//フィールド
@@ -41,14 +45,18 @@ public class UserController {
 		return "login";
 	} */
 	
-	
+	//ユーザー登録用セッションオブジェクトの生成
+	@ModelAttribute("userInsertForm")
+	public UserInsertForm setupUserInsertForm() {
+		return new UserInsertForm();
+	}
 	
 	//ユーザー登録入力画面を表示する
 	@GetMapping(value = "/user/insert")
-	public String toUserInsert(Model model) {
+	public String toUserInsert(Model model, UserInsertForm userInsertForm) {
 		
 		//登録情報取得用Formオブジェクトを登録
-		model.addAttribute("userInsertForm", new UserInsertForm());
+		model.addAttribute("userInsertForm", userInsertForm);
 		
 		return "user/insert";
 	}
@@ -68,16 +76,19 @@ public class UserController {
 	
 	//ユーザー情報をDBに登録し、ユーザー登録完了画面を表示する
 	@PostMapping(value = "/user/insert/submit")
-	public String userInsert(@ModelAttribute UserInsertForm userInsertForm, Model model) throws Exception{
+	public String userInsert(@ModelAttribute UserInsertForm userInsertForm, Model model, SessionStatus status) throws Exception{
 		
 		int numberOfRow = userInsertService.registUser(userInsertForm);
 		
-		if (numberOfRow < 2) {
+		/*if (numberOfRow < 2) {
 			model.addAttribute("error","登録に失敗しました。");
 			return "error/error";
-		}
+		}*/
 		
 		model.addAttribute("message", "ご登録ありがとうございます！");
+		
+		//セッション破棄
+		status.setComplete();
 		
 		return "user/success";
 	}
@@ -113,6 +124,13 @@ public class UserController {
 	}
 	
 	
-	
+	//例外ハンドラー
+	@ExceptionHandler(Exception.class)
+	public String handlerException(Exception e, Model model) {
+		model.addAttribute("error", "システムエラーが発生しました");
+		e.printStackTrace();
+		
+		return "error/error";
+	}
 	
 }

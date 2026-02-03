@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ja">
 <head>
 	<meta charset="UTF-8">
-	<!--	<link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">	-->
 	<title>会員登録フォーム</title>
 </head>
 <body>
@@ -11,17 +10,17 @@
 		<form th:action="@{/user/insert}" th:object="${userInsertForm}" method="post">
 			<table>
 				<tr>
-					<th><label for="userId">ID</label></th>
-					<td>
-						<input th:field="*{userId}">
-						<span th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}" class="errors"></span>
-					</td>
-				</tr>
-				<tr>
-					<th><label for="userName">氏名</label></th>
+					<th><label for="userName">ユーザー名</label></th>
 					<td>
 						<input th:field="*{userName}">
 						<span th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" class="errors"></span>
+					</td>
+				</tr>
+				<tr>
+					<th><label for="name">氏名</label></th>
+					<td>
+						<input th:field="*{name}">
+						<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="errors"></span>
 					</td>
 				</tr>
 				<tr>
@@ -55,10 +54,10 @@
 				<tr>
 					<th>会員プラン</th>
 					<td>
-						<label><input type="radio" th:field="*{plan}" value="trial">お試しプラン</label><br>
-						<label><input type="radio" th:field="*{plan}" value="bronze">Bronzeプラン</label><br>
-						<label><input type="radio" th:field="*{plan}" value="silver">Silverプラン</label><br>
-						<label><input type="radio" th:field="*{plan}" value="gold">Goldプラン</label>
+						<label><input type="radio" th:field="*{plan}" value="BASIC">お試しプラン</label><br>
+						<label><input type="radio" th:field="*{plan}" value="BRONZE">Bronzeプラン</label><br>
+						<label><input type="radio" th:field="*{plan}" value="SILVER">Silverプラン</label><br>
+						<label><input type="radio" th:field="*{plan}" value="GOLD">Goldプラン</label>
 						<span th:if="${#fields.hasErrors('plan')}" th:errors="*{plan}" class="errors"></span>
 					</td>
 				</tr>
@@ -78,7 +77,6 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-						<input type="hidden" th:field="*{userPoint}" value="0">
 						<input type="submit" value="登録確認" class="btn">
 						<span th:text="${error}" class="errors"></span>
 					</td>
