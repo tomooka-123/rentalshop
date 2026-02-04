@@ -35,7 +35,8 @@ public class UserRepository {
 		resultUser = jdbcTemplate.update(sql,userParameters);
 		
 		//usersテーブルからuser_idを取得する
-		int userId = getUserIdByEmail(userEntity.getEmail());
+		int userId = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", int.class);		
+		//int userId = getUserIdByEmail(userEntity.getEmail());
 		memberEntity.setUserId(userId);
 		
 		//memberテーブルに登録する
@@ -53,7 +54,7 @@ public class UserRepository {
 		return numberOfRow;
 	}
 	
-	//emailで検索してuserIdを返す（ユーザー登録時＆バリデーションチェック時に使用する）
+	//emailで検索してuserIdを返す（バリデーションチェック時に使用する）
 	public int getUserIdByEmail(String email) throws Exception{
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT user_id FROM users WHERE email = ?");
