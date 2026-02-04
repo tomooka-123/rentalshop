@@ -1,5 +1,7 @@
 package jp.sun.rental.common.validator;
 
+import org.springframework.dao.EmptyResultDataAccessException;
+
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import jp.sun.rental.common.annotation.UniqueEmail;
@@ -28,6 +30,8 @@ public class UniqueEmailValidator implements ConstraintValidator<UniqueEmail, St
 			} else {
 				return true;
 			}
+		} catch (EmptyResultDataAccessException e) {
+		    return true; // 存在しない（＝ユニーク）
 		} catch (Exception e) {
 			e.printStackTrace();
 			return true;

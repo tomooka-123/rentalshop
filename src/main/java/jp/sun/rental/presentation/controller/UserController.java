@@ -52,6 +52,42 @@ public class UserController {
 		return new UserInsertForm();
 	}
 	
+	//会員プラン表示用
+	private String setPlan(String plan) {
+		switch (plan) {
+		case "BASIC":
+			return "お試しプラン";
+		case "BRONZE":
+			return "Bronzeプラン";
+		case "SILVER":
+			return "Silverプラン";
+		case "GOLD":
+			return "Goldプラン";
+		default:
+			return "回答なし";
+		}
+	}
+	
+	//クレジットカード番号表示用
+	private String setCard(String card) {
+		String asterisk = "*";
+		String last4 = card.substring(card.length() - 4);
+		for(int i = 1 ; i < card.length() - 4 ; i++) {
+			asterisk += "*";
+		}
+		asterisk += last4;
+		return asterisk;
+	}
+	
+	//パスワード表示用
+	private String setPassword(String password) {
+		String asterisk = "*";
+		for(int i = 1 ; i < password.length() ; i++) {
+			asterisk += "*";
+		}
+		return asterisk;
+	}
+	
 	//ユーザー登録入力画面を表示する
 	@GetMapping(value = "/user/insert")
 	public String toUserInsert(Model model, UserInsertForm userInsertForm) {
@@ -74,6 +110,18 @@ public class UserController {
 		if (result.hasErrors()) {
 			return "user/insert";
 		}
+		
+		//会員プラン表示用
+		String plan = userInsertForm.getPlan();
+		model.addAttribute("plan", setPlan(plan));
+		
+		//クレジットカード番号表示用
+		String card = userInsertForm.getCard();
+		model.addAttribute("card", setCard(card));
+		
+		//パスワード表示用
+		String password = userInsertForm.getPassword();
+		model.addAttribute("password", setPassword(password));
 		
 		model.addAttribute("userInsertForm", userInsertForm);
 		
