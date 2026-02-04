@@ -34,7 +34,7 @@ public class UniqueEmailValidator implements ConstraintValidator<UniqueEmail, St
 		    return true; // 存在しない（＝ユニーク）
 		} catch (Exception e) {
 			e.printStackTrace();
-			return true;
+			return false;
 		}
 		
 	}

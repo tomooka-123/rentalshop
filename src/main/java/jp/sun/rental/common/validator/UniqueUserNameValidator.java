@@ -34,7 +34,7 @@ public class UniqueUserNameValidator implements ConstraintValidator<UniqueUserNa
 		    return true; // 存在しない（＝ユニーク）
 		} catch (Exception e) {
 			e.printStackTrace();
-			return true;
+			return false;
 		}
 
 	}
