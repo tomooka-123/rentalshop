@@ -19,7 +19,6 @@ public class UserInsertForm implements Serializable {
 	
 	private String userId;
 	
-	//ユーザー名ダブり禁止を追加する, groups = ValidGroup3.class
 	@NotEmpty(message = "ユーザー名は必須入力です", groups = ValidGroup1.class)
 	@Pattern(regexp = "^[a-zA-Z0-9_.-]{5,20}$", message = "ユーザー名は5〜20文字の半角英数字のみ使用できます", groups = ValidGroup2.class)
 	@UniqueUserName(message = "このユーザー名は既に登録されています", groups = ValidGroup3.class)
@@ -29,14 +28,13 @@ public class UserInsertForm implements Serializable {
 	@Size(max=100, message = "氏名は100文字以下で入力してください", groups = ValidGroup2.class)
 	private String name;
 	
-	//メールダブり禁止を追加する, groups = ValidGroup3.class
 	@NotEmpty(message = "メールアドレスは必須入力です", groups = ValidGroup1.class)
 	@Email(message = "メールアドレス形式で入力してください", groups = ValidGroup2.class)
 	@UniqueEmail(message = "このメールアドレスは既に登録されています", groups = ValidGroup3.class)
 	private String email;
 	
 	@NotEmpty(message = "電話番号は必須入力です", groups = ValidGroup1.class)
-	@Pattern(regexp = "^[0-9]{10,11}", message = "電話番号はハイフンなし、10桁以上11桁以下、半角数字で入力してください", groups = ValidGroup2.class)
+	@Pattern(regexp = "^[0-9]{10,11}$", message = "電話番号はハイフンなし、10桁以上11桁以下、半角数字で入力してください", groups = ValidGroup2.class)
 	private String tell;
 	
 	@NotEmpty(message = "郵便番号は必須入力です", groups = ValidGroup1.class)

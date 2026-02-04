@@ -52,5 +52,13 @@ public class SecurityConfig {
 	    // パスワードをハッシュ化せずに、文字列をそのまま比較する設定
 	    return NoOpPasswordEncoder.getInstance();
 	}
+	
+	/*//パスワードをハッシュ化する際に使用
+	@Bean
+	protected BCryptPasswordEncoder passwordEncoder() {
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		return passwordEncoder;
+	}
+	*/
 
 }

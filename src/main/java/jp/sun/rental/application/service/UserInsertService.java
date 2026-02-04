@@ -15,11 +15,13 @@ public class UserInsertService {
 	//フィールド
 	private UserRepository userRepository;
 	private ModelMapper modelMapper;
+	//private BCryptPasswordEncoder passwordEncoder;
 
 	//コンストラクター
-	public UserInsertService(UserRepository userRepository, ModelMapper modelMapper) {
+	public UserInsertService(UserRepository userRepository, ModelMapper modelMapper/*, BCryptPasswordEncoder passwordEncoder*/) {
 		this.userRepository = userRepository;
 		this.modelMapper = modelMapper;
+		//this.passwordEncoder = passwordEncoder;
 	}
 	
 	//ユーザー情報をDBに登録するメソッド
@@ -29,13 +31,19 @@ public class UserInsertService {
 		UserEntity userEntity = null;
 		MemberEntity memberEntity = null;
 		
+		//FormをEntityに変換
 		userEntity = convertUser(form);
 		memberEntity = convertMember(form);
 		
+		//パスワードをハッシュ化
+		//userEntity.setPassword(passwordEncoder.encode(form.getPassword()));
+		
+		//authorityが未設定の場合、一般ユーザーに設定する
 		if(userEntity.getAuthority() == null) {
-			userEntity.setAuthority("GENERAL");//権限を一般ユーザーに設定
+			userEntity.setAuthority("GENERAL");
 		}
 		
+		//登録
 		int resultRow = userRepository.regist(userEntity, memberEntity);
 		
 		return resultRow;

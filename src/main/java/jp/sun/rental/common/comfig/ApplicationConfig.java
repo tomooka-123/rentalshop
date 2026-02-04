@@ -12,4 +12,5 @@ public class ApplicationConfig {
 		ModelMapper modelMapper = new ModelMapper();
 		return modelMapper;
 	}
+	
 }
