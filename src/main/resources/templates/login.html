@@ -1,10 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>ログイン</title>
 </head>
 <body>
-
+	<header>
+		<h1>
+			<span>テスト用ログイン画面</span>
+		</h1>
+	</header>
+	<main>
+		<div id="form-area">
+			<form th:action="@{/login}" method="post">
+				<div class="form-row">
+					<input type="text" name="username" th:value="${username}" size="50" placeholder="ユーザー名">
+				</div>
+				
+				<div class="form-row">
+					<input type="password" name="password" size="50" placeholder="パスワード">
+				</div>
+				
+				<div class="form-row">
+					<input type="submit" value="ログイン" class="btn">
+				</div>
+				
+				 <div class="form-row" th:if="${param.error}">
+					<span th:text="${error}" class="errors"></span>
+				</div>
+			</form>
+			<div class="links">
+				<a th:href="@{/user/insert}">新規会員登録</a>
+			</div>
+		</div>
+	</main>
 </body>
 </html>
