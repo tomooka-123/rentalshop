@@ -21,6 +21,7 @@ public class UserRowMapper implements RowMapper<UserEntity> {
 		memberEntity.setAddress(rs.getString("address"));
 		memberEntity.setPost(rs.getString("post"));
 		memberEntity.setPlan(rs.getString("plan"));
+		memberEntity.setName(rs.getString("name"));
 		
 		userEntity.setUserId(rs.getInt("user_id"));
 		userEntity.setUserName(rs.getString("user_name"));
