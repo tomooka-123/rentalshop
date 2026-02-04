@@ -18,10 +18,13 @@ public class SecurityConfig {
 	protected SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
 		http.authorizeHttpRequests(authorize -> authorize
 				.requestMatchers("/search/user").authenticated()
+				.requestMatchers("/login").permitAll()
 				.anyRequest().permitAll());
 		
 		http.formLogin(login -> login
 				.defaultSuccessUrl("/search/user")
+				.loginPage("/login")
+				.failureUrl("/login?error")
 				.permitAll());
 		
 		http.sessionManagement(session -> session
