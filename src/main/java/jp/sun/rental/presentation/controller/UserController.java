@@ -15,6 +15,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import jp.sun.rental.application.service.UserInsertService;
 import jp.sun.rental.application.service.UserSearchService;
+import jp.sun.rental.common.validator.groups.ValidGroupOrder;
 import jp.sun.rental.presentation.form.MemberForm;
 import jp.sun.rental.presentation.form.UserForm;
 import jp.sun.rental.presentation.form.UserInsertForm;
@@ -55,6 +56,11 @@ public class UserController {
 	@GetMapping(value = "/user/insert")
 	public String toUserInsert(Model model, UserInsertForm userInsertForm) {
 		
+		//初期値登録
+		userInsertForm.setPlan("BASIC");
+		userInsertForm.setAuthority("GENERAL");//権限を一般ユーザーに設定
+		userInsertForm.setUserPoint("0");
+		
 		//登録情報取得用Formオブジェクトを登録
 		model.addAttribute("userInsertForm", userInsertForm);
 		
@@ -63,7 +69,7 @@ public class UserController {
 	
 	//ユーザー登録確認画面を表示する
 	@PostMapping(value = "/user/insert")
-	public String userInsertReview(@Validated @ModelAttribute UserInsertForm userInsertForm, BindingResult result, Model model) throws Exception{
+	public String userInsertReview(@Validated(ValidGroupOrder.class) @ModelAttribute UserInsertForm userInsertForm, BindingResult result, Model model) throws Exception{
 		
 		if (result.hasErrors()) {
 			return "user/insert";
@@ -80,10 +86,10 @@ public class UserController {
 		
 		int numberOfRow = userInsertService.registUser(userInsertForm);
 		
-		/*if (numberOfRow < 2) {
+		if (numberOfRow < 2) {
 			model.addAttribute("error","登録に失敗しました。");
 			return "error/error";
-		}*/
+		}
 		
 		model.addAttribute("message", "ご登録ありがとうございます！");
 		

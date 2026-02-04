@@ -32,8 +32,9 @@ public class UserInsertService {
 		userEntity = convertUser(form);
 		memberEntity = convertMember(form);
 		
-		userEntity.setAuthority("GENERAL");
-		memberEntity.setUserPoint(0);
+		if(userEntity.getAuthority() == null) {
+			userEntity.setAuthority("GENERAL");//権限を一般ユーザーに設定
+		}
 		
 		int resultRow = userRepository.regist(userEntity, memberEntity);
 		

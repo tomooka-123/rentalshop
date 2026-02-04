@@ -7,7 +7,7 @@ public class MemberEntity {
 
 	private int userId;
 	
-	private int card;
+	private String card;
 	
 	private int userPoint;
 	
