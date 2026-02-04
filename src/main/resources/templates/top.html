@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
 <head>
 <meta charset="UTF-8">
 <title>Topページ</title>
@@ -25,8 +25,26 @@
 				<span th:text="${errors}" class="errors"></span>
 			</form>
 		</div>
+		<!--ログインしていない人にのみ表示-->
+		<!--sec:authorize="isAnonymous"が未ログインの時に表示させる-->
 		<div class="links">
-			<a th:href="@{/login}">ログイン</a>
+			<a th:href="@{/login}" sec:authorize="isAnonymous()">ログイン</a>
+		</div>
+		<!--ログインしている人にのみ表示-->
+		<!--sec:authorize="isAuthenicated()"がログインしている時に表示させる-->
+		<div sec:authorize="isAuthenticated()">
+			<!--ログイン情報表示＆ログアウトボタン-->
+			<form th:action="@{/logout}" method="post">
+				<div>
+					<span sec:authentication="name"></span>さんログイン中
+					<input type="submit" value="ログアウト" class="btn">
+				</div>	
+			</form>
+			<!--EMPLOYEE権限を持っている人のみに表示-->
+			<!--sec:authorize="hasAuthority()"が指定した権限を持っている人に表示させる-->
+			<div sec:authorize="hasAuthority('EMPLOYEE')">
+				<a th:href="@{/search/user}">管理者用ユーザー検索ページ</a>
+			</div>
 		</div>
 	</main>
 </body>
