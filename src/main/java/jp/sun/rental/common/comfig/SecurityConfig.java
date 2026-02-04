@@ -22,9 +22,16 @@ public class SecurityConfig {
 				.anyRequest().permitAll());
 		
 		http.formLogin(login -> login
-				.defaultSuccessUrl("/search/user")
+				.defaultSuccessUrl("/top")
 				.loginPage("/login")
 				.failureUrl("/login?error")
+				.permitAll());
+		
+		http.logout(logout -> logout
+				.logoutUrl("/logout")
+				.logoutSuccessUrl("/top")
+				.invalidateHttpSession(true)
+				.deleteCookies("JSESSIONID")
 				.permitAll());
 		
 		http.sessionManagement(session -> session
