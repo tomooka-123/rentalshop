@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<title>ユーザー更新</title>
+		<link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
+		<link th:href="@{/css/management.css}" rel="stylesheet" type="text/css">
+	</head>
+<body>
+	<div id="wrapper">
+		<header>
+			<h1>ユーザー更新</h1>
+			<hr>
+		</header>
+		<main>
+			<div id="form-area">
+				<form th:action="@{/update}" th:object="${userUpdateForm}" method="post">
+					<div class="form-row">
+						<div class="title"><label for="userName">ユーザー名</label></div>
+						<div class="content">
+							<input th:field="*{userName}" size="25" placeholder="santa">
+							<span th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" class="errors"></span>
+						</div>
+					</div>
+					
+					<div class="form-row">
+						<div class="title"><label for="email">メールアドレス</label></div>
+						<div class="content">
+							<input th:field="*{email}" size="25" placeholder="123@co.jp">
+							<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="errors"></span>
+						</div>
+					</div>
+					
+					<div class="form-row">
+						<div class="title"><label for="tell">電話番号</label></div>
+						<div class="content">
+							<input th:field="*{tell}" size="25" placeholder="000123123">
+							<span th:if="${#fields.hasErrors('tell')}" th:errors="*{tell}" class="errors"></span>
+						</div>
+					</div>
+					
+					<div class="form-row">
+						<div class="title"><label for="members.plan">プラン名</label></div>
+						<div class="content">
+							<label>
+								<input type="radio" th:field="*{members.plan}" value="BASIC">お試しプラン</label>
+							<label>
+								<input type="radio" th:field="*{members.plan}" value="BRONZE">Bronzeプラン</label>
+							<label>
+								<input type="radio" th:field="*{members.plan}" value="SILVER">Silverプラン</label>
+							<label>
+								<input type="radio" th:field="*{members.plan}" value="GOLD">Goldプラン</label>
+						</div>
+					</div>
+					
+					<div class="form-row">
+						<div class="title"><label for="members.post">郵便番号</label></div>
+						<div class="content">
+							<input th:field="*{members.post}" size="8" placeholder="999-9999">
+							<span th:if="${#fields.hasErrors('members.post')}" th:errors="*{members.post}" class="errors"></span>
+						</div>
+					</div>
+					
+					<div class="form-row">
+						<div class="title"><label for="members.address">住所</label></div>
+						<div class="content">
+							<input th:field="*{members.address}" size="50" placeholder="東京">
+							<span th:if="${#fields.hasErrors('members.address')}" th:errors="*{members.address}" class="errors"></span>
+						</div>
+					</div>
+					
+					
+					
+					<div class="form-row">
+						<input type="hidden" name = "userId" th:value="${userId}" >
+						<input type="submit" value="確認" class="btn">
+					</div>
+				</form>
+			</div>
+		</main>
+		<footer>
+			<div class="copyright">
+				<small>&copy;SUN</small>
+			</div>
+		</footer>
+	</div>
+</body>
+</html>
