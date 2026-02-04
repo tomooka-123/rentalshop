@@ -1,0 +1,43 @@
+/* 
+	EmployeesManagementプロジェクトスタイルシート
+*/
+
+@charset "UTF-8";
+
+h1 {
+    font-weight: normal;
+}
+
+.title {
+	width: 200px;
+	min-height: 1.5em;
+	flex-direction: column;
+	flex-grow: 1;
+	padding: 0.3rem;
+	text-align: left;
+	float: left;
+	font-weight: bold;
+}
+
+.content {
+	width: 600px;
+	min-height: 1.5em;
+	flex-direction: column;
+	flex-grow: 1;
+	padding: 0.3rem;
+	margin: 1px 0px 1px 1px;
+	float: left;
+	word-wrap: break-word;
+}
+
+#btn {
+	clear: both;
+}
+
+.copyright {
+    border-top: 1px solid #999;
+    color: #999;
+    margin-top: 16px;
+    padding-top: 4px;
+    text-align: center;
+}

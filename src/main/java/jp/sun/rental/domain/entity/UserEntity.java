@@ -4,7 +4,8 @@ import lombok.Data;
 
 @Data
 public class UserEntity {
-
+	
+	
 	private int userId;
 	
 	private String userName;
@@ -13,5 +14,9 @@ public class UserEntity {
 	
 	private String email;
 	
+	private String tell;
+	
 	private String authority;
+	
+	private MemberEntity members;
 }

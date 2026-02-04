@@ -1,10 +1,12 @@
-package jp.sun.rental.domain.entity;
+package jp.sun.rental.presentation.form;
+
+import java.io.Serializable;
 
 import lombok.Data;
 
 @Data
-public class MemberEntity {
-
+public class MemberForm implements Serializable{
+	
 	private int userId;
 	
 	private int card;
@@ -13,9 +15,8 @@ public class MemberEntity {
 	
 	private String address;
 	
-	private String name;
-	
 	private String post;
 	
 	private String plan;
+	
 }
