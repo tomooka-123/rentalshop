@@ -18,6 +18,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import jp.sun.rental.application.service.UserInsertService;
 import jp.sun.rental.application.service.UserSearchService;
 import jp.sun.rental.common.validator.groups.ValidGroupOrder;
+import jp.sun.rental.presentation.form.ItemForm;
 import jp.sun.rental.presentation.form.MemberForm;
 import jp.sun.rental.presentation.form.UserForm;
 import jp.sun.rental.presentation.form.UserInsertForm;
@@ -38,7 +39,11 @@ public class UserController {
 	
 	//TOP画面を表示する
 	@GetMapping(value = "/top")
-	public String toTop() {
+	public String toTop(Model model) {
+		ItemForm itemForm = new ItemForm();
+		
+		model.addAttribute("itemForm", itemForm);
+		
 		return "top";
 	}
 

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Topページ</title>
+</head>
+<body>
+	<header th:insert="~{header :: header_area}"></header>
+	<main>
+		<div class="form-area">
+			<form th:if="${itemForm != null}" th:action="@{/search/item}" th:object="${itemForm}" method="post">
+					<div class="form-row">
+						検索条件を指定する場合は「商品名」を入力してください。
+					</div>
+					<div class="form-row">
+						
+						<label for="itemName">商品名</label>
+						<input th:field="*{itemName}">
+						
+						<input type="submit" value="検索する" name="user" class="btn">
+					</div>
+				<th:block th:each="error : ${#fields.detailedErrors()}">
+					<span th:text="${error.message}" class="errors"></span><br>		
+				</th:block>
+				<span th:text="${errors}" class="errors"></span>
+			</form>
+		</div>
+		<div class="links">
+			<a th:href="@{/login}">ログイン</a>
+		</div>
+	</main>
+</body>
+</html>
