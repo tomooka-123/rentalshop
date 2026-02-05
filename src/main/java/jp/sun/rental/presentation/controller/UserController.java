@@ -192,23 +192,23 @@ public class UserController {
 		return "userSearch";
 	}
 	
+	
+	
+	//ユーザー情報更新の入力画面を表示する
 	@GetMapping(value = "/user/update")
 	public String userUpdate( 
-			Authentication authentication,
-			Model model) {
+		Authentication authentication,
+		Model model) {
 		
-		UserUpdateForm userUpdateForm = new UserUpdateForm();
-		
-		model.addAttribute("userUpdateForm",userUpdateForm);
 		// ログイン中のユーザー名を取得
 		String userName = authentication.getName();
-		
-		userUpdateForm = userUpdateService.userUpdateToForm(userName);
+		UserUpdateForm userUpdateForm = userUpdateService.userUpdateToForm(userName);
         // 画面に渡す
         model.addAttribute("userUpdateForm", userUpdateForm);
-	    return "user/userUpdate";
+	    return "user/update";
 	}
 
+	//ユーザー情報を更新し、完了画面を表示する
 	@PostMapping(value = "/user/update")
 	public String userUpdate(
 		Authentication authentication,
@@ -216,10 +216,9 @@ public class UserController {
         BindingResult result,
         Model model) {
 		
-		
 		// バリデーションエラー
 		if (result.hasErrors()) {
-			return "/user/userUpdate";
+			return "/user/update";
 		}
 	
 		// ログイン中のユーザー名を取得
@@ -229,13 +228,16 @@ public class UserController {
 		// 戻り値は更新数(int)
 		userUpdateService.userUpdate(userName, form);
 		
-		
+		model.addAttribute("message", "変更が完了しました。");
 		
 		// 確認画面へ 入力値をhtmlへ渡す
 		model.addAttribute("user", form);
-	    return "user/userUpdate";
+	    return "user/success";
 
 	}
+	
+	
+	
 	//例外ハンドラー
 	@ExceptionHandler(Exception.class)
 	public String handlerException(Exception e, Model model) {
