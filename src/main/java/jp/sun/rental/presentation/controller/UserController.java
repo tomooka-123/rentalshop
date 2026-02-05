@@ -194,7 +194,7 @@ public class UserController {
 	
 	
 	
-	//ユーザー情報変更画面を表示する
+	//ユーザー情報変更の入力画面を表示する
 	@GetMapping(value = "/user/update")
 	public String userUpdate( 
 			Authentication authentication,
@@ -209,6 +209,7 @@ public class UserController {
 	    return "user/userUpdate";
 	}
 
+	//ユーザー情報変更の確認画面を表示する
 	@PostMapping(value = "/user/update")
 	public String userUpdate(
 		Authentication authentication,
@@ -231,7 +232,7 @@ public class UserController {
 		
 		
 		// 確認画面へ 入力値をhtmlへ渡す
-		model.addAttribute("user", form);
+		model.addAttribute("user", form);	//"user"より"userUpdateForm"の方が良いのでは？
 		return "user/userUpdate";
 
 	}
