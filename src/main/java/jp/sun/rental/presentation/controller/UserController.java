@@ -192,18 +192,18 @@ public class UserController {
 		return "userSearch";
 	}
 	
+	
+	
+	//ユーザー情報変更画面を表示する
 	@GetMapping(value = "/user/update")
 	public String userUpdate( 
 			Authentication authentication,
 			Model model) {
 		
-		UserUpdateForm userUpdateForm = new UserUpdateForm();
-		
-		model.addAttribute("userUpdateForm",userUpdateForm);
 		// ログイン中のユーザー名を取得
 		String userName = authentication.getName();
 		
-		userUpdateForm = userUpdateService.userUpdateToForm(userName);
+		UserUpdateForm userUpdateForm = userUpdateService.userUpdateToForm(userName);
         // 画面に渡す
         model.addAttribute("userUpdateForm", userUpdateForm);
 	    return "user/userUpdate";
@@ -236,6 +236,9 @@ public class UserController {
 		return "user/userUpdate";
 
 	}
+	
+	
+	
 	//例外ハンドラー
 	@ExceptionHandler(Exception.class)
 	public String handlerException(Exception e, Model model) {
