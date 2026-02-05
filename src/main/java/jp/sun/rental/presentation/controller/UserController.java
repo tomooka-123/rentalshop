@@ -219,7 +219,7 @@ public class UserController {
 		
 		// バリデーションエラー
 		if (result.hasErrors()) {
-			return "/user/update";
+			return "/user/userUpdate";
 		}
 	
 		// ログイン中のユーザー名を取得
@@ -233,7 +233,7 @@ public class UserController {
 		
 		// 確認画面へ 入力値をhtmlへ渡す
 		model.addAttribute("user", form);
-		return "user/update";
+		return "user/userUpdate";
 
 	}
 	//例外ハンドラー
