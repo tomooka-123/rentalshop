@@ -212,10 +212,9 @@ public class UserController {
 	@PostMapping(value = "/user/update")
 	public String userUpdate(
 		Authentication authentication,
-		@ModelAttribute UserUpdateForm form,
+		@Validated @ModelAttribute UserUpdateForm form,
         BindingResult result,
         Model model) {
-		
 		
 		// バリデーションエラー
 		if (result.hasErrors()) {
