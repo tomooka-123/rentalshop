@@ -2,15 +2,14 @@ package jp.sun.rental.domain.repository;
 
 import java.util.List;
 
+import javax.swing.tree.RowMapper;
+
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import jp.sun.rental.domain.entity.MemberEntity;
 import jp.sun.rental.domain.entity.UserEntity;
-import jp.sun.rental.domain.entity.UserUpdateEntity;
 import jp.sun.rental.infrastructure.mapper.UserRowMapper;
-
 
 @Repository
 public class UserRepository {
@@ -33,12 +32,12 @@ public class UserRepository {
 		String sql = sb.toString();
 		
 		Object[] userParameters = { userEntity.getUserName(), userEntity.getPassword(), userEntity.getEmail(), userEntity.getTell(), userEntity.getAuthority()};
-		
 		int resultUser = 0;
 		resultUser = jdbcTemplate.update(sql,userParameters);
 		
 		//usersテーブルからuser_idを取得する
-		int userId = getUserIdByEmail(userEntity.getEmail());
+		int userId = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", int.class);		
+		//int userId = getUserIdByEmail(userEntity.getEmail());
 		memberEntity.setUserId(userId);
 		
 		//memberテーブルに登録する
@@ -56,7 +55,7 @@ public class UserRepository {
 		return numberOfRow;
 	}
 	
-	//emailで検索してuserIdを返す（ユーザー登録時＆バリデーションチェック時に使用する）
+	//emailで検索してuserIdを返す（バリデーションチェック時に使用する）
 	public int getUserIdByEmail(String email) throws Exception{
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT user_id FROM users WHERE email = ?");
@@ -132,45 +131,47 @@ public class UserRepository {
 		sb.append(" ON u.user_id = m.user_id");
 		
 		return sb;
+		
+		// ユーザー情報更新====================================
+		
+		public int updateUser( UserUpdateEntity entity) throws Exception{
+			
+//			ユーザー名
+//			メールアドレス
+//			電話番号
+//			郵便番号
+//			住所
+//			プラン名
+			
+			StringBuilder sb = new StringBuilder();		
+			sb.append("UPDATE users AS u");
+			sb.append("JOIN member AS m ON u.user_id = m.user_id ");
+			sb.append("SET ");
+			sb.append("u.email = ?,");
+			sb.append("u.tell = ?,");
+			sb.append("m.post = ?,");
+			sb.append("m.address = ?,");
+			sb.append("m.plan = ?,");
+			sb.append("WHERE u.user_name = ?");
+			
+			
+			String sql = sb.toString();
+			
+			Object[] parameters = {
+					entity.getEmail(),
+					entity.getTell(),
+					entity.getPost(),
+					entity.getAddress(),
+					entity.getPlan(),
+					entity.getUserName()
+			};
+			
+			int numberOfRow = 0;
+			numberOfRow = jdbcTemplate.update(sql,parameters);
+			
+			return numberOfRow;
+		
 	}
 	
-	// ユーザー情報更新====================================
 	
-	public int updateUser( UserUpdateEntity entity) throws Exception{
-		
-//		ユーザー名
-//		メールアドレス
-//		電話番号
-//		郵便番号
-//		住所
-//		プラン名
-		
-		StringBuilder sb = new StringBuilder();		
-		sb.append("UPDATE users AS u");
-		sb.append("JOIN member AS m ON u.user_id = m.user_id ");
-		sb.append("SET ");
-		sb.append("u.email = ?,");
-		sb.append("u.tell = ?,");
-		sb.append("m.post = ?,");
-		sb.append("m.address = ?,");
-		sb.append("m.plan = ?,");
-		sb.append("WHERE u.user_name = ?");
-		
-		
-		String sql = sb.toString();
-		
-		Object[] parameters = {
-				entity.getEmail(),
-				entity.getTell(),
-				entity.getPost(),
-				entity.getAddress(),
-				entity.getPlan(),
-				entity.getUserName()
-		};
-		
-		int numberOfRow = 0;
-		numberOfRow = jdbcTemplate.update(sql,parameters);
-		
-		return numberOfRow;
-	}
 }

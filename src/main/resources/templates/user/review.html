@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ja">
 <head>
 	<meta charset="UTF-8">
-	<!--	<link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">	-->
 	<title>会員登録確認</title>
 </head>
 <body>
@@ -11,66 +10,57 @@
 		<form th:action="@{/user/insert/submit}" th:object="${userInsertForm}" method="post">
 			<table>
 				<tr>
-					<th>ID</th>
+					<th>ユーザー名</th>
 					<td>
-						<span th:text="${userInsertForm.userId}"></span>
-						<input type="hidden" th:field="*{userId}">
+						<span th:text="${userInsertForm.userName}"></span>
 					</td>
 				</tr>
 				<tr>
 					<th>氏名</th>
 					<td>
-						<span th:text="${userInsertForm.userName}"></span>
-						<input type="hidden" th:field="*{userName}">
+						<span th:text="${userInsertForm.name}"></span>
 					</td>
 				</tr>
 				<tr>
 					<th>メールアドレス</th>
 					<td>
 						<span th:text="${userInsertForm.email}"></span>
-						<input type="hidden" th:field="*{email}">
 					</td>
 				</tr>
 				<tr>
 					<th>電話番号</th>
 					<td>
 						<span th:text="${userInsertForm.tell}"></span>
-						<input type="hidden" th:field="*{tell}">
 					</td>
 				</tr>
 				<tr>
 					<th>郵便番号</th>
 					<td>
 						<span th:text="${userInsertForm.post}"></span>
-						<input type="hidden" th:field="*{post}">
 					</td>
 				</tr>
 				<tr>
 					<th>住所</th>
 					<td>
 						<span th:text="${userInsertForm.address}"></span>
-						<input type="hidden" th:field="*{address}">
 					</td>
 				</tr>
 				<tr>
 					<th>会員プラン</th>
 					<td>
-						<span th:text="${userInsertForm.plan}"></span>
-						<input type="hidden" th:field="*{plan}">
+						<span th:text="${plan}"></span>
 					</td>
 				</tr>
 				<tr>
 					<th>クレジットカード番号</th>
 					<td>
-						<span th:text="${userInsertForm.card}"></span>
-						<input type="hidden" th:field="*{card}">
+						<span th:text="${card}"></span>
 					</td>
 				</tr>
 				<tr>
 					<th>パスワード</th>
 					<td>
-						<span th:text="${userInsertForm.password}"></span>
-						<input type="hidden" th:field="*{password}">
+						<span th:text="${password}"></span>
 					</td>
 				</tr>
 				<tr>

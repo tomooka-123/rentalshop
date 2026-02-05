@@ -7,15 +7,15 @@ public class MemberEntity {
 
 	private int userId;
 	
-	private int card;
+	private String card;
 	
 	private int userPoint;
 	
-	private String address;
-	
-	private String name;
-	
 	private String post;
 	
+	private String address;
+	
 	private String plan;
+	
+	private String name;
 }

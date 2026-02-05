@@ -5,8 +5,8 @@ import java.io.Serializable;
 import lombok.Data;
 
 @Data
-public class UserForm implements Serializable{
-	
+public class UserForm implements Serializable {
+
 	private String userId;
 	
 	private String userName;
@@ -20,4 +20,5 @@ public class UserForm implements Serializable{
 	private String authority;
 	
 	private MemberForm members;
+
 }

@@ -1,5 +1,5 @@
 package jp.sun.rental.common.validator.groups;
 
-public class ValidGroup1 {
+public interface ValidGroup1 {
 
 }

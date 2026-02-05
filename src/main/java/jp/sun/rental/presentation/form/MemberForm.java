@@ -5,13 +5,13 @@ import java.io.Serializable;
 import lombok.Data;
 
 @Data
-public class MemberForm implements Serializable{
+public class MemberForm implements Serializable {
+
+	private String userId;
 	
-	private int userId;
+	private String card;
 	
-	private int card;
-	
-	private int userPoint;
+	private String userPoint;
 	
 	private String address;
 	
@@ -19,4 +19,6 @@ public class MemberForm implements Serializable{
 	
 	private String plan;
 	
+	private String name;
+
 }

@@ -1,83 +1,147 @@
 package jp.sun.rental.presentation.controller;
 
 import java.util.List;
+import java.util.Optional;
 
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import jp.sun.rental.application.service.UserInsertService;
 import jp.sun.rental.application.service.UserSearchService;
-import jp.sun.rental.application.service.UserUpdateService;
-import jp.sun.rental.domain.repository.UserRepository;
+import jp.sun.rental.common.validator.groups.ValidGroupOrder;
+import jp.sun.rental.presentation.form.ItemForm;
 import jp.sun.rental.presentation.form.MemberForm;
 import jp.sun.rental.presentation.form.UserForm;
 import jp.sun.rental.presentation.form.UserInsertForm;
 import jp.sun.rental.presentation.form.UserUpdateForm;
 
-
 @Controller
-@SessionAttributes("userForm")
+@SessionAttributes("userInsertForm")
 public class UserController {
 	
 	//フィールド
 	private UserInsertService userInsertService;
 	private UserSearchService userSearchService;
-	private UserUpdateService userUpdateService;
-	private UserRepository userRepository;
-	
+
 	//コンストラクター
-	public UserController(UserInsertService userInsertService,
-						UserSearchService userSearchService,
-						UserUpdateService userUpdateService) {
-		
-		this.userUpdateService = userUpdateService;
+	public UserController(UserInsertService userInsertService, UserSearchService userSearchService) {
+		this.userInsertService = userInsertService;
+		this.userSearchService = userSearchService;
 	}
 	
 	//TOP画面を表示する
 	@GetMapping(value = "/top")
-	public String toTop() {
+	public String toTop(Model model) {
+		ItemForm itemForm = new ItemForm();
+		
+		model.addAttribute("itemForm", itemForm);
+		
 		return "top";
 	}
 
 	//ログイン画面を表示する
-	/* @GetMapping(value = "/login")
-	public String login() {
+	@GetMapping(value = "/login")
+	public String login(@RequestParam Optional<String> error, Model model) {
+		if(error.isPresent()) {
+			model.addAttribute("error", "ユーザー名、またはパスワードが異なっているか、ログインの上限に達しています");
+		}
 		return "login";
-	} */
-
+	}
+	
+	//ユーザー登録用セッションオブジェクトの生成
+	@ModelAttribute("userInsertForm")
+	public UserInsertForm setupUserInsertForm() {
+		return new UserInsertForm();
+	}
+	
+	//会員プラン表示用
+	private String setPlan(String plan) {
+		switch (plan) {
+		case "BASIC":
+			return "お試しプラン";
+		case "BRONZE":
+			return "Bronzeプラン";
+		case "SILVER":
+			return "Silverプラン";
+		case "GOLD":
+			return "Goldプラン";
+		default:
+			return "回答なし";
+		}
+	}
+	
+	//クレジットカード番号表示用
+	private String setCard(String card) {
+		String asterisk = "*";
+		String last4 = card.substring(card.length() - 4);
+		for(int i = 1 ; i < card.length() - 4 ; i++) {
+			asterisk += "*";
+		}
+		asterisk += last4;
+		return asterisk;
+	}
+	
+	//パスワード表示用
+	private String setPassword(String password) {
+		String asterisk = "*";
+		for(int i = 1 ; i < password.length() ; i++) {
+			asterisk += "*";
+		}
+		return asterisk;
+	}
+	
 	//ユーザー登録入力画面を表示する
 	@GetMapping(value = "/user/insert")
-	public String toUserInsert(Model model) {
+	public String toUserInsert(Model model, UserInsertForm userInsertForm) {
 		
-	//登録情報取得用Formオブジェクトを登録
-	model.addAttribute("userInsertForm", new UserInsertForm());
+		//初期値登録
+		userInsertForm.setPlan("BASIC");
+		userInsertForm.setAuthority("GENERAL");//権限を一般ユーザーに設定
+		userInsertForm.setUserPoint("0");
+		
+		//登録情報取得用Formオブジェクトを登録
+		model.addAttribute("userInsertForm", userInsertForm);
 		
 		return "user/insert";
 	}
-		
+	
 	//ユーザー登録確認画面を表示する
 	@PostMapping(value = "/user/insert")
-	public String userInsertReview(@Validated @ModelAttribute UserInsertForm userInsertForm, BindingResult result, Model model) throws Exception{
-			
+	public String userInsertReview(@Validated(ValidGroupOrder.class) @ModelAttribute UserInsertForm userInsertForm, BindingResult result, Model model) throws Exception{
+		
 		if (result.hasErrors()) {
 			return "user/insert";
 		}
-			
+		
+		//会員プラン表示用
+		String plan = userInsertForm.getPlan();
+		model.addAttribute("plan", setPlan(plan));
+		
+		//クレジットカード番号表示用
+		String card = userInsertForm.getCard();
+		model.addAttribute("card", setCard(card));
+		
+		//パスワード表示用
+		String password = userInsertForm.getPassword();
+		model.addAttribute("password", setPassword(password));
+
 		model.addAttribute("userInsertForm", userInsertForm);
 		
 		return "user/review";
 	}
-		
+	
 	//ユーザー情報をDBに登録し、ユーザー登録完了画面を表示する
 	@PostMapping(value = "/user/insert/submit")
-	public String userInsert(@ModelAttribute UserInsertForm userInsertForm, Model model) throws Exception{
+	public String userInsert(@ModelAttribute UserInsertForm userInsertForm, Model model, SessionStatus status) throws Exception{
 		
 		int numberOfRow = userInsertService.registUser(userInsertForm);
 		
@@ -87,13 +151,16 @@ public class UserController {
 		}
 		
 		model.addAttribute("message", "ご登録ありがとうございます！");
-			
+		
+		//セッション破棄
+		status.setComplete();
+		
 		return "user/success";
 	}
-		
-		
-		
-		
+	
+	
+	
+	
 	//管理者用ユーザー検索メソッド
 	@GetMapping(value = "/search/user")
 	public String toUserSearch(Model model) {
@@ -106,7 +173,7 @@ public class UserController {
 		
 		return "userSearch";
 	}
-		
+	
 	@PostMapping(value = "/search/user")
 	public String searchUsers(@ModelAttribute UserForm userForm, BindingResult result, Model model) throws Exception {
 		if (result.hasErrors()) {
@@ -120,7 +187,7 @@ public class UserController {
 		
 		return "userSearch";
 	}
-
+	
 	@GetMapping(value = "/user/update")
 	public String userUpdate( 
 			Authentication authentication,
@@ -163,73 +230,14 @@ public class UserController {
 		model.addAttribute("user", form);
 		return "user/update/confirm";
 
-
-
 	}
-
+	//例外ハンドラー
+	@ExceptionHandler(Exception.class)
+	public String handlerException(Exception e, Model model) {
+		model.addAttribute("error", "システムエラーが発生しました");
+		e.printStackTrace();
+		
+		return "error/error";
+	}
+	
 }
-//	public String updateForm(Model model, @ModelAttribute(value = "userForm")UserSession sessionUser) {
-//		
-//		// ユーザーidを受け取る
-//		String userId = sessionUser.getUserId();
-//		
-//		UserForm userForm = new UserForm();
-//		userForm.getUserName();		
-//		userForm.getEmail();		
-//		// ユーザーidを元に更新に必要な情報を抽出　entityにセット
-//		/*
-//		 * 
-//		 * 		ユーザー名
-//		//		メールアドレス
-//		//		電話番号
-//		//		郵便番号
-//		//		住所
-//		//		プラン名
-//		 */
-//		model.addAttribute("userEntity", new UserEntity());
-//
-//		model.addAttribute("headline", "ユーザー情報更新");
-//		
-//		model.addAttribute("userForm", new UserForm());
-//		
-//		// とりあえず＝＝＝＝＝＝＝＝＝
-//		
-//		model.addAttribute(userId); 
-//		// ＝＝＝＝＝＝＝＝＝
-//		return "userUpdate";
-//	}
-//	
-//	@PostMapping(value = "/user/update")
-//	public String update( @Validated @ModelAttribute UserForm userForm,
-//			BindingResult result, Model model, @SessionAttribute(value = "loginUser", required = false) UserSession sessionUser) throws Exception {
-//		
-//		model.addAttribute("headline", "ユーザー情報更新");
-//		
-//		// 入力エラー
-//		if (result.hasErrors()) {
-//			return "userUpdate";
-//		}
-//		
-////		// ★ userId はログインユーザーから取得
-////		String userId = loginUserService.getLoginUserId();
-//		
-//		userForm.setUserId(sessionUser.getUserId());
-//
-//		// 更新処理
-//		userUpdateService.update(userForm);
-//
-//		// 完了後
-//		return "redirect:/user/update/complete";
-//		
-//	}
-//	
-//	@PutMapping("/me")
-//	public ResponseEntity<Void> updateMe(
-//	        @AuthenticationPrincipal LoginUser loginUser,
-//	        @RequestBody UserUpdateEntity request) {
-//
-//	    UserUpdateService.update(loginUser.getUserId(), request);
-//	    return ResponseEntity.ok().build();
-//	}
-
-
