@@ -1,4 +1,4 @@
-package jp.sun.rental.common.comfig;
+package jp.sun.rental.common.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

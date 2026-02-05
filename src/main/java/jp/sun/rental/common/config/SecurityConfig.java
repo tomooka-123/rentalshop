@@ -1,4 +1,4 @@
-package jp.sun.rental.common.comfig;
+package jp.sun.rental.common.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
