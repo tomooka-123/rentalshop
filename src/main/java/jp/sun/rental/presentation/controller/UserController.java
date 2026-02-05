@@ -227,7 +227,7 @@ public class UserController {
 	
 		// UserUpdateEntityに値をセットし、更新する
 		// 戻り値は更新数(int)
-		userUpdateService.userUpdate(userName);
+		userUpdateService.userUpdate(userName, form);
 		
 		
 		
