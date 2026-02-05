@@ -2,13 +2,13 @@ package jp.sun.rental.domain.repository;
 
 import java.util.List;
 
-import javax.swing.tree.RowMapper;
-
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import jp.sun.rental.domain.entity.MemberEntity;
 import jp.sun.rental.domain.entity.UserEntity;
+import jp.sun.rental.domain.entity.UserUpdateEntity;
 import jp.sun.rental.infrastructure.mapper.UserRowMapper;
 
 @Repository
@@ -131,7 +131,7 @@ public class UserRepository {
 		sb.append(" ON u.user_id = m.user_id");
 		
 		return sb;
-		
+	}
 		// ユーザー情報更新====================================
 		
 		public int updateUser( UserUpdateEntity entity) throws Exception{

@@ -3,12 +3,13 @@ package jp.sun.rental.infrastructure.mapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.swing.tree.RowMapper;
+import org.springframework.jdbc.core.RowMapper;
 
 import jp.sun.rental.domain.entity.MemberEntity;
 import jp.sun.rental.domain.entity.UserEntity;
 
 public class UserRowMapper implements RowMapper<UserEntity> {
+
 	@Override
 	public UserEntity mapRow (ResultSet rs, int rowNum) throws SQLException{
 		UserEntity userEntity = new UserEntity();

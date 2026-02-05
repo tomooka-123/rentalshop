@@ -2,8 +2,6 @@ package jp.sun.rental.presentation.form;
 
 import java.io.Serializable;
 
-<<<<<<< HEAD
-=======
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -14,7 +12,6 @@ import jp.sun.rental.common.annotation.UniqueUserName;
 import jp.sun.rental.common.validator.groups.ValidGroup1;
 import jp.sun.rental.common.validator.groups.ValidGroup2;
 import jp.sun.rental.common.validator.groups.ValidGroup3;
->>>>>>> main
 import lombok.Data;
 
 @Data

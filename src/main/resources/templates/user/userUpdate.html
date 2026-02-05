@@ -40,32 +40,32 @@
 					</div>
 					
 					<div class="form-row">
-						<div class="title"><label for="members.plan">プラン名</label></div>
+						<div class="title"><label for="plan">プラン名</label></div>
 						<div class="content">
 							<label>
-								<input type="radio" th:field="*{members.plan}" value="BASIC">お試しプラン</label>
+								<input type="radio" th:field="*{plan}" value="BASIC">お試しプラン</label>
 							<label>
-								<input type="radio" th:field="*{members.plan}" value="BRONZE">Bronzeプラン</label>
+								<input type="radio" th:field="*{plan}" value="BRONZE">Bronzeプラン</label>
 							<label>
-								<input type="radio" th:field="*{members.plan}" value="SILVER">Silverプラン</label>
+								<input type="radio" th:field="*{plan}" value="SILVER">Silverプラン</label>
 							<label>
-								<input type="radio" th:field="*{members.plan}" value="GOLD">Goldプラン</label>
+								<input type="radio" th:field="*{plan}" value="GOLD">Goldプラン</label>
 						</div>
 					</div>
 					
 					<div class="form-row">
-						<div class="title"><label for="members.post">郵便番号</label></div>
+						<div class="title"><label for="post">郵便番号</label></div>
 						<div class="content">
-							<input th:field="*{members.post}" size="8" placeholder="999-9999">
-							<span th:if="${#fields.hasErrors('members.post')}" th:errors="*{members.post}" class="errors"></span>
+							<input th:field="*{post}" size="8" placeholder="999-9999">
+							<span th:if="${#fields.hasErrors('post')}" th:errors="*{post}" class="errors"></span>
 						</div>
 					</div>
 					
 					<div class="form-row">
-						<div class="title"><label for="members.address">住所</label></div>
+						<div class="title"><label for="address">住所</label></div>
 						<div class="content">
-							<input th:field="*{members.address}" size="50" placeholder="東京">
-							<span th:if="${#fields.hasErrors('members.address')}" th:errors="*{members.address}" class="errors"></span>
+							<input th:field="*{address}" size="50" placeholder="東京">
+							<span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="errors"></span>
 						</div>
 					</div>
 					

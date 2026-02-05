@@ -8,7 +8,7 @@ import lombok.Data;
 public class UserUpdateForm implements Serializable {
 		
 	// user
-	private int user_id;
+	private String user_id;
 	
 	private String userName;
 	

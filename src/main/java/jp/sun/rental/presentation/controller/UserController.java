@@ -3,6 +3,7 @@ package jp.sun.rental.presentation.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import jp.sun.rental.application.service.UserInsertService;
 import jp.sun.rental.application.service.UserSearchService;
+import jp.sun.rental.application.service.UserUpdateService;
 import jp.sun.rental.common.validator.groups.ValidGroupOrder;
 import jp.sun.rental.presentation.form.ItemForm;
 import jp.sun.rental.presentation.form.MemberForm;
@@ -31,11 +33,13 @@ public class UserController {
 	//フィールド
 	private UserInsertService userInsertService;
 	private UserSearchService userSearchService;
+	private UserUpdateService userUpdateService;
 
 	//コンストラクター
-	public UserController(UserInsertService userInsertService, UserSearchService userSearchService) {
+	public UserController(UserInsertService userInsertService, UserSearchService userSearchService, UserUpdateService userUpdateService) {
 		this.userInsertService = userInsertService;
 		this.userSearchService = userSearchService;
+		this.userUpdateService = userUpdateService;
 	}
 	
 	//TOP画面を表示する
@@ -202,7 +206,7 @@ public class UserController {
 		userUpdateForm = userUpdateService.userUpdateToForm(userName);
         // 画面に渡す
         model.addAttribute("userUpdateForm", userUpdateForm);
-	    return "/user/userUpdate";
+	    return "user/userUpdate";
 	}
 
 	@PostMapping(value = "/user/update")
@@ -226,9 +230,10 @@ public class UserController {
 		userUpdateService.userUpdate(userName);
 		
 		
+		
 		// 確認画面へ 入力値をhtmlへ渡す
 		model.addAttribute("user", form);
-		return "user/update/confirm";
+		return "user/update";
 
 	}
 	//例外ハンドラー

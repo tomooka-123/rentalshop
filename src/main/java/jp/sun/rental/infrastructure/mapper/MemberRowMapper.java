@@ -16,7 +16,7 @@ public class MemberRowMapper implements RowMapper<MemberEntity>{
 		
 		member.setUserId(rs.getInt("user_id"));
 		member.setUserPoint(rs.getInt("user_point"));
-		member.setCard(rs.getInt("card"));
+		member.setCard(rs.getString("card"));
 		member.setName(rs.getString("name"));
 		member.setPost(rs.getString("user_post"));
 		member.setAddress(rs.getString("address"));
