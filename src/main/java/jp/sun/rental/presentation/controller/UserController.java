@@ -192,6 +192,7 @@ public class UserController {
 		return "userSearch";
 	}
 	
+	// ユーザー更新入力用
 	@GetMapping(value = "/user/update")
 	public String userUpdate( 
 			Authentication authentication,
@@ -199,41 +200,49 @@ public class UserController {
 		
 		UserUpdateForm userUpdateForm = new UserUpdateForm();
 		
-		model.addAttribute("userUpdateForm",userUpdateForm);
 		// ログイン中のユーザー名を取得
 		String userName = authentication.getName();
 		
 		userUpdateForm = userUpdateService.userUpdateToForm(userName);
         // 画面に渡す
         model.addAttribute("userUpdateForm", userUpdateForm);
-	    return "user/userUpdate";
+	    return "user/update";
+	}
+	
+	// ユーザー情報更新確認用
+	@PostMapping("/user/update")
+	public String userUpdateConfirm(
+	        Authentication authentication,
+	        @Validated @ModelAttribute UserUpdateForm form,
+	        BindingResult result,
+	        Model model) {
+
+	    // バリデーションエラー
+	    if (result.hasErrors()) {
+	        return "user/update";
+	    }
+
+	    // 確認画面に表示するだけ
+	    model.addAttribute("userUpdateForm", form);
+	    return "user/updateConfirm";
 	}
 
-	@PostMapping(value = "/user/update")
+	// ユーザー情報更新確認用
+	@PostMapping(value = "/user/update/confirm")
 	public String userUpdate(
 		Authentication authentication,
-		@Validated @ModelAttribute UserUpdateForm form,
-        BindingResult result,
-        Model model) {
-		
-		
-		// バリデーションエラー
-		if (result.hasErrors()) {
-			return "/user/userUpdate";
-		}
+		@ModelAttribute UserUpdateForm form) {
 	
-		// ログイン中のユーザー名を取得
+//		// ログイン中のユーザー名を取得
 		String userName = authentication.getName();
 	
 		// UserUpdateEntityに値をセットし、更新する
 		// 戻り値は更新数(int)
 		userUpdateService.userUpdate(userName, form);
 		
-		
-		
 		// 確認画面へ 入力値をhtmlへ渡す
-		model.addAttribute("user", form);
-	    return "user/userUpdate";
+//		model.addAttribute("userUpdateForm", form);
+	    return "user/success";
 
 	}
 	//例外ハンドラー

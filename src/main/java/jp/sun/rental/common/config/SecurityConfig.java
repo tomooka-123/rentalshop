@@ -18,10 +18,20 @@ public class SecurityConfig {
 	protected SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
 		http.authorizeHttpRequests(authorize -> authorize
 				.requestMatchers("/search/user").authenticated()
+				.requestMatchers("/login").permitAll()
 				.anyRequest().permitAll());
 		
 		http.formLogin(login -> login
-				.defaultSuccessUrl("/search/user")
+				.defaultSuccessUrl("/top")
+				.loginPage("/login")
+				.failureUrl("/login?error")
+				.permitAll());
+		
+		http.logout(logout -> logout
+				.logoutUrl("/logout")
+				.logoutSuccessUrl("/top")
+				.invalidateHttpSession(true)
+				.deleteCookies("JSESSIONID")
 				.permitAll());
 		
 		http.sessionManagement(session -> session
@@ -42,4 +52,13 @@ public class SecurityConfig {
 	    // パスワードをハッシュ化せずに、文字列をそのまま比較する設定
 	    return NoOpPasswordEncoder.getInstance();
 	}
+	
+	/*//パスワードをハッシュ化する際に使用
+	@Bean
+	protected BCryptPasswordEncoder passwordEncoder() {
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		return passwordEncoder;
+	}
+	*/
+
 }

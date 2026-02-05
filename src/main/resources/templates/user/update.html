@@ -7,11 +7,8 @@
 		<link th:href="@{/css/management.css}" rel="stylesheet" type="text/css">
 	</head>
 <body>
+	<header th:insert="~{header :: header_area}"></header>
 	<div id="wrapper">
-		<header>
-			<h1>ユーザー更新</h1>
-			<hr>
-		</header>
 		<main>
 			<div id="form-area">
 				<form th:action="@{/user/update}" th:object="${userUpdateForm}" method="post">
