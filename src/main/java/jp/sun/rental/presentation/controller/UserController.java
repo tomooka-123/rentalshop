@@ -212,14 +212,14 @@ public class UserController {
 	@PostMapping(value = "/user/update")
 	public String userUpdate(
 		Authentication authentication,
-		@ModelAttribute UserUpdateForm form,
+		@Validated @ModelAttribute UserUpdateForm form,
         BindingResult result,
         Model model) {
 		
 		
 		// バリデーションエラー
 		if (result.hasErrors()) {
-			return "/user/update";
+			return "/user/userUpdate";
 		}
 	
 		// ログイン中のユーザー名を取得
@@ -227,13 +227,13 @@ public class UserController {
 	
 		// UserUpdateEntityに値をセットし、更新する
 		// 戻り値は更新数(int)
-		userUpdateService.userUpdate(userName);
+		userUpdateService.userUpdate(userName, form);
 		
 		
 		
 		// 確認画面へ 入力値をhtmlへ渡す
 		model.addAttribute("user", form);
-		return "user/update";
+	    return "user/userUpdate";
 
 	}
 	//例外ハンドラー

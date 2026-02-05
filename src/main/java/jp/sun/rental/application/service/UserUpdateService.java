@@ -89,18 +89,38 @@ public class UserUpdateService {
 		
 		return userUpdateEntity;
     }
-	
-	@Transactional( rollbackFor = Exception.class)
-	public int userUpdate( String username) {
-		
-		int resurtRow = 0;
-		try {
-			// 値を取得し、ユーザー情報を更新する
-			resurtRow = userRepository.updateUser(userUpdateToEntity( username));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return resurtRow;
+	// 修正
+//	@Transactional( rollbackFor = Exception.class)
+//	public int userUpd( String username, UserUpdateForm userUpdateForm) {
+//		
+//		int resurtRow = 0;
+//		try {
+//			// 値を取得し、ユーザー情報を更新する
+//			resurtRow = userRepository.updateUser(userUpdateToEntity( username));
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+//		return resurtRow;
+//	}
+//	
+	@Transactional(rollbackFor = Exception.class)
+	public int userUpdate(String username, UserUpdateForm form) {
+
+	    if (username == null || username.isEmpty()) {
+	        throw new IllegalArgumentException("ユーザー名が指定されていません");
+	    }
+
+	    // Form → Entity（更新用）
+	    UserUpdateEntity entity = new UserUpdateEntity();
+	    entity.setUserName(username);
+	    entity.setEmail(form.getEmail());
+	    entity.setTell(form.getTell());
+	    entity.setPassword(form.getPassword());
+	    entity.setAddress(form.getAddress());
+	    entity.setPost(form.getPost());
+	    entity.setPlan(form.getPlan());
+
+	    return userRepository.updateUser(entity);
 	}
 }

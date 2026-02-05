@@ -132,46 +132,69 @@ public class UserRepository {
 		
 		return sb;
 	}
+	
 		// ユーザー情報更新====================================
-		
-		public int updateUser( UserUpdateEntity entity) throws Exception{
-			
-//			ユーザー名
-//			メールアドレス
-//			電話番号
-//			郵便番号
-//			住所
-//			プラン名
-			
-			StringBuilder sb = new StringBuilder();		
-			sb.append("UPDATE users AS u");
-			sb.append("JOIN member AS m ON u.user_id = m.user_id ");
-			sb.append("SET ");
-			sb.append("u.email = ?,");
-			sb.append("u.tell = ?,");
-			sb.append("m.post = ?,");
-			sb.append("m.address = ?,");
-			sb.append("m.plan = ?,");
-			sb.append("WHERE u.user_name = ?");
-			
-			
-			String sql = sb.toString();
-			
-			Object[] parameters = {
-					entity.getEmail(),
-					entity.getTell(),
-					entity.getPost(),
-					entity.getAddress(),
-					entity.getPlan(),
-					entity.getUserName()
-			};
-			
-			int numberOfRow = 0;
-			numberOfRow = jdbcTemplate.update(sql,parameters);
-			
-			return numberOfRow;
-		
+	public int updateUser(UserUpdateEntity entity) {
+
+	    String sql =
+	        "UPDATE users u " +
+	        "JOIN member m ON u.user_id = m.user_id " +
+	        "SET u.email = ?, " +
+	        "    u.tell = ?, " +
+	        "    m.post = ?, " +
+	        "    m.address = ?, " +
+	        "    m.plan = ? " +
+	        "WHERE u.user_name = ?";
+
+	    return jdbcTemplate.update(
+	        sql,
+	        entity.getEmail(),
+	        entity.getTell(),
+	        entity.getPost(),
+	        entity.getAddress(),
+	        entity.getPlan(),
+	        entity.getUserName()
+	    );
 	}
+	//要確認
+//		public int updateUser( UserUpdateEntity entity) throws Exception{
+//			
+////			ユーザー名
+////			メールアドレス
+////			電話番号
+////			郵便番号
+////			住所
+////			プラン名
+//			
+//			StringBuilder sb = new StringBuilder();		
+//			sb.append("UPDATE users AS u ");
+//			sb.append("JOIN member AS m ON u.user_id = m.user_id ");
+//			sb.append("SET ");
+//			sb.append("u.email = ?,");
+//			sb.append("u.tell = ?,");
+//			sb.append("m.post = ?,");
+//			sb.append("m.address = ?,");
+//			sb.append("m.plan = ? ");
+//			sb.append("WHERE u.user_name = ?");
+//			
+//			
+//			String sql = sb.toString();
+//			
+//			Object[] parameters = {
+//					entity.getEmail(),
+//					entity.getTell(),
+//					entity.getPost(),
+//					entity.getAddress(),
+//					entity.getPlan(),
+//					entity.getUserName()
+//			};
+//			
+//			int numberOfRow = 0;
+//			numberOfRow = jdbcTemplate.update(sql,parameters);
+//			
+//			return numberOfRow;
+//		
+//	}
 	
 	
 }
