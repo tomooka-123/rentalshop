@@ -135,14 +135,17 @@ public class UserRepository {
 	
 		// ユーザー情報更新====================================
 	public int updateUser(UserUpdateEntity entity) {
-
+		
 	    String sql =
 	        "UPDATE users u " +
 	        "JOIN member m ON u.user_id = m.user_id " +
 	        "SET u.email = ?, " +
 	        "    u.tell = ?, " +
-	        "    m.post = ?, " +
+//	        "    u.password = ?, " +
+	        "    m.name = ?, " +
 	        "    m.address = ?, " +
+	        "    m.post = ?, " +
+	        "    m.card = ?, " +
 	        "    m.plan = ? " +
 	        "WHERE u.user_name = ?";
 
@@ -150,8 +153,11 @@ public class UserRepository {
 	        sql,
 	        entity.getEmail(),
 	        entity.getTell(),
-	        entity.getPost(),
+//	        entity.getPassword(),
+	        entity.getName(),
 	        entity.getAddress(),
+	        entity.getPost(),
+	        entity.getCard(),
 	        entity.getPlan(),
 	        entity.getUserName()
 	    );

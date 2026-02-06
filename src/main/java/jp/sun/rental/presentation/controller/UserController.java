@@ -231,7 +231,8 @@ public class UserController {
 	@PostMapping(value = "/user/update/confirm")
 	public String userUpdate(
 		Authentication authentication,
-		@ModelAttribute UserUpdateForm form) {
+		@ModelAttribute UserUpdateForm form,
+		Model model) {
 	
 //		// ログイン中のユーザー名を取得
 		String userName = authentication.getName();
@@ -240,8 +241,8 @@ public class UserController {
 		// 戻り値は更新数(int)
 		userUpdateService.userUpdate(userName, form);
 		
-		// 確認画面へ 入力値をhtmlへ渡す
-//		model.addAttribute("userUpdateForm", form);
+		model.addAttribute("message", "情報の更新が完了しました");
+		
 	    return "user/success";
 
 	}

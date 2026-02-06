@@ -7,21 +7,27 @@ import lombok.Data;
 @Data
 public class UserUpdateForm implements Serializable {
 		
-	// user
-	private String user_id;
+	// userEntity
+	private int user_id;
 	
 	private String userName;
-	
+		
 	private String email;
 	
 	private String tell;
 	
 	private String password;
 	
-	// member
+	private String passwordRefel;
+	
+	// memberEntity
+	private String name;
+	
 	private String address;
 	
 	private String post;
+	
+	private String card;
 	
 	private String plan;
 	

@@ -24,6 +24,15 @@
 					</div>
 					
 					<div class="form-row">
+						<div class="title"><label for="name">氏名</label></div>
+						<div class="content">
+							<input th:field="*{name}" size="25" placeholder="santa">
+							<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="errors"></span>
+						</div>
+					</div>
+					
+					
+					<div class="form-row">
 						<div class="title"><label for="email">メールアドレス</label></div>
 						<div class="content">
 							<input th:field="*{email}" size="25" placeholder="123@co.jp">
@@ -36,20 +45,6 @@
 						<div class="content">
 							<input th:field="*{tell}" size="25" placeholder="000123123">
 							<span th:if="${#fields.hasErrors('tell')}" th:errors="*{tell}" class="errors"></span>
-						</div>
-					</div>
-					
-					<div class="form-row">
-						<div class="title"><label for="plan">プラン名</label></div>
-						<div class="content">
-							<label>
-								<input type="radio" th:field="*{plan}" value="BASIC">お試しプラン</label>
-							<label>
-								<input type="radio" th:field="*{plan}" value="BRONZE">Bronzeプラン</label>
-							<label>
-								<input type="radio" th:field="*{plan}" value="SILVER">Silverプラン</label>
-							<label>
-								<input type="radio" th:field="*{plan}" value="GOLD">Goldプラン</label>
 						</div>
 					</div>
 					
@@ -69,7 +64,27 @@
 						</div>
 					</div>
 					
+					<div class="form-row">
+						<div class="title"><label for="plan">プラン名</label></div>
+						<div class="content">
+							<label>
+								<input type="radio" th:field="*{plan}" value="BASIC">お試しプラン</label>
+							<label>
+								<input type="radio" th:field="*{plan}" value="BRONZE">Bronzeプラン</label>
+							<label>
+								<input type="radio" th:field="*{plan}" value="SILVER">Silverプラン</label>
+							<label>
+								<input type="radio" th:field="*{plan}" value="GOLD">Goldプラン</label>
+						</div>
+					</div>
 					
+					<div class="form-row">
+						<div class="title"><label for="card">クレジットカード</label></div>
+						<div class="content">
+							<input th:field="*{card}" size="50" placeholder="東京">
+							<span th:if="${#fields.hasErrors('card')}" th:errors="*{card}" class="errors"></span>
+						</div>
+					</div>
 					
 					<div class="form-row">
 						<input type="hidden" name = "userId" th:value="${userId}" >

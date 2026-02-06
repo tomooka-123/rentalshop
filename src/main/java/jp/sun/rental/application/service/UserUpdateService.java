@@ -49,9 +49,12 @@ public class UserUpdateService {
 		form.setEmail(user.getEmail());
 		form.setTell(user.getTell());
 		form.setPassword(user.getPassword());
+//		form.setPasswordRefel(user.getPassword());
 		form.setAddress(user.getMembers().getAddress());
 		form.setPost(user.getMembers().getPost());
+		form.setName(user.getMembers().getName());
 		form.setPlan(user.getMembers().getPlan());
+		form.setCard(user.getMembers().getCard());
 		
 		return form;
     } 
@@ -79,15 +82,17 @@ public class UserUpdateService {
 		
 		
 	//	Entityに詰め替え(rowMapperに移動予定)
-		UserUpdateEntity userUpdateEntity = new UserUpdateEntity();
-		userUpdateEntity.setEmail(user.getEmail());
-		userUpdateEntity.setTell(user.getTell());
-		userUpdateEntity.setPassword(user.getPassword());
-		userUpdateEntity.setAddress(user.getMembers().getAddress());
-		userUpdateEntity.setPost(user.getMembers().getPost());
-		userUpdateEntity.setPlan(user.getMembers().getPlan());
+		UserUpdateEntity entity = new UserUpdateEntity();
+		entity.setEmail(user.getEmail());
+		entity.setTell(user.getTell());
+//		entity.setPassword(user.getPassword());
+		entity.setAddress(user.getMembers().getAddress());
+		entity.setPost(user.getMembers().getPost());
+		entity.setPlan(user.getMembers().getPlan());
+		entity.setName(user.getMembers().getName());
+		entity.setCard(user.getMembers().getCard());
 		
-		return userUpdateEntity;
+		return entity;
     }
 	// 修正
 //	@Transactional( rollbackFor = Exception.class)
@@ -116,10 +121,12 @@ public class UserUpdateService {
 	    entity.setUserName(username);
 	    entity.setEmail(form.getEmail());
 	    entity.setTell(form.getTell());
-	    entity.setPassword(form.getPassword());
+//	    entity.setPassword(form.getPassword());
 	    entity.setAddress(form.getAddress());
 	    entity.setPost(form.getPost());
 	    entity.setPlan(form.getPlan());
+	    entity.setName(form.getName());
+	    entity.setCard(form.getCard());
 
 	    return userRepository.updateUser(entity);
 	}
