@@ -49,7 +49,7 @@ public class UserUpdateService {
 	
 	private UserEntity findUser(String username) {
 
-        if (username == null || username.isBlank()) {
+        if (username == null || username.isEmpty()) {
             throw new IllegalArgumentException("ユーザー名が指定されていません");
         }
 
