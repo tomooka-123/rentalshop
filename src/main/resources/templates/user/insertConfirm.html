@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>会員登録確認</title>
+	<link th:href="@{/css/management.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<div id="wrapper">
+		<header th:insert="~{header :: header_area}"></header>
+		<main>
+			<div id="form-area">
+				<form th:action="@{/user/insert/submit}" th:object="${userInsertForm}" method="post">
+					<div class="form-row">
+						<div class="title">ユーザー名</div>
+						<div class="content">
+							<span th:text="${userInsertForm.userName}"></span>
+						</div>
+					</div>
+					
+					<div class="form-row">
+						<div class="title">氏名</div>
+						<div class="content">
+							<span th:text="${userInsertForm.name}"></span>
+						</div>
+					</div>
+					
+					<div class="form-row">
+						<div class="title">メールアドレス</div>
+						<div class="content">
+							<span th:text="${userInsertForm.email}"></span>
+						</div>
+					</div>
+					
+					<div class="form-row">
+						<div class="title">電話番号</div>
+						<div class="content">
+							<span th:text="${userInsertForm.tell}"></span>
+						</div>
+					</div>
+					
+					<div class="form-row">
+						<div class="title">郵便番号</div>
+						<div class="content">
+							<span th:text="${userInsertForm.post}"></span>
+						</div>
+					</div>
+					
+					<div class="form-row">
+						<div class="title">住所</div>
+						<div class="content">
+							<span th:text="${userInsertForm.address}"></span>
+						</div>
+					</div>
+					
+					<div class="form-row">
+						<div class="title">会員プラン</div>
+						<div class="content">
+							<span th:text="${plan}"></span>
+						</div>
+					</div>
+					
+					<div class="form-row">
+						<div class="title">クレジットカード<br>番号</div>
+						<div class="content">
+							<span th:text="${card}"></span>
+						</div>
+					</div>
+					
+					<div class="form-row">
+						<div class="title">パスワード</div>
+						<div class="content">
+							<span th:text="${password}"></span>
+						</div>
+					</div>
+					
+					<div class="form-row">
+						<input type="submit" value="登録確定" class="btn">
+						<span th:text="${error}" class="errors"></span>
+					</div>
+				</form>
+			</div>
+		</main>
+<!--		<footer th:insert="~{footer :: footer_area}"></footer>-->
+	</div>
+</body>
+</html>

@@ -141,7 +141,7 @@ public class UserController {
 
 		model.addAttribute("userInsertForm", userInsertForm);
 		
-		return "user/review";
+		return "user/insertConfirm";
 	}
 	
 	//ユーザー情報をDBに登録し、ユーザー登録完了画面を表示する
