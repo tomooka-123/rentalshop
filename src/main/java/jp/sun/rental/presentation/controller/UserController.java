@@ -214,7 +214,7 @@ public class UserController {
 	@PostMapping("/user/update")
 	public String userUpdateConfirm(
 	        Authentication authentication,
-	        @Validated @ModelAttribute("userUpdateForm") UserUpdateForm form,
+	        @Validated(ValidGroupOrder.class) @ModelAttribute("userUpdateForm") UserUpdateForm form,
 	        BindingResult result,
 	        Model model) {
 
