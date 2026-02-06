@@ -245,7 +245,7 @@ public class UserController {
 		
 		model.addAttribute("message", "情報の更新が完了しました");
 		
-		// セッション破棄（超重要）
+		// セッション破棄
 		sessionStatus.setComplete();
 		
 	    return "user/success";

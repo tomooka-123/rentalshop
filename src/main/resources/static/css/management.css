@@ -102,6 +102,25 @@ input:focus {
     transform: translateY(1px);
 }
 
+.btn-area {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.back-btn {
+    background-color: #ccc;
+    color: #333;
+    text-decoration: none;
+    padding: 8px 20px;
+    border-radius: 4px;
+}
+
+.back-btn:hover {
+    background-color: #aaa;
+}
+
+
 /* ===== エラーメッセージ ===== */
 .errors {
     display: block;
