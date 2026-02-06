@@ -21,6 +21,10 @@ public class LoginUserDetails implements UserDetails {
 		this.userEntity = userEntity;
 	}
 	
+	public int getUserId() {
+		return userEntity.getUserId();
+	}
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO 自動生成されたメソッド・スタブ
