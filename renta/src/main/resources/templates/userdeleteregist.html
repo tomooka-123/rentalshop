@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<title>RENTAL SHOP</title>
+	</head>
+<body>
+	<div id="wrapper">
+		<header>
+			<h1>退会画面</h1>
+			<hr>
+		</header>
+		<main>
+			<div id="form-area">
+				<form th:action="@{/deactivate}" th:object="${userForm}" method="post">
+					<div class="form-row">
+						<label for="userId" class="disp-block">ユーザーID</label>
+						<input th:field="*{userId}" size="50">
+						<span th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}" class="errors"></span>
+					</div>
+					
+					<div class="form-row">
+						<input type="submit" value="退会する" class="btn">
+					</div>
+				</form>
+			</div>
+		</main>
+		<footer th:insert="~{footer :: footer_area}"></footer>
+	</div>
+</body>
+</html>

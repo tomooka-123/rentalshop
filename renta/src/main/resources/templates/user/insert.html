@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>会員登録フォーム</title>
+</head>
+<body>
+	<header th:insert="~{header :: header_area}"></header>
+	<main>
+		<form th:action="@{/user/insert}" th:object="${userInsertForm}" method="post">
+			<table>
+				<tr>
+					<th><label for="userName">ユーザー名</label></th>
+					<td>
+						<input th:field="*{userName}">
+						<span th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" class="errors"></span>
+					</td>
+				</tr>
+				<tr>
+					<th><label for="name">氏名</label></th>
+					<td>
+						<input th:field="*{name}">
+						<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="errors"></span>
+					</td>
+				</tr>
+				<tr>
+					<th><label for="email">メールアドレス</label></th>
+					<td>
+						<input th:field="*{email}">
+						<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="errors"></span>
+					</td>
+				</tr>
+				<tr>
+					<th><label for="tell">電話番号<br>(ハイフン無し)</label></th>
+					<td>
+						<input th:field="*{tell}">
+						<span th:if="${#fields.hasErrors('tell')}" th:errors="*{tell}" class="errors"></span>
+					</td>
+				</tr>
+				<tr>
+					<th><label for="post">郵便番号<br>(ハイフン無し)</label></th>
+					<td>
+						<input th:field="*{post}">
+						<span th:if="${#fields.hasErrors('post')}" th:errors="*{post}" class="errors"></span>
+					</td>
+				</tr>
+				<tr>
+					<th><label for="address">住所</label></th>
+					<td>
+						<input th:field="*{address}">
+						<span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="errors"></span>
+					</td>
+				</tr>
+				<tr>
+					<th>会員プラン</th>
+					<td>
+						<label><input type="radio" th:field="*{plan}" value="BASIC">お試しプラン</label><br>
+						<label><input type="radio" th:field="*{plan}" value="BRONZE">Bronzeプラン</label><br>
+						<label><input type="radio" th:field="*{plan}" value="SILVER">Silverプラン</label><br>
+						<label><input type="radio" th:field="*{plan}" value="GOLD">Goldプラン</label>
+						<span th:if="${#fields.hasErrors('plan')}" th:errors="*{plan}" class="errors"></span>
+					</td>
+				</tr>
+				<tr>
+					<th><label for="card">クレジットカード番号</label></th>
+					<td>
+						<input th:field="*{card}">
+						<span th:if="${#fields.hasErrors('card')}" th:errors="*{card}" class="errors"></span>
+					</td>
+				</tr>
+				<tr>
+					<th><label for="password">パスワード</label></th>
+					<td>
+						<input type="password" th:field="*{password}">
+						<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="errors"></span>
+					</td>
+				</tr>
+				<tr>
+					<th><label for="confirmPassword">パスワード<br>(確認用)</label></th>
+					<td>
+						<input type="password" th:field="*{confirmPassword}">
+						<span th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="errors"></span>
+						<span th:if="${#fields.hasErrors('passwordValid')}" th:errors="*{passwordValid}" class="errors"></span>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="submit" value="登録確認" class="btn">
+						<span th:text="${error}" class="errors"></span>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</main>
+	
+	
+	
+</body>
+</html>
