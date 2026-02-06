@@ -3,6 +3,7 @@ package jp.sun.rental.presentation.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,29 +13,34 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import jp.sun.rental.application.service.UserInsertService;
 import jp.sun.rental.application.service.UserSearchService;
+import jp.sun.rental.application.service.UserUpdateService;
 import jp.sun.rental.common.validator.groups.ValidGroupOrder;
 import jp.sun.rental.presentation.form.ItemForm;
 import jp.sun.rental.presentation.form.MemberForm;
 import jp.sun.rental.presentation.form.UserForm;
 import jp.sun.rental.presentation.form.UserInsertForm;
+import jp.sun.rental.presentation.form.UserUpdateForm;
 
 @Controller
-@SessionAttributes("userInsertForm")
+@SessionAttributes( {"userInsertForm", "userUpdateForm"})
 public class UserController {
 	
 	//フィールド
 	private UserInsertService userInsertService;
 	private UserSearchService userSearchService;
+	private UserUpdateService userUpdateService;
 
 	//コンストラクター
-	public UserController(UserInsertService userInsertService, UserSearchService userSearchService) {
+	public UserController(UserInsertService userInsertService, UserSearchService userSearchService, UserUpdateService userUpdateService) {
 		this.userInsertService = userInsertService;
 		this.userSearchService = userSearchService;
+		this.userUpdateService = userUpdateService;
 	}
 	
 	//TOP画面を表示する
@@ -187,7 +193,64 @@ public class UserController {
 		return "userSearch";
 	}
 	
+	// ユーザー更新入力用
+	@GetMapping(value = "/user/update")
+	public String userUpdate( 
+			Authentication authentication,
+			Model model) {
+		
+		UserUpdateForm userUpdateForm = new UserUpdateForm();
+		
+		// ログイン中のユーザー名を取得
+		String userName = authentication.getName();
+		
+		userUpdateForm = userUpdateService.userUpdateToForm(userName);
+        // 画面に渡す
+        model.addAttribute("userUpdateForm", userUpdateForm);
+	    return "user/update";
+	}
 	
+	// ユーザー情報更新確認用
+	@PostMapping("/user/update")
+	public String userUpdateConfirm(
+	        Authentication authentication,
+	        @Validated(ValidGroupOrder.class) @ModelAttribute("userUpdateForm") UserUpdateForm form,
+	        BindingResult result,
+	        Model model) {
+
+	    // バリデーションエラー
+	    if (result.hasErrors()) {
+	        return "user/update";
+	    }
+
+	    // 確認画面に表示するだけ
+	    model.addAttribute("userUpdateForm", form);
+	    return "user/updateConfirm";
+	}
+
+	// ユーザー情報更新確認用
+	@PostMapping(value = "/user/update/confirm")
+	public String userUpdate(
+		Authentication authentication,
+		@SessionAttribute("userUpdateForm") UserUpdateForm form,
+		SessionStatus sessionStatus,
+		Model model) {
+	
+//		// ログイン中のユーザー名を取得
+		String userName = authentication.getName();
+	
+		// UserUpdateEntityに値をセットし、更新する
+		// 戻り値は更新数(int)
+		userUpdateService.userUpdate(userName, form);
+		
+		model.addAttribute("message", "情報の更新が完了しました");
+		
+		// セッション破棄
+		sessionStatus.setComplete();
+		
+	    return "user/success";
+
+	}
 	//例外ハンドラー
 	@ExceptionHandler(Exception.class)
 	public String handlerException(Exception e, Model model) {

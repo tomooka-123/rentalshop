@@ -19,6 +19,9 @@ public class UserInsertForm implements Serializable {
 	
 	private String userId;
 	
+	//private String authority;
+	
+	//private MemberEntity members;
 	@NotEmpty(message = "ユーザー名は必須入力です", groups = ValidGroup1.class)
 	@Pattern(regexp = "^[a-zA-Z0-9_.-]{5,20}$", message = "ユーザー名は5〜20文字の半角英数字のみ使用できます", groups = ValidGroup2.class)
 	@UniqueUserName(message = "このユーザー名は既に登録されています", groups = ValidGroup3.class)
@@ -73,6 +76,4 @@ public class UserInsertForm implements Serializable {
 		}
 		return password.equals(confirmPassword);
 	}
-
-
 }

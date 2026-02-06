@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import jp.sun.rental.domain.entity.MemberEntity;
 import jp.sun.rental.domain.entity.UserEntity;
+import jp.sun.rental.domain.entity.UserUpdateEntity;
 import jp.sun.rental.infrastructure.mapper.UserRowMapper;
 
 @Repository
@@ -132,5 +133,33 @@ public class UserRepository {
 		return sb;
 	}
 	
-	
+		// ユーザー情報更新====================================
+	public int updateUser(UserUpdateEntity entity) {
+		
+	    String sql =
+	        "UPDATE users u " +
+	        "JOIN member m ON u.user_id = m.user_id " +
+	        "SET u.email = ?, " +
+	        "    u.tell = ?, " +
+//	        "    u.password = ?, " +
+	        "    m.name = ?, " +
+	        "    m.address = ?, " +
+	        "    m.post = ?, " +
+	        "    m.card = ?, " +
+	        "    m.plan = ? " +
+	        "WHERE u.user_name = ?";
+
+	    return jdbcTemplate.update(
+	        sql,
+	        entity.getEmail(),
+	        entity.getTell(),
+//	        entity.getPassword(),
+	        entity.getName(),
+	        entity.getAddress(),
+	        entity.getPost(),
+	        entity.getCard(),
+	        entity.getPlan(),
+	        entity.getUserName()
+	    );
+	}	
 }
