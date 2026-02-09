@@ -19,7 +19,7 @@
 						<table>
 							<tr>
 								<th>商品名</th>
-								<!--<th>カテゴリ名</th>-->
+								<!--<th>カテゴリ名</th>--><!--カテゴリIDでカテゴリ名を取得する必要がある-->
 								<th>商品画像</th>
 								<!--<th>商品情報更新日</th>-->
 								<th>アーティスト名</th>
@@ -29,7 +29,7 @@
 							<td:block th:each="item : ${itemFormList}">
 								<tr>
 									<td th:text="${item.itemName }" class="itemName"></td>
-									<!--<td th:text="${item.genreId }" class="genreId"></td>--><!--カテゴリIDでカテゴリ名を取得する必要がある-->
+									<!--<td th:text="${item.genreId }" class="genreId"></td>-->
 									<td th:text="${item.itemImg }" class="itemImg"></td>
 									<!--<td th:text="${#dates.format(#strings.replace(item.itemUpdate, '-', '/'), 'yyyy年MM月dd日') }" class="itemUpdate"></td>-->
 									<td th:text="${item.artist }" class="artist"></td>
