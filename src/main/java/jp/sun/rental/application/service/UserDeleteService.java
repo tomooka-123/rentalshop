@@ -31,6 +31,7 @@ public class UserDeleteService {
 		// ユーザー存在チェック（未退会）
         UserEntity user = findUser(userName);
  
+        // 退会フラグをTrueにする
         int result =
             userDeleteRepository.deleteByUserId(user.getUserId());
 

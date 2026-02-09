@@ -1,18 +1,17 @@
 package jp.sun.rental.presentation.controller;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.support.SessionStatus;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jp.sun.rental.application.service.UserDeleteService;
 import jp.sun.rental.application.service.UserUpdateService;
-import jp.sun.rental.common.validator.groups.ValidGroupOrder;
 import jp.sun.rental.presentation.form.UserForm;
 import jp.sun.rental.presentation.form.UserUpdateForm;
 
@@ -39,31 +38,28 @@ public class UserDeleteController {
 
 		// 退会処理実行
 		@PostMapping("/deactivate")
-		public String deactivate(Authentication authentication,@Validated(ValidGroupOrder.class) @ModelAttribute("activate") UserForm form,BindingResult result,SessionStatus sessionStatus,Model model) {
+		public String deactivate(Authentication authentication,				
+				Model model,
+				HttpServletRequest request,
+		        HttpServletResponse response) {
 
 			String userName = authentication.getName();
-			
-			// (Long) request.getSession().getAttribute("userId");
 
 			try {
+				// 論理削除(退会フラグをTrue
 				userDeleteService.deactivateUser(userName);
 			} catch (IllegalArgumentException ex) {
 				model.addAttribute("errors", ex.getMessage());
 				return "userdeleteconfirm";
 			}
-
+			
+			// 強制ログアウト
+			new SecurityContextLogoutHandler()
+							.logout(request, response, authentication);
 			// セッション破棄
-		    sessionStatus.setComplete();
+//		    sessionStatus.setComplete();
 		    model.addAttribute("message", "退会が完了しました");
 		    return "user/success";
 		    
-			// return "userdeleteconfirm";
-		}
-
-		// 退会完了画面
-		@GetMapping("/deactivate/complete")
-		public String deactivateComplete(Model model) {
-			model.addAttribute("headline", "退会完了");
-			return "userdeleteconfirm";
 		}
 }
