@@ -44,4 +44,23 @@ public class ItemController {
 		
 		return "item/search";
 	}
+	
+	
+	
+/*	//商品をレンタル希望に追加する
+	@PostMapping(value = "/cart/insert")
+	public String addCart(@ModelAttribute CartForm cartForm, Model model) {
+		
+		int numberOfRow = cartInsertService.addCart(cartForm);
+		if(numberOfRow == 0) {
+			model.addAttribute("error","レンタル希望の登録に失敗しました。");
+			return "error/error";
+		}else {
+			model.addAttribute("message", "レンタル希望に追加しました。");
+		}
+		return "item/search";
+	}
+	//そもそもフォームはcartFormなのか
+	*/
+	
 }
