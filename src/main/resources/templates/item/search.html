@@ -29,7 +29,7 @@
 				
 				<div id="result-area">
 					<div th:if="!${#lists.isEmpty(itemFormList)}">
-						<form th:action="@{/cart/insert}" th:object="${*****}" method="post">
+						<form th:action="@{/cart/insert}" th:object="${cartForm}" method="post">
 							<table>
 								<tr>
 									<th>商品ID</th>
@@ -63,8 +63,31 @@
 					</div>
 				</div>
 			</div>
+			
+			<!--ログインしていない人にのみ表示-->
+			<!--sec:authorize="isAnonymous"が未ログインの時に表示させる-->
+			<div sec:authorize="isAnonymous()">
+				<form th:action="@{/login}" method="get">
+					<div>
+						<input type="submit" value="ログイン" class="btn">
+					</div>	
+				</form>
+			</div>
+			
+			<!--ログインしている人にのみ表示-->
+			<!--sec:authorize="isAuthenicated()"がログインしている時に表示させる-->
+			<div sec:authorize="isAuthenticated()">
+				<!--ログイン情報表示＆ログアウトボタン-->
+				<form th:action="@{/logout}" method="post">
+					<div>
+						<span sec:authentication="name"></span>さんログイン中
+						<input type="submit" value="ログアウト" class="btn">
+					</div>	
+				</form>
+			</div>
+			
 		</main>
 		<footer th:insert="~{footer :: footer_area}"></footer>
 	</div>
 </body>
-</html>
+</html>	
