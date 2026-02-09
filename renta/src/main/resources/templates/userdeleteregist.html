@@ -11,21 +11,17 @@
 			<hr>
 		</header>
 		<main>
-			<div id="form-area">
-				<form th:action="@{/deactivate}" th:object="${userForm}" method="post">
-					<div class="form-row">
-						<label for="userId" class="disp-block">ユーザーID</label>
-						<input th:field="*{userId}" size="50">
-						<span th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}" class="errors"></span>
-					</div>
-					
+			<form th:action="@{/deactivate}" object="${userUpdateToForm}" method="post">
+				<div id="form-area">
+					<div class="form-row">本当に退会しますか？</div>
+				
 					<div class="form-row">
 						<input type="submit" value="退会する" class="btn">
 					</div>
-				</form>
-			</div>
+				</div>
+			</form>
 		</main>
-		<footer th:insert="~{footer :: footer_area}"></footer>
+		<footer></footer>
 	</div>
 </body>
 </html>

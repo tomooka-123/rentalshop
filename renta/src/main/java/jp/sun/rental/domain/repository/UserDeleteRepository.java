@@ -12,14 +12,27 @@ public class UserDeleteRepository {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
-	public int deleteByUserId(Long userId) {
+	public int deleteByUserId(int userId) {
 		
-		StringBuilder sb = new StringBuilder();
-		sb.append("DELETE");
-		sb.append(" FROM users");
-		sb.append(" WHERE user_id = ?");
-		String sql = sb.toString();
+		StringBuilder sb1 = new StringBuilder();
+		sb1.append("DELETE FROM member WHERE user_id = ?");
+		String sql1 = sb1.toString();
+		int resultMember = jdbcTemplate.update(sql1, userId);
 		
-		return jdbcTemplate.update(sql, userId);
+		StringBuilder sb2 = new StringBuilder();
+		sb2.append("DELETE FROM users WHERE user_id = ?");
+		String sql2 = sb2.toString();
+		int resultUser = jdbcTemplate.update(sql2, userId);
+		
+		return resultMember + resultUser;
     }
+	
+	public int findUserIdByUserName(String userName){
+		StringBuilder sb3 = new StringBuilder();
+		sb3.append("SELECT user_id FROM users WHERE user_name = ?");
+		String sql3 = sb3.toString();
+		int resultNumber = jdbcTemplate.update(sql3,Integer.class,userName);
+		
+		return resultNumber;
+	}
 }
