@@ -7,7 +7,7 @@ public class CartItemEntity {
 
 	private int cartItemId;
 	
-	private int cartId;
-	
 	private int itemId;
+	
+	CartEntity cartEntity;
 }

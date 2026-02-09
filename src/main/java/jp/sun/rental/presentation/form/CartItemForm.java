@@ -10,8 +10,7 @@ public class CartItemForm implements Serializable {
 
 	private String cartItemId;
 	
-	private String cartId;
-	
 	private String itemId;
 	
+	private CartForm cartForm;
 }

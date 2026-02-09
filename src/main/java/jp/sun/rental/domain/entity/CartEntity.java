@@ -1,5 +1,7 @@
 package jp.sun.rental.domain.entity;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -9,5 +11,5 @@ public class CartEntity {
 	
 	private int userId;
 	
-	private CartItemEntity cartItems;
+	private List<CartItemEntity> cartItems;
 }
