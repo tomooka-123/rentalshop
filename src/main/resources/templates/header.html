@@ -2,13 +2,17 @@
 <html xmls:th="http://www.tymeleaf.org" lang="ja">
 <head>
 <meta charset="UTF-8">
+<link th:href="@{/css/management.css}" rel="stylesheet" type="text/css">
 <title></title>
 </head>
 <body>
 	<div th:fragment="header_area" th:remove="tag">
 		<h1>
-			<span>テスト用</span>
+			<a href="/top">
+				<span>Music Life Agency</span>
+			</a>
 		</h1>
+		<hr>
 	</div>
 </body>
 </html>
