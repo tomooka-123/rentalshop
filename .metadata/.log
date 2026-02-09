@@ -2220,3 +2220,6 @@ java.lang.NullPointerException: Cannot invoke "java.util.LinkedHashMap.remove(Ob
 	at org.eclipse.debug.core.DebugPlugin$EventNotifier.dispatch(DebugPlugin.java:1299)
 	at org.eclipse.debug.core.DebugPlugin$EventDispatchJob.run(DebugPlugin.java:498)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.egit.ui 4 0 2026-02-09 11:36:07.655
+!MESSAGE どのリポジトリーにも接続できません: 
