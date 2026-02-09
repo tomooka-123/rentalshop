@@ -9,5 +9,6 @@ public class CartItemEntity {
 	
 	private int itemId;
 	
-	CartEntity cartEntity;
+	//商品情報を出力するためのエンティティ
+	private ItemEntity itemEntity;
 }

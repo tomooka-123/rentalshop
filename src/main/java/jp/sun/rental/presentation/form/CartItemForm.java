@@ -12,5 +12,5 @@ public class CartItemForm implements Serializable {
 	
 	private String itemId;
 	
-	private CartForm cartForm;
+	private ItemForm itemForm;
 }

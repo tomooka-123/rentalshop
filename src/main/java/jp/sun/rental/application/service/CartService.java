@@ -1,49 +1,56 @@
 package jp.sun.rental.application.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import jp.sun.rental.domain.entity.CartEntity;
 import jp.sun.rental.domain.entity.CartItemEntity;
 import jp.sun.rental.domain.repository.CartRepository;
+import jp.sun.rental.domain.repository.UserRepository;
 import jp.sun.rental.presentation.form.CartForm;
-import jp.sun.rental.presentation.form.CartItemForm;
 
 @Service
 public class CartService {
 
 	private CartRepository cartRepository;
+	private UserRepository userRepository;
 	private ModelMapper modelMapper;
 	
-	public CartService(CartRepository cartRepository, ModelMapper modelMapper) {
+	public CartService(CartRepository cartRepository, UserRepository userRepository, ModelMapper modelMapper) {
 		this.cartRepository = cartRepository;
+		this.userRepository = userRepository;
 		this.modelMapper = modelMapper;
 	}
 	
-	public CartForm getCartByUserId(String userId) throws Exception{
+	//ユーザ名からそのユーザが所持しているカートの情報を取得
+	public CartForm getCartByUserName(String username) throws Exception{
 		
 		List<CartItemEntity> itemEntityList = null;
-		List<CartItemForm> itemFormList = null;
-		CartForm form = null;
+		CartEntity cartEntity = new CartEntity();
+		CartForm cartForm = null;
 		
-		itemEntityList = cartRepository.getCartItemsListByUserId(userId);
-		itemFormList = convert(itemEntityList);
+		int userId = userRepository.getUserIdByUserName(username);
 		
-		form.setCartId(itemFormList.);
+		cartEntity = cartRepository.getCartItemsListByUserId(userId);
+		
+		cartEntity.setUserId(userId);
+		cartEntity.setCartItems(itemEntityList);
+		
+		convert(cartEntity);
+		
+		return cartForm;
 		
 	}
 	
-	private List<CartItemForm> convert(List<CartItemEntity> entityList){
+	//エンティティをフォームに変換
+	private CartForm convert(CartEntity entity){
 		
-		List<CartItemForm> formList = new ArrayList<CartItemForm>();
+		CartForm form = new CartForm();
 		
-		for(CartItemEntity entity : entityList) {
-			CartItemForm form = modelMapper.map(entity, CartItemForm.class);
-			formList.add(form);
-		}
+		form = modelMapper.map(entity, CartForm.class);
 		
-		return formList;
+		return form;
 	}
 }
