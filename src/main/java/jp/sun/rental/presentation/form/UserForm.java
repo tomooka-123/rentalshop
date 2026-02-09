@@ -20,5 +20,5 @@ public class UserForm implements Serializable {
 	private String authority;
 	
 	private MemberForm members;
-	
+
 }

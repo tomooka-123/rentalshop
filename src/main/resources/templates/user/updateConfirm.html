@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<title>ユーザー更新</title>
+		<link th:href="@{/css/management.css}" rel="stylesheet" type="text/css">
+	</head>
+<body>
+	<div id="wrapper">
+		<header th:insert="~{header :: header_area}"></header>
+		<main>
+			<div id="form-area">
+				<form th:action="@{/user/update/confirm}" th:object="${userUpdateForm}" method="post">
+					<div class="form-row">
+						<div class="title">ユーザー名</div>
+						<div class="content">
+							<span th:text="${userUpdateForm.userName}"></span>
+						</div>
+					</div>
+					
+					<div class="form-row">
+						<div class="title">氏名</div>
+						<div class="content">
+							<span th:text="${userUpdateForm.name}"></span>
+						</div>
+					</div>
+					
+					<div class="form-row">
+						<div class="title">メールアドレス</div>
+						<div class="content">
+							<span th:text="${userUpdateForm.email}"></span>
+						</div>
+					</div>
+					
+					<div class="form-row">
+						<div class="title">電話番号</div>
+						<div class="content">
+							<span th:text="${userUpdateForm.tell}"></span>
+						</div>
+					</div>
+					
+					<div class="form-row">
+						<div class="title">郵便番号</div>
+						<div class="content">
+							<span th:text="${userUpdateForm.post}"></span>
+						</div>
+					</div>
+					
+					<div class="form-row">
+						<div class="title">住所</div>
+						<div class="content">
+							<span th:text="${userUpdateForm.address}"></span>
+						</div>
+					</div>
+					
+					<div class="form-row">
+						<div class="title">プラン名</div>
+						<div class="content">
+							<span th:text="${userUpdateForm.plan}"></span>
+						</div>
+					</div>
+					
+					<div class="form-row">
+						<div class="title">クレジットカード</div>
+						<div class="content">
+							<span th:text="${userUpdateForm.card}"></span>
+						</div>
+					</div>
+					
+					<div class="form-row">
+						<input type="submit" value="更新する" class="btn">
+						<a th:href="@{/user/update}" class="btn back-btn">戻る</a>
+					</div>
+				</form>
+			</div>
+		</main>
+		<footer th:insert="~{footer :: footer_area}"></footer>
+	</div>
+</body>
+</html>

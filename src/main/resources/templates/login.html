@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ja">
 <head>
 <meta charset="UTF-8">
+<link th:href="@{/css/management.css}" rel="stylesheet" type="text/css">
 <title>ログイン</title>
 </head>
 <body>
@@ -34,5 +35,6 @@
 			</div>
 		</div>
 	</main>
+	<footer th:insert="~{footer :: footer_area}"></footer>
 </body>
 </html>

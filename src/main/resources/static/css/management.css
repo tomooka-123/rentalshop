@@ -1,0 +1,160 @@
+/* ===== 全体 ===== */
+body {
+    margin: 0;
+    font-family: "Segoe UI", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+    background-color: #f5f6f8;
+    color: #333;
+}
+
+#wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* ===== テーブル ===== */
+table {
+	width: 810px;
+    border-collapse: collapse;
+    margin: 16px auto;
+}
+
+th, td {
+    border: 1px solid #ffffff;
+    padding: 4px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+th {
+	background-color: #bbddff;
+}
+
+td {
+	background-color: #f0f5ff;
+}
+
+/* ===== フォームエリア ===== */
+#form-area {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 30px 40px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* ===== 各行 ===== */
+.form-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.form-row:last-child {
+    margin-top: 30px;
+}
+
+/* ===== 左ラベル ===== */
+.form-row .title {
+    width: 160px;
+    font-weight: 600;
+    color: #555;
+}
+
+/* ===== 入力エリア ===== */
+.form-row .content {
+    flex: 1;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+input[type="number"],
+input[type="radio"],
+input {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+input[type="number"] {
+    width: 100%;
+    max-width: 400px;
+}
+
+/* フォーカス時 */
+input:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.15);
+}
+
+/* ===== ラジオボタン ===== */
+.form-row input[type="radio"] {
+    margin-right: 5px;
+}
+
+.form-row label {
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+/* ===== ボタン ===== */
+.btn {
+    background-color: #4a90e2;
+    color: #fff;
+    border: none;
+    padding: 10px 28px;
+    border-radius: 20px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn:hover {
+    background-color: #357abd;
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.btn-area {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.back-btn {
+    background-color: #ccc;
+    color: #333;
+    text-decoration: none;
+    padding: 8px 20px;
+    border-radius: 4px;
+}
+
+.back-btn:hover {
+    background-color: #aaa;
+}
+
+
+/* ===== エラーメッセージ ===== */
+.errors {
+    display: block;
+    margin-top: 5px;
+    font-size: 13px;
+    color: #d93025;
+}
+
+/* ===== フッター ===== */
+footer {
+    text-align: center;
+    margin-top: 40px;
+    color: #888;
+    font-size: 13px;
+}
