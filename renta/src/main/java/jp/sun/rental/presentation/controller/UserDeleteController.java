@@ -42,14 +42,8 @@ public class UserDeleteController {
 		public String deactivate(Authentication authentication,@Validated(ValidGroupOrder.class) @ModelAttribute("activate") UserForm form,BindingResult result,SessionStatus sessionStatus,Model model) {
 
 			String userName = authentication.getName();
-			userDeleteService.deactivateUser(userName);
 			
 			// (Long) request.getSession().getAttribute("userId");
-
-			// セッション破棄
-		    sessionStatus.setComplete();
-
-		    model.addAttribute("message", "退会が完了しました");
 
 			try {
 				userDeleteService.deactivateUser(userName);
@@ -58,7 +52,11 @@ public class UserDeleteController {
 				return "userdeleteconfirm";
 			}
 
+			// セッション破棄
+		    sessionStatus.setComplete();
+		    model.addAttribute("message", "退会が完了しました");
 		    return "user/success";
+		    
 			// return "userdeleteconfirm";
 		}
 

@@ -28,8 +28,11 @@ public class UserDeleteService {
 	public void deactivateUser(String userName) {
 
 		findUser(userName);
-		int find = userDeleteRepository.findUserIdByUserName(userName);
-		int result = userDeleteRepository.deleteByUserId(find);
+		// ユーザー存在チェック（未退会）
+        UserEntity user = findUser(userName);
+ 
+        int result =
+            userDeleteRepository.deleteByUserId(user.getUserId());
 
 		if (result == 0) {
 			throw new IllegalArgumentException("ユーザーが存在しない、または既に退会済みです");
@@ -37,7 +40,25 @@ public class UserDeleteService {
 
 	}
 	
-	
+	private UserEntity findUser(String username) {
+
+        if (username == null || username.isEmpty()) {
+            throw new IllegalArgumentException("ユーザー名が指定されていません");
+        }
+        UserEntity user = null;
+		try {
+			user = userRepository.getOnlyUserByName(username);
+		} catch (Exception e) {
+			throw new UserNotFoundException("ユーザー取得中にエラーが発生しました: " + username);
+		}
+
+        if (user == null) {
+            throw new UserNotFoundException(username);
+        }
+        return user;
+	}
+}
+
 	/* public int deactivateUser(String username) {
 
         UserEntity user = findUser(username);
@@ -60,24 +81,4 @@ public class UserDeleteService {
         }
         return user;
     } */
-	
-	
-	
-	private UserEntity findUser(String username) {
 
-        if (username == null || username.isEmpty()) {
-            throw new IllegalArgumentException("ユーザー名が指定されていません");
-        }
-        UserEntity user = null;
-		try {
-			user = userRepository.getOnlyUserByName(username);
-		} catch (Exception e) {
-			throw new UserNotFoundException("ユーザー取得中にエラーが発生しました: " + username);
-		}
-
-        if (user == null) {
-            throw new UserNotFoundException(username);
-        }
-        return user;
-	}
-}

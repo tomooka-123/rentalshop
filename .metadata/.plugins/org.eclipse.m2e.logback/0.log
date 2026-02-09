@@ -584,3 +584,41 @@ java.security.InvalidKeyException: No keys found in identity C:\Users\KEN\.ssh\i
 2026-02-09 11:28:33,612 [Worker-37: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
 2026-02-09 11:28:33,623 [Worker-37: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 11 resources from src\main\resources to target\classes
 2026-02-09 11:28:33,630 [Worker-37: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\KEN\Desktop\rentalTr\renta\src\test\resources
+2026-02-09 11:47:40,225 [ModalContext] INFO  o.a.s.c.u.s.e.EdDSASecurityProviderRegistrar - getOrCreateProvider(EdDSA) created instance of net.i2p.crypto.eddsa.EdDSASecurityProvider
+2026-02-09 11:47:40,429 [ModalContext] INFO  o.a.s.c.i.DefaultIoServiceFactoryFactory - No detected/configured IoServiceFactoryFactory; using Nio2ServiceFactoryFactory
+2026-02-09 11:47:48,286 [sshd-JGitSshClient[13c33e9d]-nio2-thread-9] INFO  o.a.s.c.k.e.p.HostBoundPubkeyAuthentication - Server announced support for publickey-hostbound@openssh.com version 0
+2026-02-09 12:45:04,964 [sshd-JGitSshClient[1183a9d7]-nio2-thread-1] INFO  o.a.s.c.k.e.p.HostBoundPubkeyAuthentication - Server announced support for publickey-hostbound@openssh.com version 0
+2026-02-09 12:45:10,410 [sshd-JGitSshClient[169025cf]-nio2-thread-9] INFO  o.a.s.c.k.e.p.HostBoundPubkeyAuthentication - Server announced support for publickey-hostbound@openssh.com version 0
+2026-02-09 12:45:21,532 [sshd-JGitSshClient[681bad28]-nio2-thread-1] INFO  o.a.s.c.k.e.p.HostBoundPubkeyAuthentication - Server announced support for publickey-hostbound@openssh.com version 0
+2026-02-09 12:45:45,194 [sshd-JGitSshClient[30aa45ea]-nio2-thread-1] INFO  o.a.s.c.k.e.p.HostBoundPubkeyAuthentication - Server announced support for publickey-hostbound@openssh.com version 0
+2026-02-09 12:51:01,751 [sshd-JGitSshClient[2dca1b7c]-nio2-thread-9] INFO  o.a.s.c.k.e.p.HostBoundPubkeyAuthentication - Server announced support for publickey-hostbound@openssh.com version 0
+2026-02-09 13:27:39,568 [Worker-58: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2026-02-09 13:27:39,577 [Worker-58: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 11 resources from src\main\resources to target\classes
+2026-02-09 13:27:39,582 [Worker-58: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\KEN\Desktop\rentalTr\renta\src\test\resources
+2026-02-09 13:32:25,577 [Worker-59: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2026-02-09 13:32:25,584 [Worker-59: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 11 resources from src\main\resources to target\classes
+2026-02-09 13:32:25,590 [Worker-59: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\KEN\Desktop\rentalTr\renta\src\test\resources
+2026-02-09 13:48:50,709 [Worker-64: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2026-02-09 13:48:50,716 [Worker-64: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 11 resources from src\main\resources to target\classes
+2026-02-09 13:48:50,721 [Worker-64: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\KEN\Desktop\rentalTr\renta\src\test\resources
+2026-02-09 13:49:23,209 [Worker-66: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2026-02-09 13:49:23,217 [Worker-66: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 11 resources from src\main\resources to target\classes
+2026-02-09 13:49:23,221 [Worker-66: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\KEN\Desktop\rentalTr\renta\src\test\resources
+2026-02-09 13:54:03,979 [Worker-59: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2026-02-09 13:54:03,990 [Worker-59: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 11 resources from src\main\resources to target\classes
+2026-02-09 13:54:03,999 [Worker-59: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\KEN\Desktop\rentalTr\renta\src\test\resources
+2026-02-09 14:01:54,135 [Worker-59: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2026-02-09 14:01:54,138 [Worker-59: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 11 resources from src\main\resources to target\classes
+2026-02-09 14:01:54,142 [Worker-59: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\KEN\Desktop\rentalTr\renta\src\test\resources
+2026-02-09 14:05:46,297 [Worker-58: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2026-02-09 14:05:46,305 [Worker-58: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 11 resources from src\main\resources to target\classes
+2026-02-09 14:05:46,309 [Worker-58: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\KEN\Desktop\rentalTr\renta\src\test\resources
+2026-02-09 14:06:52,221 [Worker-59: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2026-02-09 14:06:52,224 [Worker-59: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 11 resources from src\main\resources to target\classes
+2026-02-09 14:06:52,229 [Worker-59: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\KEN\Desktop\rentalTr\renta\src\test\resources
+2026-02-09 14:07:15,372 [Worker-64: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2026-02-09 14:07:15,377 [Worker-64: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 11 resources from src\main\resources to target\classes
+2026-02-09 14:07:15,382 [Worker-64: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\KEN\Desktop\rentalTr\renta\src\test\resources
+2026-02-09 14:17:05,963 [Worker-58: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2026-02-09 14:17:05,972 [Worker-58: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 11 resources from src\main\resources to target\classes
+2026-02-09 14:17:05,976 [Worker-58: ビルド] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\KEN\Desktop\rentalTr\renta\src\test\resources

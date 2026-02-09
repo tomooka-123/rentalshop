@@ -18,4 +18,6 @@ public class UserEntity {
 	private String authority;
 	
 	private MemberEntity members;
+	
+	private boolean is_deleted;
 }
