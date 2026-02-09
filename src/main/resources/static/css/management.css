@@ -12,6 +12,29 @@ body {
     padding: 40px 20px;
 }
 
+/* ===== テーブル ===== */
+table {
+	width: 810px;
+    border-collapse: collapse;
+    margin: 16px auto;
+}
+
+th, td {
+    border: 1px solid #ffffff;
+    padding: 4px;
+	text-align: center;
+	vertical-align: middle;
+	width: 80px;
+}
+
+th {
+	background-color: #bbddff;
+}
+
+td {
+	background-color: #f0f5ff;
+}
+
 /* ===== フォームエリア ===== */
 #form-area {
     background-color: #fff;
