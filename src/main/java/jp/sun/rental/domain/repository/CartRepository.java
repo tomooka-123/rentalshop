@@ -23,8 +23,8 @@ public class CartRepository {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("SELECT");
-		sb.append(" c.cart_id, c.user_id");
-		sb.append(" ci.cart_item_id, ci.item_id, ci.cart_id");
+		sb.append(" c.cart_id, c.user_id,");
+		sb.append(" ci.cart_item_id, ci.item_id, ci.cart_id,");
 		sb.append(" i.item_id, i.item_name, i.genre_id, i.item_img, i.item_update, i.artist, i.director, i.item_point");
 		sb.append(" FROM cart c");
 		sb.append(" LEFT OUTER JOIN cart_item ci");

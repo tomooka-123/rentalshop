@@ -1,5 +1,6 @@
 package jp.sun.rental.application.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -10,6 +11,8 @@ import jp.sun.rental.domain.entity.CartItemEntity;
 import jp.sun.rental.domain.repository.CartRepository;
 import jp.sun.rental.domain.repository.UserRepository;
 import jp.sun.rental.presentation.form.CartForm;
+import jp.sun.rental.presentation.form.CartItemForm;
+import jp.sun.rental.presentation.form.ItemForm;
 
 @Service
 public class CartService {
@@ -27,7 +30,6 @@ public class CartService {
 	//ユーザ名からそのユーザが所持しているカートの情報を取得
 	public CartForm getCartByUserName(String username) throws Exception{
 		
-		List<CartItemEntity> itemEntityList = null;
 		CartEntity cartEntity = new CartEntity();
 		CartForm cartForm = null;
 		
@@ -35,10 +37,7 @@ public class CartService {
 		
 		cartEntity = cartRepository.getCartItemsListByUserId(userId);
 		
-		cartEntity.setUserId(userId);
-		cartEntity.setCartItems(itemEntityList);
-		
-		convert(cartEntity);
+		cartForm = convert(cartEntity);
 		
 		return cartForm;
 		
@@ -48,8 +47,18 @@ public class CartService {
 	private CartForm convert(CartEntity entity){
 		
 		CartForm form = new CartForm();
+		List<CartItemForm> cartItemForms =  new ArrayList<CartItemForm>();
 		
 		form = modelMapper.map(entity, CartForm.class);
+		
+		for (CartItemEntity cartItemEntity : entity.getCartItems()) {
+			CartItemForm cartItemForm = modelMapper.map(cartItemEntity, CartItemForm.class);
+			
+			//CartItemエンティティの中のItemエンティティをフォームに変換
+			cartItemForm.setItemForm(modelMapper.map(cartItemEntity.getItemEntity(), ItemForm.class));
+			cartItemForms.add(cartItemForm);
+		}
+		form.setCartItems(cartItemForms);
 		
 		return form;
 	}
