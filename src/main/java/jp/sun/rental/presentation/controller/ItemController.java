@@ -28,7 +28,7 @@ public class ItemController {
 		
 		model.addAttribute("itemForm", itemForm);
 		
-		return "itemSearch";
+		return "item/search";
 	}
 	
 	@PostMapping(value = "/search/item")
@@ -42,6 +42,6 @@ public class ItemController {
 			}
 		}
 		
-		return "itemSearch";
+		return "item/search";
 	}
 }
