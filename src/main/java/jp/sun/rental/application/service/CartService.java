@@ -28,7 +28,7 @@ public class CartService {
 	public CartForm getCartByUserName(String username) throws Exception{
 		
 		List<CartItemEntity> itemEntityList = null;
-		CartEntity cartEntity = new CartEntity();
+		CartEntity cartEntity = null;
 		CartForm cartForm = null;
 		
 		int userId = userRepository.getUserIdByUserName(username);
@@ -38,7 +38,7 @@ public class CartService {
 		cartEntity.setUserId(userId);
 		cartEntity.setCartItems(itemEntityList);
 		
-		convert(cartEntity);
+		cartForm = convert(cartEntity);
 		
 		return cartForm;
 		
