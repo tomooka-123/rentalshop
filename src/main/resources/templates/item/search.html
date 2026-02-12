@@ -28,21 +28,22 @@
 				</form>
 				
 				<div id="result-area">
+					<span th:text="${message}"></span>
 					<div th:if="!${#lists.isEmpty(itemFormList)}">
-						<form th:action="@{/cart/insert}" th:object="${cartForm}" method="post">
-							<table>
-								<tr>
-									<!--<th>商品ID</th>-->
-									<th>商品名</th>
-									<!--<th>カテゴリ名</th>-->
-									<th>商品画像</th>
-									<!--<th>商品情報更新日</th>-->
-									<th>アーティスト名</th>
-									<th>監督名</th>
-									<th>ポイント</th>
-									<th>レンタル希望</th>
-								</tr>
-								<td:block th:each="items : ${itemFormList}">
+						<table>
+							<tr>
+								<!--<th>商品ID</th>-->
+								<th>商品名</th>
+								<!--<th>カテゴリ名</th>-->
+								<th>商品画像</th>
+								<!--<th>商品情報更新日</th>-->
+								<th>アーティスト名</th>
+								<th>監督名</th>
+								<th>ポイント</th>
+								<th>レンタル希望</th>
+							</tr>
+							<td:block th:each="items : ${itemFormList}">
+								<form th:action="@{/cart/insert}" th:object="${cartItemForm}" method="post">
 									<tr>
 										<!--<td th:text="${items.itemId }" class="itemId"></td>-->
 										<td th:text="${items.itemName }" class="itemName"></td>
@@ -53,13 +54,14 @@
 										<td th:text="${items.director }" class="director"></td>
 										<td th:text="${items.itemPoint }" class="itemPoint"></td>
 										<td>
+											<input type="hidden" name="itemId" th:value="${items.itemId}">
 											<input type="submit" value="追加">
 											<span th:text="${error}" class="errors"></span>
 										</td>
 									</tr>
-								</td:block>
-							</table>
-						</form>
+								</form>
+							</td:block>
+						</table>
 					</div>
 				</div>
 			</div>

@@ -1,5 +1,6 @@
 package jp.sun.rental.domain.repository;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
@@ -40,4 +41,38 @@ public class CartRepository {
 		
 		return cartEntity;
 	}
+	
+	
+	
+	//ユーザーIDからカートIDを取得する
+	public int getCartId(int userId) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT cart_id FROM cart WHERE user_id = ?");
+		String sql = sb.toString();
+		int cartId;
+		
+		try {
+			cartId = jdbcTemplate.queryForObject(sql, int.class, userId);
+		} catch (EmptyResultDataAccessException e) {
+			// カートが無ければ作成
+			jdbcTemplate.update("INSERT INTO cart(user_id) VALUES(?)", userId);
+			cartId = jdbcTemplate.queryForObject(sql, int.class, userId);
+	    }
+		
+		return cartId;
+	}
+	
+	
+	//商品をcart_itemに追加
+	public int addCart(int itemId, int cartId) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("INSERT INTO cart_item (item_id, cart_id)");
+		sb.append(" VALUES (?, ?)");
+		String sql = sb.toString();
+		
+		int numberOfRow = jdbcTemplate.update(sql,itemId, cartId);
+		return numberOfRow;
+	}
+	
+	
 }
