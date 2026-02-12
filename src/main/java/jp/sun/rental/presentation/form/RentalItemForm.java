@@ -7,4 +7,13 @@ import lombok.Data;
 @Data
 public class RentalItemForm implements Serializable {
 
+	private String rentalItemId;
+	
+	private String rentalId;
+	
+	private String itemId;
+	
+	private String returnFlag;
+	
+	private ItemForm itemForm;
 }
