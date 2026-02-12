@@ -18,7 +18,7 @@ public class RentalResultSetExtractor implements ResultSetExtractor<List<RentalH
 	@Override
 	public List<RentalHistoryEntity> extractData(ResultSet rs)throws SQLException{
 		
-		List<RentalHistoryEntity> historiesList = new ArrayList<RentalHistoryEntity>();
+		List<RentalHistoryEntity> historyList = new ArrayList<RentalHistoryEntity>();
 		RentalHistoryEntity historyEntity = null;
 		int tmpRentalId = 0;
 		
@@ -26,7 +26,7 @@ public class RentalResultSetExtractor implements ResultSetExtractor<List<RentalH
 			if(tmpRentalId != rs.getInt("rental_id")) {
 				historyEntity = rentalHistoryRowMapper.mapRow(rs, 0);
 				historyEntity.setRentalItems(new ArrayList<RentalItemEntity>());
-				historiesList.add(historyEntity);
+				historyList.add(historyEntity);
 			}
 			
 			rs.getInt("rental_item_id");
@@ -36,6 +36,6 @@ public class RentalResultSetExtractor implements ResultSetExtractor<List<RentalH
 			}
 			tmpRentalId = rs.getInt("rental_id");
 		}
-		return historiesList;
+		return historyList;
 	}
 }

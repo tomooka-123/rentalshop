@@ -15,7 +15,7 @@ public class RentalItemRowMapper implements RowMapper<RentalItemEntity> {
 		RentalItemEntity rentalItem = new RentalItemEntity();
 		ItemEntity itemEntity = new ItemEntity();
 		
-		itemEntity.setItemId(rs.getInt("item_id"));
+		itemEntity.setItemId(rs.getInt("i_item_id"));
 		itemEntity.setItemName(rs.getString("item_name"));
 		itemEntity.setGenreId(rs.getInt("genre_id"));
 		itemEntity.setItemImg(rs.getString("item_img"));
@@ -26,7 +26,7 @@ public class RentalItemRowMapper implements RowMapper<RentalItemEntity> {
 		
 		rentalItem.setRentalItemId(rs.getInt("rental_item_id"));
 		rentalItem.setRentalId(rs.getInt("rental_id"));
-		rentalItem.setItemId(rs.getInt("item_id"));
+		rentalItem.setItemId(rs.getInt("ri_item_id"));
 		rentalItem.setReturnFlag(rs.getBoolean("return_flag"));
 		rentalItem.setItemEntity(itemEntity);
 		

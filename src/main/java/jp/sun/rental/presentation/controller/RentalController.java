@@ -25,7 +25,7 @@ public class RentalController {
 		
 		List<RentalHistoryForm> historyFormList = rentalService.getHistoryListByUserName(principal.getName());
 		
-		model.addAttribute("historFormList", historyFormList);
+		model.addAttribute("historyFormList", historyFormList);
 		
 		return "history";
 	}
