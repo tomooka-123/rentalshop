@@ -19,4 +19,6 @@ public class UserEntity {
 	private String authority;
 	
 	private MemberEntity members;
+	
+	private Boolean isDeleted;
 }
