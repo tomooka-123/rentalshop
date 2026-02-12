@@ -44,6 +44,7 @@ public class RentalRepository {
 		return historyEntityList;
 	}
 	
+	//レンタル履歴登録
 	public int registRental(int userid)throws Exception{
 		StringBuilder sb = new StringBuilder();
 		sb.append("INSERT INTO rental (user_id, rental_date)");
@@ -57,6 +58,7 @@ public class RentalRepository {
 		return rowRental;
 	}
 	
+	//レンタル商品履歴登録
 	public int registRentalItems(int rentalId, CartItemEntity cartItemEntity)throws Exception{
 		StringBuilder sb = new StringBuilder();
 		

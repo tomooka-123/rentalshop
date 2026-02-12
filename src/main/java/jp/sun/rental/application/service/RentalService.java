@@ -52,7 +52,7 @@ public class RentalService {
 		return historyFormList;
 	}
 	
-	//カート情報から履歴に追加
+	//カート情報から履歴に追加、追加後カートの破棄
 	@Transactional(rollbackFor = Exception.class)
 	public int registHistory(String username)throws Exception{
 		int userId = userRepository.getUserIdByUserName(username);
