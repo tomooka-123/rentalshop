@@ -5,9 +5,13 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import jp.sun.rental.domain.entity.CartEntity;
+import jp.sun.rental.domain.entity.CartItemEntity;
 import jp.sun.rental.domain.entity.RentalHistoryEntity;
 import jp.sun.rental.domain.entity.RentalItemEntity;
+import jp.sun.rental.domain.repository.CartRepository;
 import jp.sun.rental.domain.repository.RentalRepository;
 import jp.sun.rental.domain.repository.UserRepository;
 import jp.sun.rental.presentation.form.ItemForm;
@@ -19,11 +23,14 @@ public class RentalService {
 
 	RentalRepository rentalRepository;
 	UserRepository userRepository;
+	CartRepository cartRepository;
 	ModelMapper modelMapper;
 	
-	public RentalService(RentalRepository rentalRepository, UserRepository userRepository, ModelMapper modelMapper) {
+	public RentalService(RentalRepository rentalRepository, UserRepository userRepository,
+			CartRepository cartRepository, ModelMapper modelMapper) {
 		this.rentalRepository = rentalRepository;
 		this.userRepository = userRepository;
+		this.cartRepository = cartRepository;
 		this.modelMapper = modelMapper;
 	}
 	
@@ -43,6 +50,31 @@ public class RentalService {
 	    }
 		
 		return historyFormList;
+	}
+	
+	//カート情報から履歴に追加
+	@Transactional(rollbackFor = Exception.class)
+	public int registHistory(String username)throws Exception{
+		int userId = userRepository.getUserIdByUserName(username);
+		
+		CartEntity cart = cartRepository.getCartItemsListByUserId(userId);
+		
+		if(cart == null || cart.getCartItems().isEmpty()) {
+			throw new Exception("カートが空です");
+		}
+		
+		int rowRental = 0;
+		int rentalId = 0;
+		
+		rowRental = rentalRepository.registRental(userId);
+		rentalId = rentalRepository.getLastInsertId();
+		
+		int rowItems = 0;
+		for(CartItemEntity items : cart.getCartItems()) {
+			rowItems += rentalRepository.registRentalItems(rentalId, items);
+		}
+		
+		return rowRental + rowItems;
 	}
 	
 	private RentalHistoryForm convert(RentalHistoryEntity historyEntity) {

@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
 
+import jp.sun.rental.domain.entity.CartItemEntity;
 import jp.sun.rental.domain.entity.RentalHistoryEntity;
 import jp.sun.rental.infrastructure.mapper.RentalResultSetExtractor;
 
@@ -41,5 +42,38 @@ public class RentalRepository {
 		List<RentalHistoryEntity> historyEntityList = jdbcTemplate.query(sql, historyExtractor, userid);
 		
 		return historyEntityList;
+	}
+	
+	public int registRental(int userid)throws Exception{
+		StringBuilder sb = new StringBuilder();
+		sb.append("INSERT INTO rental (user_id, rental_date)");
+		sb.append(" VALUES (?, NOW())");
+		String sql = sb.toString();
+		
+		int rowRental = 0;
+		
+		rowRental = jdbcTemplate.update(sql, userid);
+		
+		return rowRental;
+	}
+	
+	public int registRentalItems(int rentalId, CartItemEntity cartItemEntity)throws Exception{
+		StringBuilder sb = new StringBuilder();
+		
+		int rowItems = 0;
+		
+		sb = new StringBuilder();
+		sb.append("INSERT INTO rental_item (rental_id, item_id, return_flag");
+		sb.append(" VALUES (? ? 0)");
+		
+		String sql = sb.toString();
+		
+		rowItems = jdbcTemplate.update(sql, rentalId, cartItemEntity.getItemId());
+		
+		return rowItems;
+	}
+	
+	public int getLastInsertId()throws Exception{
+		return jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", int.class);
 	}
 }
