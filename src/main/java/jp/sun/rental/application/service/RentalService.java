@@ -28,18 +28,21 @@ public class RentalService {
 	}
 	
 	//ユーザー名からそのユーザーの履歴を取得
-	public RentalHistoryForm getHistoryByUserName(String username) throws Exception{
+	public List<RentalHistoryForm> getHistoryListByUserName(String username) throws Exception{
 		
-		RentalHistoryEntity historyEntity = new RentalHistoryEntity();
-		RentalHistoryForm historyForm = null;
+		List<RentalHistoryEntity> historyEntityList = new ArrayList<RentalHistoryEntity>();
+		List<RentalHistoryForm> historyFormList = new ArrayList<RentalHistoryForm>();
 		
 		int userId = userRepository.getUserIdByUserName(username);
 		
-		historyEntity = rentalRepository.getRentalHistoryByUserId(userId);
+		historyEntityList = rentalRepository.getRentalHistoryListByUserId(userId);
 		
-		historyForm = convert(historyEntity);
+		for (RentalHistoryEntity historyEntity : historyEntityList) {
+	        RentalHistoryForm historyForm = convert(historyEntity);
+	        historyFormList.add(historyForm);
+	    }
 		
-		return historyForm;
+		return historyFormList;
 	}
 	
 	private RentalHistoryForm convert(RentalHistoryEntity historyEntity) {

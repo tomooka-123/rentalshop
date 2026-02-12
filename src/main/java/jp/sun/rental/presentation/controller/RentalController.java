@@ -1,6 +1,7 @@
 package jp.sun.rental.presentation.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,9 +23,9 @@ public class RentalController {
 	@GetMapping(value = "/history")
 	public String toHistory(Model model, Principal principal) throws Exception{
 		
-		RentalHistoryForm historyForm = rentalService.getHistoryByUserName(principal.getName());
+		List<RentalHistoryForm> historyFormList = rentalService.getHistoryListByUserName(principal.getName());
 		
-		model.addAttribute("historyForm", historyForm);
+		model.addAttribute("historFormList", historyFormList);
 		
 		return "history";
 	}

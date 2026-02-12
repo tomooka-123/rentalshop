@@ -7,52 +7,35 @@ import java.util.List;
 
 import org.springframework.jdbc.core.ResultSetExtractor;
 
-import jp.sun.rental.domain.entity.ItemEntity;
 import jp.sun.rental.domain.entity.RentalHistoryEntity;
 import jp.sun.rental.domain.entity.RentalItemEntity;
 
-public class RentalResultSetExtractor implements ResultSetExtractor<RentalHistoryEntity> {
+public class RentalResultSetExtractor implements ResultSetExtractor<List<RentalHistoryEntity>> {
 
+	private RentalHistoryRowMapper rentalHistoryRowMapper = new RentalHistoryRowMapper();
+	private RentalItemRowMapper rentalItemRowMapper = new RentalItemRowMapper();
+	
 	@Override
-	public RentalHistoryEntity extractData(ResultSet rs)throws SQLException{
+	public List<RentalHistoryEntity> extractData(ResultSet rs)throws SQLException{
 		
+		List<RentalHistoryEntity> historiesList = new ArrayList<RentalHistoryEntity>();
 		RentalHistoryEntity historyEntity = null;
-		List<RentalItemEntity> rentalItems = new ArrayList<RentalItemEntity>();
+		int tmpRentalId = 0;
 		
 		while(rs.next()) {
-			if(historyEntity == null) {
-				historyEntity = new RentalHistoryEntity();
-				historyEntity.setRentalId(rs.getInt("rental_id"));
-				historyEntity.setUserId(rs.getInt("user_id"));
-				historyEntity.setRentalDate(rs.getDate("rentaled_date"));
+			if(tmpRentalId != rs.getInt("rental_id")) {
+				historyEntity = rentalHistoryRowMapper.mapRow(rs, 0);
+				historyEntity.setRentalItems(new ArrayList<RentalItemEntity>());
+				historiesList.add(historyEntity);
 			}
 			
 			rs.getInt("rental_item_id");
-			while(!rs.wasNull()) {
-				RentalItemEntity rentalItemEntity = new RentalItemEntity();
-				ItemEntity itemEntity = new ItemEntity();
-				
-				itemEntity.setItemId(rs.getInt("item_id"));
-				itemEntity.setItemName(rs.getString("item_name"));
-				itemEntity.setGenreId(rs.getInt("genre_id"));
-				itemEntity.setItemImg(rs.getString("item_img"));
-				itemEntity.setItemUpdate(rs.getDate("item_update"));
-				itemEntity.setArtist(rs.getString("artist"));
-				itemEntity.setDirector(rs.getString("director"));
-				itemEntity.setItemPoint(rs.getInt("item_point"));
-				
-				rentalItemEntity.setRetalItemId(rs.getInt("rental_item_id"));
-				rentalItemEntity.setRentalId(rs.getInt("rental_id"));
-				rentalItemEntity.setItemId(rs.getInt("item_id"));
-				rentalItemEntity.setReturnFlag(rs.getInt("return_flag"));
-				rentalItemEntity.setItemEntity(itemEntity);
-				
-				rentalItems.add(rentalItemEntity);
+			if(!rs.wasNull()) {
+				RentalItemEntity rentalItem = rentalItemRowMapper.mapRow(rs, 0);
+				historyEntity.getRentalItems().add(rentalItem);
 			}
+			tmpRentalId = rs.getInt("rental_id");
 		}
-		if(historyEntity != null) {
-			historyEntity.setRentalItems(rentalItems);
-		}
-		return historyEntity;
+		return historiesList;
 	}
 }

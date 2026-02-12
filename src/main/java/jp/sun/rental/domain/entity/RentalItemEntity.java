@@ -5,13 +5,13 @@ import lombok.Data;
 @Data
 public class RentalItemEntity {
 
-	private int retalItemId;
+	private int rentalItemId;
 	
 	private int rentalId;
 	
-	private int ItemId;
+	private int itemId;
 	
-	private int returnFlag;
+	private boolean returnFlag;
 	
 	private ItemEntity itemEntity;
 }
