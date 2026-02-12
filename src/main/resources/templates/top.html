@@ -26,6 +26,35 @@
 				<span th:text="${errors}" class="errors"></span>
 			</form>
 		</div>
+		<!-- 商品一覧表示 -->
+		<div>
+			<div class="product-list-container">
+
+		    <h1 class="page-title">商品一覧</h1>
+		
+		    <div class="product-list">
+		
+		        <div class="product-card" th:each="product : ${products}">
+		            
+		            <div class="product-img">
+		                <img th:src="@{|${product.itemImg}|}" 
+		                     th:alt="${product.itemName}">
+		            </div>
+		
+		            <div class="product-info">
+		                <p class="product-name" 
+		                   th:text="${product.itemName}">商品名</p>
+		
+		                <a th:href="@{'/products/' + ${product.itemId}}" 
+		                   class="btn">詳細を見る</a>
+		            </div>
+		
+		        </div>
+		
+		    </div>
+
+			
+		</div>
 		<!--ログインしていない人にのみ表示-->
 		<!--sec:authorize="isAnonymous"が未ログインの時に表示させる-->
 		<div class="links">
