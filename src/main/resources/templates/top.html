@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <link th:href="@{/css/management.css}" rel="stylesheet" type="text/css">
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 <title>Topページ</title>
 </head>
 <body>
@@ -49,11 +52,18 @@
 			                <p class="product-name" 
 			                   th:text="${product.director}">監督名</p>
 			
-			                <a th:href="@{'/products/' + ${product.itemId}}" 
-			                   class="btn">詳細を見る</a>
-			                   <!-- カートへ追加用のリンクあとから追加-->
-			                <a href="#" 
-			                   class="btn">カートに追加</a>
+							<div class="product-buttons">
+			                	<a th:href="@{'/products/' + ${product.itemId}}" 
+			                   		class="btn btn-detail">詳細を見る</a>
+								<!-- カートへ追加用のリンクあとから追加-->
+								<!--ログインしている人にのみ表示-->
+								<div sec:authorize="isAuthenticated()">
+								    <a href="#" class="btn btn-cart">
+								        <i class="fa-solid fa-cart-shopping"></i>
+								        カートに追加
+								    </a>
+								</div>
+							</div>
 			            </div>
 			        </div>
 			    </div>
@@ -77,11 +87,18 @@
 				                <p class="product-name" 
 				                   th:text="${product.director}">監督名</p>
 				
-				                <a th:href="@{'/products/' + ${product.itemId}}" 
-				                   class="btn">詳細を見る</a>
-				                   <!-- カートへ追加用のリンクあとから追加-->
-				                <a href="#"
-			                   		class="btn">カートに追加</a>
+				                <div class="product-buttons">
+				                	<a th:href="@{'/products/' + ${product.itemId}}" 
+				                   		class="btn btn-detail">詳細を見る</a>
+									<!-- カートへ追加用のリンクあとから追加-->
+									<!--ログインしている人にのみ表示-->
+									<div sec:authorize="isAuthenticated()">
+									    <a href="#" class="btn btn-cart">
+									        <i class="fa-solid fa-cart-shopping"></i>
+									        カートに追加
+									    </a>
+									</div>
+								</div>
 			            	</div>
 					    </div>
 					</div>
@@ -106,11 +123,18 @@
 				                <p class="product-name" 
 				                   th:text="${product.director}">監督名</p>
 				
-				                <a th:href="@{'/products/' + ${product.itemId}}" 
-				                   class="btn">詳細を見る</a>
-				                   <!-- カートへ追加用のリンクあとから追加-->
-								<a href="#"
-			                   		class="btn">カートに追加</a>
+				                <div class="product-buttons">
+				                	<a th:href="@{'/products/' + ${product.itemId}}" 
+				                   		class="btn btn-detail">詳細を見る</a>
+									<!-- カートへ追加用のリンクあとから追加-->
+									<!--ログインしている人にのみ表示-->
+									<div sec:authorize="isAuthenticated()">
+									    <a href="#" class="btn btn-cart">
+									        <i class="fa-solid fa-cart-shopping"></i>
+									        カートに追加
+									    </a>
+									</div>
+								</div>
 				            </div>
 						</div>
 				    </div>
@@ -132,11 +156,18 @@
 			                <p class="product-name" 
 			                   th:text="${product.director}">監督名</p>
 			
-			                <a th:href="@{'/products/' + ${product.itemId}}" 
-			                   class="btn">詳細を見る</a>
-			                   <!-- カートへ追加用のリンクあとから追加-->
-							<a href="#" 
-			                   		class="btn">カートに追加</a>
+			                <div class="product-buttons">
+			                	<a th:href="@{'/products/' + ${product.itemId}}" 
+			                   		class="btn btn-detail">詳細を見る</a>
+								<!-- カートへ追加用のリンクあとから追加-->
+								<!--ログインしている人にのみ表示-->
+								<div sec:authorize="isAuthenticated()">
+								    <a href="#" class="btn btn-cart">
+								        <i class="fa-solid fa-cart-shopping"></i>
+								        カートに追加
+								    </a>
+								</div>
+							</div>
 			            </div>
 				    </div>
 				</div>
