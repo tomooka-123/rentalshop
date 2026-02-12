@@ -5,14 +5,27 @@
 <link th:href="@{/css/management.css}" rel="stylesheet" type="text/css">
 <title></title>
 </head>
-<body>
 	<div th:fragment="header_area" th:remove="tag">
+		<div class="header-inner">
 		<h1>
 			<a href="/top">
 				<span>Music Life Agency</span>
 			</a>
 		</h1>
+		
+		<!--sec:authorize="isAuthenicated()"がログインしている時に表示させる-->
+		<div sec:authorize="isAuthenticated()" class="login-info">
+			<!--ログイン情報表示＆ログアウトボタン-->
+			<form th:action="@{/logout}" method="post">
+				<div>
+					<span sec:authentication="name"></span>さんログイン中
+					<input type="submit" value="ログアウト" class="btn">
+				</div>	
+			</form>
+		</div>
+		
 		<hr>
+		</div>
 	</div>
 </body>
 </html>
