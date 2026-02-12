@@ -51,6 +51,9 @@
 			
 			                <a th:href="@{'/products/' + ${product.itemId}}" 
 			                   class="btn">詳細を見る</a>
+			                   <!-- カートへ追加用のリンクあとから追加-->
+			                <a href="#" 
+			                   class="btn">カートに追加</a>
 			            </div>
 			        </div>
 			    </div>
@@ -65,8 +68,8 @@
 					        <p th:text="${product.itemName}"></p>
 					        
 					    	<div class="product-info">
-				                <p class="product-name" 
-				                   th:text="${product.itemName}">商品名</p>
+								<p class="product-name" 
+									th:text="${product.itemName}">商品名</p>
 				                   
 				                <p class="product-name" 
 				                   th:text="${product.artist}">アーティスト名</p>
@@ -76,6 +79,9 @@
 				
 				                <a th:href="@{'/products/' + ${product.itemId}}" 
 				                   class="btn">詳細を見る</a>
+				                   <!-- カートへ追加用のリンクあとから追加-->
+				                <a href="#"
+			                   		class="btn">カートに追加</a>
 			            	</div>
 					    </div>
 					</div>
@@ -102,6 +108,9 @@
 				
 				                <a th:href="@{'/products/' + ${product.itemId}}" 
 				                   class="btn">詳細を見る</a>
+				                   <!-- カートへ追加用のリンクあとから追加-->
+								<a href="#"
+			                   		class="btn">カートに追加</a>
 				            </div>
 						</div>
 				    </div>
@@ -125,6 +134,9 @@
 			
 			                <a th:href="@{'/products/' + ${product.itemId}}" 
 			                   class="btn">詳細を見る</a>
+			                   <!-- カートへ追加用のリンクあとから追加-->
+							<a href="#" 
+			                   		class="btn">カートに追加</a>
 			            </div>
 				    </div>
 				</div>
