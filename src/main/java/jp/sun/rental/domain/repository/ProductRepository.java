@@ -30,4 +30,64 @@ public class ProductRepository {
                 new BeanPropertyRowMapper<>(ItemEntity.class)
         );
     }
+    
+    public List<ItemEntity> findNewTop5() {
+
+        String sql = """
+            SELECT *
+            FROM item
+            ORDER BY item_update DESC
+            LIMIT 5
+        """;
+
+        return jdbcTemplate.query(sql,
+            new BeanPropertyRowMapper<>(ItemEntity.class));
+    }
+    
+    public List<ItemEntity> findOldTop5() {
+
+        String sql = """
+            SELECT *
+            FROM item
+            ORDER BY item_point DESC
+            LIMIT 5
+        """;
+
+        return jdbcTemplate.query(sql,
+            new BeanPropertyRowMapper<>(ItemEntity.class));
+    }
+    
+    public List<ItemEntity> findByGenre(int genre) {
+
+        String sql = """
+            SELECT *
+            FROM item
+            WHERE genre_id = ?
+            ORDER BY item_id DESC
+            LIMIT 5
+        """;
+
+        return jdbcTemplate.query(sql,
+            new BeanPropertyRowMapper<>(ItemEntity.class),
+            genre);
+    }
+
+    public List<ItemEntity> findByGenreRandom(int genreId) {
+
+        String sql = """
+            SELECT *
+            FROM item
+            WHERE genre_id = ?
+            ORDER BY RAND()
+            LIMIT 5
+        """;
+
+        return jdbcTemplate.query(
+            sql,
+            new BeanPropertyRowMapper<>(ItemEntity.class),
+            genreId
+        );
+    }
+
+
 }

@@ -30,29 +30,104 @@
 		<div>
 			<div class="product-list-container">
 
-		    <h1 class="page-title">商品一覧</h1>
-		
-		    <div class="product-list">
-		
-		        <div class="product-card" th:each="product : ${products}">
-		            
-		            <div class="product-img">
-		                <img th:src="@{|${product.itemImg}|}" 
-		                     th:alt="${product.itemName}">
-		            </div>
-		
-		            <div class="product-info">
-		                <p class="product-name" 
-		                   th:text="${product.itemName}">商品名</p>
-		
-		                <a th:href="@{'/products/' + ${product.itemId}}" 
-		                   class="btn">詳細を見る</a>
-		            </div>
-		
-		        </div>
-		
-		    </div>
-
+		    	<h1 class="page-title">商品一覧</h1>
+			    <div class="product-list">
+			        <div class="product-card" th:each="product : ${products}">
+			            
+			            <div class="product-img">
+			                <img th:src="@{|${product.itemImg}|}" 
+			                     th:alt="${product.itemName}">
+			            </div>
+			
+			            <div class="product-info">
+			                <p class="product-name" 
+			                   th:text="${product.itemName}">商品名</p>
+			                   
+			                <p class="product-name" 
+			                   th:text="${product.artist}">アーティスト名</p>
+			                   
+			                <p class="product-name" 
+			                   th:text="${product.director}">監督名</p>
+			
+			                <a th:href="@{'/products/' + ${product.itemId}}" 
+			                   class="btn">詳細を見る</a>
+			            </div>
+			        </div>
+			    </div>
+			    
+			    <h2>新作人気商品 TOP5</h2>
+					<div class="product-list">
+					    <div class="product-card" th:each="product : ${newTop5}">
+					        <div class="product-img">
+					            <img th:src="@{|${product.itemImg}|}">
+					        </div>
+					        
+					        <p th:text="${product.itemName}"></p>
+					        
+					    	<div class="product-info">
+				                <p class="product-name" 
+				                   th:text="${product.itemName}">商品名</p>
+				                   
+				                <p class="product-name" 
+				                   th:text="${product.artist}">アーティスト名</p>
+				                   
+				                <p class="product-name" 
+				                   th:text="${product.director}">監督名</p>
+				
+				                <a th:href="@{'/products/' + ${product.itemId}}" 
+				                   class="btn">詳細を見る</a>
+			            	</div>
+					    </div>
+					</div>
+					
+				<h2>旧作人気商品 TOP5</h2>
+					<div class="product-list">
+					    <div class="product-card" th:each="product : ${oldTop5}">
+							
+					        <div class="product-img">
+					            <img th:src="@{|${product.itemImg}|}">
+					        </div>
+					        
+					        <p th:text="${product.itemName}"></p>
+					        
+						    <div class="product-info">
+				                <p class="product-name" 
+				                   th:text="${product.itemName}">商品名</p>
+				                   
+				                <p class="product-name" 
+				                   th:text="${product.artist}">アーティスト名</p>
+				                   
+				                <p class="product-name" 
+				                   th:text="${product.director}">監督名</p>
+				
+				                <a th:href="@{'/products/' + ${product.itemId}}" 
+				                   class="btn">詳細を見る</a>
+				            </div>
+						</div>
+				    </div>
+					
+				<h2>Music</h2>
+				<div class="product-list">
+					
+				    <div class="product-card" th:each="product : ${musicList}">
+				        <img th:src="@{|${product.itemImg}|}">
+				        <p th:text="${product.itemName}"></p>
+				    
+				    	<div class="product-info">
+			                <p class="product-name" 
+			                   th:text="${product.itemName}">商品名</p>
+			                   
+			                <p class="product-name" 
+			                   th:text="${product.artist}">アーティスト名</p>
+			                   
+			                <p class="product-name" 
+			                   th:text="${product.director}">監督名</p>
+			
+			                <a th:href="@{'/products/' + ${product.itemId}}" 
+			                   class="btn">詳細を見る</a>
+			            </div>
+				    </div>
+				</div>
 			
 		</div>
 		<!--ログインしていない人にのみ表示-->

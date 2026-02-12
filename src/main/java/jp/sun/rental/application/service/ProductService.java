@@ -19,4 +19,21 @@ public class ProductService {
     public List<ItemEntity> getProductList() {
         return repository.findAll();
     }
+    
+    public List<ItemEntity> getNewTop5() {
+        return repository.findNewTop5();
+    }
+
+    public List<ItemEntity> getOldTop5() {
+        return repository.findOldTop5();
+    }
+
+    public List<ItemEntity> getByGenre(int genre) {
+        return repository.findByGenre(genre);
+    }
+    
+    public List<ItemEntity> getRandomByGenre(int genreId) {
+        return repository.findByGenreRandom(genreId);
+    }
+
 }
