@@ -35,6 +35,10 @@ public class RentalService {
 		
 		int userId = userRepository.getUserIdByUserName(username);
 		
+		historyEntity = rentalRepository.getRentalHistoryByUserId(userId);
+		
+		historyForm = convert(historyEntity);
+		
 		return historyForm;
 	}
 	
