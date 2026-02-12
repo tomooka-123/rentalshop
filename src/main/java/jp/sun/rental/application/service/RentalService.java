@@ -74,7 +74,11 @@ public class RentalService {
 			rowItems += rentalRepository.registRentalItems(rentalId, items);
 		}
 		
-		return rowRental + rowItems;
+		int cartDelete = 0;
+		
+		cartDelete = cartRepository.deleteCartItemsByUserId(userId);
+		
+		return rowRental + rowItems + cartDelete;
 	}
 	
 	private RentalHistoryForm convert(RentalHistoryEntity historyEntity) {
