@@ -14,15 +14,28 @@
 /* ===== 全体 ===== */
 body {
     margin: 0;
-    font-family: "Segoe UI", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
-    background-color: #f5f6f8;
-    color: #333;
+    font-family: "Helvetica Neue", "Hiragino Kaku Gothic ProN", sans-serif;
+    background-color: #f8f8f8;
+    color: #222;
+    letter-spacing: 0.5px;
 }
 
-#wrapper {
-    max-width: 900px;
+main {
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 40px 20px;
+    padding: 60px 40px;
+}
+
+h1 {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 40px;
+}
+
+h2 {
+    font-size: 22px;
+    font-weight: 500;
+    margin: 80px 0 30px;
 }
 
 /* ===== テーブル ===== */
@@ -119,6 +132,17 @@ input:focus {
 
 /* ===== ボタン ===== */
 .btn {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 8px 18px;
+    border: 1px solid #222;
+    background: transparent;
+    color: #222;
+    border-radius: 30px;
+    font-size: 13px;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+
     background-color: #4a90e2;
     color: #fff;
     border: none;
@@ -132,8 +156,10 @@ input:focus {
 }
 
 .btn:hover {
-    background-color: #357abd;
+    background: #222;
+    color: #fff;
 }
+
 
 .btn:active {
     transform: translateY(1px);
@@ -155,6 +181,160 @@ input:focus {
 
 .back-btn:hover {
     background-color: #aaa;
+}
+
+/* ===== 商品一覧 product ===== */
+
+/* 商品一覧全体 */
+.product-list {
+    display: flex;
+    gap: 30px;
+    overflow-x: auto;
+    padding-bottom: 20px;
+}
+
+.product-list-container {
+    margin-bottom: 100px;
+}
+
+
+/* 商品カード1ブロック */
+.product-card {
+    min-width: 240px;
+    flex: 0 0 auto;
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+}
+
+.product-card:hover img {
+    transform: scale(1.03);
+    transition: 0.4s ease;
+}
+
+
+/* 画像サイズ調整 */
+.product-img img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+
+/* 商品名 */
+.product-name {
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 15px;
+}
+
+.product-info p {
+    margin: 4px 0;
+    font-size: 13px;
+    color: #777;
+}
+
+
+/* ボタン */
+.product-card .btn {
+    display: inline-block;
+    padding: 6px 12px;
+    background: #0078d7;
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+}
+
+/* ボタン横並び */
+.product-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* 共通ボタン幅を揃える */
+.product-buttons .btn {
+    flex: 1;
+    text-align: center;
+    font-size: 13px;
+}
+
+/* 詳細ボタン（高級感ゴールド） */
+.btn-detail {
+    background: linear-gradient(90deg, #d4af37, #b8860b);
+    color: #fff;
+    background: linear-gradient(90deg, #d4af37, #b8860b);
+    color: #fff;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-detail:hover {
+    background: linear-gradient(90deg, #b8860b, #d4af37);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(0,0,0,0.25);
+}
+
+
+/* カートボタン（ブラック系） */
+.btn-cart {
+    background: #111;
+    color: #fff;
+    border: 1px solid #d4af37;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.btn-cart:hover {
+    background: #d4af37;
+    color: #000;
+}
+
+.btn-cart:hover i {
+    transform: translateX(2px);
+    transition: 0.2s ease;
+}
+
+
+.btn i {
+    margin-right: 6px;
+    font-size: 14px;
+}
+
+
+/* ===== スクロールバー全体（Chrome, Edge） ===== */
+::-webkit-scrollbar {
+    width: 10px;   /* 縦スクロール幅 */
+    height: 10px;  /* 横スクロール高さ */
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;  /* 背景 */
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(128, 255, 255);     /* バーの色 */
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #000;     /* ホバー時 */
+}
+
+/* ===== Firefox用 ===== */
+html {
+    scrollbar-width: thin;
+    scrollbar-color: #333 #f1f1f1;
 }
 
 .button-group {

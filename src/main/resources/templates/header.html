@@ -24,6 +24,16 @@
 			</form>
 		</div>
 		
+		<!--ログインしていない人にのみ表示-->
+		<!--sec:authorize="isAnonymous"が未ログインの時に表示させる-->
+		<div sec:authorize="isAnonymous()" class="login-info">
+			<form th:action="@{/login}" method="get">
+				<div>
+					<input type="submit" value="ログイン" class="btn">
+				</div>	
+			</form>
+		</div>
+		
 		<hr>
 		</div>
 	</div>

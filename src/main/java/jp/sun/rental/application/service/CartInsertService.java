@@ -22,13 +22,22 @@ public class CartInsertService {
 	@Transactional(rollbackFor = Exception.class)
 	public int addCart(String userName,CartItemForm cartItemForm) throws Exception{
 		
+		//カートIDを取得
 		int userId = userRepository.getUserIdByUserName(userName);
 		int cartId = cartRepository.getCartId(userId);
+		
+		//アイテムIDを取得
 		int itemId = Integer.parseInt(cartItemForm.getItemId());
 		
-		int numberOfRow = cartRepository.addCart(itemId, cartId);
+		//同じアイテムIDが既に登録されているかチェック。true=既に登録されている
+		if(cartRepository.exists(itemId, cartId)) {
+			throw new IllegalStateException("DUPLICATE_ITEM");
+		} 
 		
+		//DBに登録
+		int numberOfRow = cartRepository.addCart(itemId, cartId);
 		return numberOfRow;
+
 	}
 
 }

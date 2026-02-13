@@ -53,19 +53,28 @@ public class CartRepository {
 			cartId = jdbcTemplate.queryForObject(sql, int.class, userId);
 		} catch (EmptyResultDataAccessException e) {
 			// カートが無ければ作成
-			jdbcTemplate.update("INSERT INTO cart(user_id) VALUES(?)", userId);
+			jdbcTemplate.update("INSERT INTO cart(user_id) VALUES (?)", userId);
 			cartId = jdbcTemplate.queryForObject(sql, int.class, userId);
 	    }
 		
 		return cartId;
 	}
 	
+	//cart_itemに、同じitem_idとcart_idの組み合わせがあるか検索
+	public boolean exists(int itemId, int cartId) {
+		String sql = "SELECT COUNT(*) FROM cart_item WHERE item_id = ? AND cart_id = ?";
+		Integer count = jdbcTemplate.queryForObject(sql, Integer.class, itemId, cartId);
+		
+		if(count != null && count > 0) {
+			return true;//既に登録されている
+		}else {
+			return false;//被っていない
+		}
+	}
+
 	//商品をcart_itemに追加
 	public int addCart(int itemId, int cartId) {
-		StringBuilder sb = new StringBuilder();
-		sb.append("INSERT INTO cart_item (item_id, cart_id)");
-		sb.append(" VALUES (?, ?)");
-		String sql = sb.toString();
+		String sql = "INSERT INTO cart_item (item_id, cart_id) VALUES (?, ?)";
 		
 		int numberOfRow = jdbcTemplate.update(sql,itemId, cartId);
 		return numberOfRow;
