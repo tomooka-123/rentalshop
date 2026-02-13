@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>レンタル希望</title>
+	<link th:href="@{/css/management.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<div id="wrapper">
+		<header th:insert="~{header :: header_area}"></header>
+		<main>
+			<div id="form-area">
+				<div class="form-row">
+					<span th:text="${error}" class="errors"></span>
+				</div>
+				
+				<div id="result-area">
+					<div th:if="!${#lists.isEmpty(historyFormList)}">
+						<table>
+							<tr>
+								<th>商品名</th>
+								<!--<th>カテゴリ名</th>--><!--カテゴリIDでカテゴリ名を取得する必要がある-->
+								<th>商品画像</th>
+								<!--<th>商品情報更新日</th>-->
+								<th>アーティスト名</th>
+								<th>監督名</th>
+								<th>ポイント</th>
+								<th>レンタル日</th>
+							</tr>
+							<th:block th:each="history : ${historyFormList}">
+								<th:block th:each="item : ${history.rentalItems}">
+									<tr>
+										<td th:text="${item.itemForm.itemName }" class="itemName"></td>
+										<!--<td th:text="${item.genreId }" class="genreId"></td>-->
+										<td th:text="${item.itemForm.itemImg }" class="itemImg"></td>
+										<!--<td th:text="${#dates.format(#strings.replace(item.itemUpdate, '-', '/'), 'yyyy年MM月dd日') }" class="itemUpdate"></td>-->
+										<td th:text="${item.itemForm.artist }" class="artist"></td>
+										<td th:text="${item.itemForm.director }" class="director"></td>
+										<td th:text="${item.itemForm.itemPoint }" class="itemPoint"></td>
+										<td th:text="${history.rentalDate }" class="date"></td>
+										<form th:action="@{/history/delete}" method="post">
+											<input type="hidden" name="rentalItemId" value="${item.itemId}">
+											<button type="submit">非表示にする</button>
+										</form>
+									</tr>
+								</th:block>
+							</th:block>
+						</table>
+					</div>
+				</div>
+			</div>
+		</main>
+		<footer th:insert="~{footer :: footer_area}"></footer>
+	</div>
+</body>
+</html>

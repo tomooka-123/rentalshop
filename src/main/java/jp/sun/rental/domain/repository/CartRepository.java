@@ -42,8 +42,6 @@ public class CartRepository {
 		return cartEntity;
 	}
 	
-	
-	
 	//ユーザーIDからカートIDを取得する
 	public int getCartId(int userId) {
 		StringBuilder sb = new StringBuilder();
@@ -62,7 +60,6 @@ public class CartRepository {
 		return cartId;
 	}
 	
-	
 	//商品をcart_itemに追加
 	public int addCart(int itemId, int cartId) {
 		StringBuilder sb = new StringBuilder();
@@ -73,6 +70,25 @@ public class CartRepository {
 		int numberOfRow = jdbcTemplate.update(sql,itemId, cartId);
 		return numberOfRow;
 	}
-	
-	
+
+	//受け取ったユーザーIDのカートの中身を全削除
+	public int deleteCartItemsByUserId(int userId) throws Exception{
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("DELETE");
+		sb.append(" ci FROM cart_item ci");
+		sb.append(" INNER JOIN cart c");
+		sb.append(" ON ci.cart_id = c.cart_id");
+		sb.append(" WHERE c.user_id = ?");
+		
+		String sql = sb.toString();
+		
+		int numOfRow = 0;
+		
+		numOfRow = jdbcTemplate.update(sql, userId);
+		
+		return numOfRow;
+	}
+
 }
