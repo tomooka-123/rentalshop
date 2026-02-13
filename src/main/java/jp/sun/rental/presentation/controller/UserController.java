@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import jp.sun.rental.application.service.ProductService;
 import jp.sun.rental.application.service.UserInsertService;
 import jp.sun.rental.application.service.UserSearchService;
 import jp.sun.rental.application.service.UserUpdateService;
 import jp.sun.rental.common.validator.groups.ValidGroupOrder;
+import jp.sun.rental.domain.entity.ItemEntity;
 import jp.sun.rental.presentation.form.ItemForm;
 import jp.sun.rental.presentation.form.MemberForm;
 import jp.sun.rental.presentation.form.UserForm;
@@ -32,12 +34,14 @@ public class UserController {
 	private UserInsertService userInsertService;
 	private UserSearchService userSearchService;
 	private UserUpdateService userUpdateService;
+	private final ProductService productService;
 
 	//コンストラクター
-	public UserController(UserInsertService userInsertService, UserSearchService userSearchService, UserUpdateService userUpdateService) {
+	public UserController(UserInsertService userInsertService, UserSearchService userSearchService, UserUpdateService userUpdateService, ProductService productService) {
 		this.userInsertService = userInsertService;
 		this.userSearchService = userSearchService;
 		this.userUpdateService = userUpdateService;
+		this.productService = productService;
 	}
 	
 	//TOP画面を表示する
@@ -45,8 +49,13 @@ public class UserController {
 	public String toTop(Model model) {
 		ItemForm itemForm = new ItemForm();
 		
+		List<ItemEntity> products = productService.getProductList();
 		model.addAttribute("itemForm", itemForm);
-		
+		model.addAttribute("products", products);
+		model.addAttribute("newTop5", productService.getNewTop5());
+		model.addAttribute("oldTop5", productService.getOldTop5());
+		model.addAttribute("musicList", productService.getRandomByGenre(1));
+
 		return "top";
 	}
 	

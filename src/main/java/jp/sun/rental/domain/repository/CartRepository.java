@@ -42,6 +42,44 @@ public class CartRepository {
 		return cartEntity;
 	}
 	
+	//ユーザーIDからカートIDを取得する
+	public int getCartId(int userId) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT cart_id FROM cart WHERE user_id = ?");
+		String sql = sb.toString();
+		int cartId;
+		
+		try {
+			cartId = jdbcTemplate.queryForObject(sql, int.class, userId);
+		} catch (EmptyResultDataAccessException e) {
+			// カートが無ければ作成
+			jdbcTemplate.update("INSERT INTO cart(user_id) VALUES (?)", userId);
+			cartId = jdbcTemplate.queryForObject(sql, int.class, userId);
+	    }
+		
+		return cartId;
+	}
+	
+	//cart_itemに、同じitem_idとcart_idの組み合わせがあるか検索
+	public boolean exists(int itemId, int cartId) {
+		String sql = "SELECT COUNT(*) FROM cart_item WHERE item_id = ? AND cart_id = ?";
+		Integer count = jdbcTemplate.queryForObject(sql, Integer.class, itemId, cartId);
+		
+		if(count != null && count > 0) {
+			return true;//既に登録されている
+		}else {
+			return false;//被っていない
+		}
+	}
+
+	//商品をcart_itemに追加
+	public int addCart(int itemId, int cartId) {
+		String sql = "INSERT INTO cart_item (item_id, cart_id) VALUES (?, ?)";
+		
+		int numberOfRow = jdbcTemplate.update(sql,itemId, cartId);
+		return numberOfRow;
+	}
+
 	//受け取ったユーザーIDのカートの中身を全削除
 	public int deleteCartItemsByUserId(int userId) throws Exception{
 		
@@ -61,34 +99,5 @@ public class CartRepository {
 		
 		return numOfRow;
 	}
-	
-	//ユーザーIDからカートIDを取得する
-	public int getCartId(int userId) {
-		StringBuilder sb = new StringBuilder();
-		sb.append("SELECT cart_id FROM cart WHERE user_id = ?");
-		String sql = sb.toString();
-		int cartId;
-		
-		try {
-			cartId = jdbcTemplate.queryForObject(sql, int.class, userId);
-		} catch (EmptyResultDataAccessException e) {
-			// カートが無ければ作成
-			jdbcTemplate.update("INSERT INTO cart(user_id) VALUES(?)", userId);
-			cartId = jdbcTemplate.queryForObject(sql, int.class, userId);
-	    }
-		
-		return cartId;
-	}
-	
-	
-	//商品をcart_itemに追加
-	public int addCart(int itemId, int cartId) {
-		StringBuilder sb = new StringBuilder();
-		sb.append("INSERT INTO cart_item (item_id, cart_id)");
-		sb.append(" VALUES (?, ?)");
-		String sql = sb.toString();
-		
-		int numberOfRow = jdbcTemplate.update(sql,itemId, cartId);
-		return numberOfRow;
-	}
+
 }
