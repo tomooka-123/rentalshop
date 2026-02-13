@@ -185,7 +185,7 @@ public class UserController {
 		model.addAttribute("userForm", userForm);
 		model.addAttribute("memberForm", memberForm);
 		
-		return "userSearch";
+		return "user/search";
 	}
 	
 	@PostMapping(value = "/search/user")
@@ -199,7 +199,7 @@ public class UserController {
 			}
 		}
 		
-		return "userSearch";
+		return "user/search";
 	}
 	
 	// ユーザー更新入力用

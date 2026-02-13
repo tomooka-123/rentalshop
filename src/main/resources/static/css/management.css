@@ -1,3 +1,17 @@
+/* ===== ヘッダー ===== */
+.login-info {
+	margin-left: auto;	/* 右寄せ */ 
+}
+
+.header-inner {
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #333;
+    padding-bottom: 10px;
+}
+
+/* ===== 全体 ===== */
 body {
     margin: 0;
     font-family: "Helvetica Neue", "Hiragino Kaku Gothic ProN", sans-serif;
@@ -22,6 +36,28 @@ h2 {
     font-size: 22px;
     font-weight: 500;
     margin: 80px 0 30px;
+}
+
+/* ===== テーブル ===== */
+table {
+	width: 810px;
+    border-collapse: collapse;
+    margin: 16px auto;
+}
+
+th, td {
+    border: 1px solid #ffffff;
+    padding: 4px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+th {
+	background-color: #bbddff;
+}
+
+td {
+	background-color: #f0f5ff;
 }
 
 /* ===== フォームエリア ===== */
@@ -106,6 +142,17 @@ input:focus {
     font-size: 13px;
     letter-spacing: 1px;
     transition: all 0.3s ease;
+
+    background-color: #4a90e2;
+    color: #fff;
+    border: none;
+    margin-left: 20px;
+    padding: 10px 28px;
+    border-radius: 20px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+	margin: 3px;
 }
 
 .btn:hover {
@@ -290,6 +337,10 @@ html {
     scrollbar-color: #333 #f1f1f1;
 }
 
+.button-group {
+    display: flex;
+    gap: 15px; /* ボタン間の余白 */
+ }
 
 /* ===== エラーメッセージ ===== */
 .errors {
