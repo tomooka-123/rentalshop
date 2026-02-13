@@ -26,31 +26,29 @@
 								<th>アーティスト名</th>
 								<th>監督名</th>
 								<th>ポイント</th>
+								<th>レンタル希望から削除</th>
 							</tr>
 							<td:block th:each="item : ${cartForm.cartItems}">
-								<tr>
-									<td th:text="${item.itemForm.itemName }" class="itemName"></td>
-									<!--<td th:text="${item.genreId }" class="genreId"></td>-->
-									<td th:text="${item.itemForm.itemImg }" class="itemImg"></td>
-									<!--<td th:text="${#dates.format(#strings.replace(item.itemUpdate, '-', '/'), 'yyyy年MM月dd日') }" class="itemUpdate"></td>-->
-									<td th:text="${item.itemForm.artist }" class="artist"></td>
-									<td th:text="${item.itemForm.director }" class="director"></td>
-									<td th:text="${item.itemForm.itemPoint }" class="itemPoint"></td>
-								</tr>
+								<form th:action="@{/cart/delete}" th:object="${cartItemForm}" method="post">
+									<tr>
+										<td th:text="${item.itemForm.itemName }" class="itemName"></td>
+										<!--<td th:text="${item.genreId }" class="genreId"></td>-->
+										<td th:text="${item.itemForm.itemImg }" class="itemImg"></td>
+										<!--<td th:text="${#dates.format(#strings.replace(item.itemUpdate, '-', '/'), 'yyyy年MM月dd日') }" class="itemUpdate"></td>-->
+										<td th:text="${item.itemForm.artist }" class="artist"></td>
+										<td th:text="${item.itemForm.director }" class="director"></td>
+										<td th:text="${item.itemForm.itemPoint }" class="itemPoint"></td>
+										<td>
+											<input type="hidden" name="itemId" th:value="${item.itemForm.itemId}">
+											<input type="submit" value="削除">
+											<span th:text="${error}" class="errors"></span>
+										</td>
+									</tr>
+								</form>
 							</td:block>
 						</table>
 					</div>
 				</div>
-			</div>
-			
-			<!--ログインしていない人にのみ表示-->
-			<!--sec:authorize="isAnonymous"が未ログインの時に表示させる-->
-			<div sec:authorize="isAnonymous()">
-				<form th:action="@{/login}" method="get">
-					<div>
-						<input type="submit" value="ログイン" class="btn">
-					</div>	
-				</form>
 			</div>
 			
 		</main>

@@ -75,13 +75,25 @@ public class CartRepository {
 		}
 	}
 	
-	//商品をcart_itemに追加
+	
+	//商品1件をcart_itemに追加
 	public int addCart(int itemId, int cartId) {
 		String sql = "INSERT INTO cart_item (item_id, cart_id) VALUES (?, ?)";
 		
 		int numberOfRow = jdbcTemplate.update(sql,itemId, cartId);
 		return numberOfRow;
 	}
+
+
+	//商品1件をcart_itemから削除
+	public int deleteItem(int itemId, int cartId) {
+		String sql = "DELETE FROM cart_item WHERE item_id = ? AND cart_id = ?";
+		
+		int numberOfRow = jdbcTemplate.update(sql,itemId, cartId);
+		return numberOfRow;		
+	}
+	
+	
 	
 	//受け取ったユーザーIDのカートの中身を全削除
 	public int deleteCartItemsByUserId(int userId) throws Exception{
@@ -102,6 +114,5 @@ public class CartRepository {
 		
 		return numOfRow;
 	}
-	
-	
+
 }
