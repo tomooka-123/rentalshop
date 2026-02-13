@@ -1,0 +1,120 @@
+/* ===== 全体設定 ===== */
+body {
+    font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+    background-color: #f4f6f9;
+    margin: 0;
+    padding: 0;
+}
+
+#wrapper {
+    width: 90%;
+    max-width: 1100px;
+    margin: 30px auto;
+    background: #ffffff;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border-radius: 8px;
+}
+
+/* ===== フォームエリア ===== */
+#form-area {
+    margin-bottom: 40px;
+}
+
+.form-row {
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+input[type="text"],
+input[type="search"],
+input[type="password"],
+input[type="email"],
+input[type="number"] {
+    padding: 8px 10px;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 4px rgba(74,144,226,0.4);
+}
+
+/* ===== ボタン ===== */
+.btn {
+    padding: 8px 18px;
+    background-color: #4a90e2;
+    border: none;
+    color: #ffffff;
+    border-radius: 4px;
+    cursor: pointer;	
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #357ab8;
+}
+
+/* ===== エラーメッセージ ===== */
+.errors {
+    color: #d9534f;
+    font-size: 13px;
+}
+
+/* ===== テーブル ===== */
+#result-area {
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+th {
+    background-color: #4a90e2;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+td {
+    padding: 8px;
+    border-bottom: 1px solid #e0e0e0;
+    text-align: center;
+}
+
+tr:nth-child(even) {
+    background-color: #f9fbfd;
+}
+
+tr:hover {
+    background-color: #eef5ff;
+}
+
+/* ===== レスポンシブ ===== */
+@media (max-width: 768px) {
+    input[type="text"] {
+        width: 100%;
+        margin-top: 5px;
+    }
+
+    table {
+        font-size: 12px;
+    }
+
+    th, td {
+        padding: 6px;
+    }
+}
