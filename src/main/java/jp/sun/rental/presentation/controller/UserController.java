@@ -210,13 +210,21 @@ public class UserController {
 	    if (result.hasErrors()) {
 	        return "user/update";
 	    }
+		
+		//会員プラン表示用
+		String plan = form.getPlan();
+		model.addAttribute("plan", setPlan(plan));
+		
+		//クレジットカード番号表示用
+		String card = form.getCard();
+		model.addAttribute("card", setCard(card));
 
 	    // 確認画面に表示するだけ
 	    model.addAttribute("userUpdateForm", form);
 	    return "user/updateConfirm";
 	}
 
-	// ユーザー情報更新確認用
+	// ユーザー情報更新実行用
 	@PostMapping(value = "/user/update/confirm")
 	public String userUpdate(
 		Authentication authentication,
