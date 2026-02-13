@@ -28,6 +28,7 @@ public class RentalItemRowMapper implements RowMapper<RentalItemEntity> {
 		rentalItem.setRentalId(rs.getInt("rental_id"));
 		rentalItem.setItemId(rs.getInt("ri_item_id"));
 		rentalItem.setReturnFlag(rs.getBoolean("return_flag"));
+		rentalItem.setDeleteFlag(rs.getBoolean("delete_flag"));
 		rentalItem.setItemEntity(itemEntity);
 		
 		return rentalItem;

@@ -14,5 +14,9 @@ public class RentalHistoryEntity {
 	
 	private Date rentalDate;
 	
+	private String address;
+	
+	private String addressName;
+	
 	private List<RentalItemEntity> rentalItems;
 }

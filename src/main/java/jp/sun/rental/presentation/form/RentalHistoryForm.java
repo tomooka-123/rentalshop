@@ -14,5 +14,9 @@ public class RentalHistoryForm implements Serializable {
 	
 	private String rentalDate;
 	
+	private String address;
+	
+	private String addressName;
+	
 	private List<RentalItemForm> rentalItems;
 }

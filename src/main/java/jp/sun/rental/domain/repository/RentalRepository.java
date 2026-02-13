@@ -8,30 +8,26 @@ import org.springframework.stereotype.Repository;
 
 import jp.sun.rental.domain.entity.CartItemEntity;
 import jp.sun.rental.domain.entity.MemberEntity;
-import jp.sun.rental.domain.entity.RentalAddressEntity;
 import jp.sun.rental.domain.entity.RentalHistoryEntity;
-import jp.sun.rental.domain.entity.UserEntity;
-import jp.sun.rental.infrastructure.mapper.RentalAddressRowMapper;
 import jp.sun.rental.infrastructure.mapper.RentalResultSetExtractor;
 
 @Repository
 public class RentalRepository {
 
 	private ResultSetExtractor<List<RentalHistoryEntity>> historyExtractor = new RentalResultSetExtractor();
-	private RentalAddressRowMapper rentalAddressRowMapper = new RentalAddressRowMapper();
 	private JdbcTemplate jdbcTemplate;
 	
 	public RentalRepository(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 	
-	//ユーザーIDから履歴を検索
+	//ユーザーIDから非表示フラグが0の履歴を検索
 	public List<RentalHistoryEntity> getRentalHistoryListByUserId(int userid)throws Exception{
 		
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("SELECT");
-		sb.append(" r.rental_id, r.user_id, r.rental_date,");
+		sb.append(" r.rental_id, r.user_id, r.rental_date, r.address, r.address_name");
 		sb.append(" ri.rental_item_id, ri.rental_id, ri.item_id AS ri_item_id, ri.return_flag,");
 		sb.append(" i.item_id AS i_item_id, i.item_name, i.genre_id, i.item_img, i.item_update, i.artist, i.director, i.item_point");
 		sb.append(" FROM rental r");
@@ -50,34 +46,16 @@ public class RentalRepository {
 		return historyEntityList;
 	}
 	
-	//ユーザーIDからそのユーザーのレンタル希望履歴の住所などを取得
-	public List<RentalAddressEntity> getRentalAddressByUserId(int userId)throws Exception{
-		StringBuilder sb = new StringBuilder();
-		
-		sb.append("SELECT");
-		sb.append(" ra.rental_id, ra.address, ra.name, ra.tell");
-		sb.append(" FROM rental_address ra");
-		sb.append(" LEFT OUTER JOIN rental r");
-		sb.append(" ON ra.rental_id = r.rental_id");
-		sb.append(" WHERE r.user_id = ?");
-		
-		String sql = sb.toString();
-		
-		List<RentalAddressEntity> addressEntityList = jdbcTemplate.query(sql, rentalAddressRowMapper, userId);
-		
-		return addressEntityList;
-	}
-	
 	//レンタル履歴登録
-	public int registRental(int userid)throws Exception{
+	public int registRental(int userid, MemberEntity memberEntity)throws Exception{
 		StringBuilder sb = new StringBuilder();
-		sb.append("INSERT INTO rental (user_id, rental_date)");
-		sb.append(" VALUES (?, NOW())");
+		sb.append("INSERT INTO rental (user_id, rental_date, address, address_name)");
+		sb.append(" VALUES (?, NOW(), ?, ?)");
 		String sql = sb.toString();
 		
 		int rowRental = 0;
 		
-		rowRental = jdbcTemplate.update(sql, userid);
+		rowRental = jdbcTemplate.update(sql, userid, memberEntity.getAddress(), memberEntity.getName());
 		
 		return rowRental;
 	}
@@ -96,22 +74,6 @@ public class RentalRepository {
 		rowItems = jdbcTemplate.update(sql, rentalId, cartItemEntity.getItemId());
 		
 		return rowItems;
-	}
-	
-	//レンタルした人の現在の住所などを登録
-	public int registRentalAddress(int rentalId, UserEntity userEntity, MemberEntity memberEntity)throws Exception{
-		StringBuilder sb = new StringBuilder();
-		
-		int rowAddress = 0;
-		
-		sb.append("INSERT INTO rental_address (rental_id, address, name, tell)");
-		sb.append(" VALUES (?, ?, ?, ?)");
-		
-		String sql = sb.toString();
-		
-		rowAddress = jdbcTemplate.update(sql, rentalId, memberEntity.getAddress(), memberEntity.getName(), userEntity.getTell());
-		
-		return rowAddress;
 	}
 	
 	//返却フラグ切り替え

@@ -17,6 +17,8 @@ public class RentalHistoryRowMapper implements RowMapper<RentalHistoryEntity> {
 		history.setRentalId(rs.getInt("rental_id"));
 		history.setUserId(rs.getInt("user_id"));
 		history.setRentalDate(rs.getDate("rentaled_date"));
+		history.setAddress(rs.getString("address"));
+		history.setAddressName(rs.getString("address_name"));
 		
 		history.setRentalItems(null);
 		

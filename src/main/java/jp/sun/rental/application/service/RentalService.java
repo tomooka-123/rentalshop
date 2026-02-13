@@ -67,9 +67,11 @@ public class RentalService {
 		
 		int rowRental = 0;
 		int rentalId = 0;
+		UserEntity user = userRepository.getOnlyUserByName(username);
+		MemberEntity member = user.getMembers();
 		
 		//レンタル希望のユーザーID、日時などを登録し最後に追加された主キーを取得
-		rowRental = rentalRepository.registRental(userId);
+		rowRental = rentalRepository.registRental(userId, member);
 		rentalId = rentalRepository.getLastInsertId();
 		
 		//カートの中身を履歴に登録
@@ -78,19 +80,12 @@ public class RentalService {
 			rowItems += rentalRepository.registRentalItems(rentalId, items);
 		}
 		
-		//レンタル希望者の住所などを登録
-		int rowAddress = 0;
-		UserEntity user = userRepository.getOnlyUserByName(username);
-		MemberEntity member = user.getMembers();
-		
-		rowAddress = rentalRepository.registRentalAddress(rentalId, user, member);
-		
 		//カートの中身を破棄
 		int cartDelete = 0;
 		
 		cartDelete = cartRepository.deleteCartItemsByUserId(userId);
 		
-		return rowRental + rowItems + rowAddress + cartDelete;
+		return rowRental + rowItems + cartDelete;
 	}
 	
 	//返却フラグ切り替え
