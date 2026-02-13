@@ -70,9 +70,7 @@ public class ItemController {
 			model.addAttribute("message", "レンタル希望に追加しました。");
 		}
 		
-		//商品検索結果を再び表示する
-		
-		return "item/search";
+		return "user/success";
 	}
 	
 	
