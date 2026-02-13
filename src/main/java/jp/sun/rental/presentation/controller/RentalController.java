@@ -39,7 +39,7 @@ public class RentalController {
 		numRow = rentalService.changeReturnFlag(rentalItemId);
 		
 		if(numRow < 1) {
-			model.addAttribute("error","削除に失敗しました。");
+			model.addAttribute("error","返却情報の更新に失敗しました。");
 			return "error/error";
 		}else {
 			return "redirect:/history";

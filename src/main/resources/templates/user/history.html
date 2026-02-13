@@ -40,8 +40,14 @@
 										<td th:text="${history.rentalDate }" class="date"></td>
 										<form th:action="@{/history/delete}" method="post">
 											<input type="hidden" name="rentalItemId" value="${item.itemId}">
-											<button type="submit">非表示にする</button>
+											<button type="submit" class="btn">非表示にする</button>
 										</form>
+										<div sec:authorize="hasAuthority('EMPLOYEE')">
+											<form th:action="@{/history/return}" method="post">
+												<input type="hidden" name="rentalItemId" value="${item.itemId}">
+												<button type="submit" class="btn">返却、未返却切り替え</button>
+											</form>
+										</div>
 									</tr>
 								</th:block>
 							</th:block>
