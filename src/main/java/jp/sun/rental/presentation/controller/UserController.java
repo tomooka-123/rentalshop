@@ -1,7 +1,6 @@
 package jp.sun.rental.presentation.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -11,7 +10,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
@@ -50,15 +48,6 @@ public class UserController {
 		model.addAttribute("itemForm", itemForm);
 		
 		return "top";
-	}
-
-	//ログイン画面を表示する
-	@GetMapping(value = "/login")
-	public String login(@RequestParam Optional<String> error, Model model) {
-		if(error.isPresent()) {
-			model.addAttribute("error", "ユーザー名、またはパスワードが異なっているか、ログインの上限に達しています");
-		}
-		return "login";
 	}
 	
 	//ユーザー登録用セッションオブジェクトの生成
