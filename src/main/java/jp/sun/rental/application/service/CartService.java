@@ -30,7 +30,7 @@ public class CartService {
 	//ユーザ名からそのユーザが所持しているカートの情報を取得
 	public CartForm getCartByUserName(String username) throws Exception{
 		
-		CartEntity cartEntity = new CartEntity();
+		CartEntity cartEntity = null;
 		CartForm cartForm = null;
 		
 		int userId = userRepository.getUserIdByUserName(username);

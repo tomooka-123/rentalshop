@@ -125,7 +125,7 @@ public class UserRepository {
 		
 		sb.append("SELECT");
 		sb.append(" u.user_id, u.user_name, u.password, u.email, u.tell, u.authority");
-		sb.append(", m.card, m.user_point, m.address, m.post, m.plan, m.name");
+		sb.append(", m.card, m.user_point, m.address, m.post, m.plan, m.name, u.is_deleted");
 		sb.append(" FROM users u");
 		sb.append(" LEFT OUTER JOIN member m");
 		sb.append(" ON u.user_id = m.user_id");

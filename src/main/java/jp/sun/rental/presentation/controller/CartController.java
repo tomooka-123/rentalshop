@@ -26,6 +26,6 @@ public class CartController {
 		
 	model.addAttribute("cartForm",cartForm);
 	
-	return "cart";
+	return "item/cart";
 	}
 }

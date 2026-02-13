@@ -41,6 +41,17 @@
 					</div>
 				</div>
 			</div>
+			
+			<!--ログインしていない人にのみ表示-->
+			<!--sec:authorize="isAnonymous"が未ログインの時に表示させる-->
+			<div sec:authorize="isAnonymous()">
+				<form th:action="@{/login}" method="get">
+					<div>
+						<input type="submit" value="ログイン" class="btn">
+					</div>	
+				</form>
+			</div>
+			
 		</main>
 		<footer th:insert="~{footer :: footer_area}"></footer>
 	</div>

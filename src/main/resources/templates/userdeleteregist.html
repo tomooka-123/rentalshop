@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<title>RENTAL SHOP</title>
+	</head>
+<body>
+	<div id="wrapper">
+		<header>
+			<h1>退会画面</h1>
+			<hr>
+		</header>
+		<main>
+			<form th:action="@{/deactivate}" object="${userUpdateToForm}" method="post">
+				<div id="form-area">
+					<div class="form-row">本当に退会しますか？</div>
+				
+					<div class="form-row">
+						<input type="submit" value="退会する" class="btn">
+					</div>
+				</div>
+			</form>
+		</main>
+		<footer></footer>
+	</div>
+</body>
+</html>
