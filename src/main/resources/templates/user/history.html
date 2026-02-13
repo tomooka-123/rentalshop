@@ -38,6 +38,10 @@
 										<td th:text="${item.itemForm.director }" class="director"></td>
 										<td th:text="${item.itemForm.itemPoint }" class="itemPoint"></td>
 										<td th:text="${history.rentalDate }" class="date"></td>
+										<form th:action="@{/history/delete}" method="post">
+											<input type="hidden" name="rentalItemId" value="${item.itemId}">
+											<button type="submit">非表示にする</button>
+										</form>
 									</tr>
 								</th:block>
 							</th:block>

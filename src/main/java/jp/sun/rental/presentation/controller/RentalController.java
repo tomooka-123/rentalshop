@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jp.sun.rental.application.service.RentalService;
 import jp.sun.rental.presentation.form.RentalHistoryForm;
@@ -28,5 +30,34 @@ public class RentalController {
 		model.addAttribute("historyFormList", historyFormList);
 		
 		return "history";
+	}
+	
+	@PostMapping(value = "/history/return")
+	public String changeReturn(@RequestParam String rentalItemId, Model model) throws Exception{
+		int numRow = 0;
+		
+		numRow = rentalService.changeReturnFlag(rentalItemId);
+		
+		if(numRow < 1) {
+			model.addAttribute("error","削除に失敗しました。");
+			return "error/error";
+		}else {
+			return "redirect:/history";
+		}
+	}
+	
+	@PostMapping(value = "/history/delete")
+	public String deleteHistory(@RequestParam String rentalItemId, Model model) throws Exception{
+		int numRow = 0;
+		
+		numRow = rentalService.changeDeleteFlag(rentalItemId);
+		
+		if(numRow < 1) {
+			model.addAttribute("error","削除に失敗しました。");
+			return "error/error";
+		}else {
+			return "redirect:/history";
+		}
+		
 	}
 }
