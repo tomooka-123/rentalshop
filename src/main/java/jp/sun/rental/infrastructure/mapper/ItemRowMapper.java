@@ -10,7 +10,7 @@ import jp.sun.rental.domain.entity.ItemEntity;
 public class ItemRowMapper implements RowMapper<ItemEntity> {
 	
 	@Override
-	public ItemEntity mapRow (ResultSet rs, int owNum) throws SQLException{
+	public ItemEntity mapRow (ResultSet rs, int rowNum) throws SQLException{
 		ItemEntity itemEntity = new ItemEntity();
 		
 		itemEntity.setItemId(rs.getInt("item_id"));

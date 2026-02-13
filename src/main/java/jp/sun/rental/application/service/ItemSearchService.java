@@ -21,7 +21,7 @@ public class ItemSearchService {
 		this.modelMapper = modelMapper;
 	}
 	
-	//フォームの情報を元にユーザーを検索する
+	//フォームの情報を元に商品を検索する
 	public List<ItemForm> getItemsList(ItemForm form) throws Exception {
 		
 		List<ItemEntity> entityList = null;

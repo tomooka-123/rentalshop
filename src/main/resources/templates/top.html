@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ja">
 <head>
-<meta charset="UTF-8">
-<link th:href="@{/css/management.css}" rel="stylesheet" type="text/css">
-<title>Topページ</title>
+	<meta charset="UTF-8">
+	<link th:href="@{/css/management.css}" rel="stylesheet" type="text/css">
+	<title>Topページ</title>
 </head>
 <body>
 	<header th:insert="~{header :: header_area}"></header>
@@ -26,13 +26,19 @@
 				<span th:text="${errors}" class="errors"></span>
 			</form>
 		</div>
-		<!-- ログインしていない人にのみ表示 -->
-		<!-- sec:authorize="isAnonymous"が未ログインの時に表示させる -->
-		<div class="links">
-			<a th:href="@{/login}" sec:authorize="isAnonymous()">ログイン</a>
+		
+		<!--ログインしていない人にのみ表示-->
+		<!--sec:authorize="isAnonymous"が未ログインの時に表示させる-->
+		<div sec:authorize="isAnonymous()">
+			<form th:action="@{/login}" method="get">
+				<div>
+					<input type="submit" value="ログイン" class="btn">
+				</div>	
+			</form>
 		</div>
-		<!-- ログインしている人にのみ表示 -->
-		<!-- sec:authorize="isAuthenicated()"がログインしている時に表示させる -->
+		
+		<!--ログインしている人にのみ表示-->
+		<!--sec:authorize="isAuthenicated()"がログインしている時に表示させる-->
 		<div sec:authorize="isAuthenticated()">
 			<!-- ログイン情報表示＆ログアウトボタン
 			<form th:action="@{/logout}" method="post">
@@ -40,25 +46,33 @@
 					<span sec:authentication="name"></span>さんログイン中
 					<input type="submit" value="ログアウト" class="btn">
 				</div>	
-			</form> -->
+			</form> -->		
 			<div class="button-group">
-			<form th:action="@{/user/update}" method="get">
-				<div>
-					<input type="submit" value="ユーザー情報更新" class="btn">
-				</div>	
-			</form>
-			<form th:action="@{/deactivate}" method="get">
-				<div>
-					<input type="submit" value="退会する方はこちら" class="btn">
-				</div>	
-			</form>
+				<form th:action="@{/cart}" method="get">
+					<div>
+						<input type="submit" value="レンタル希望" class="btn">
+					</div>	
+				</form>
+				<form th:action="@{/user/update}" method="get">
+					<div>
+						<input type="submit" value="ユーザー情報更新" class="btn">
+					</div>	
+				</form>
+				<form th:action="@{/deactivate}" method="get">
+					<div>
+						<input type="submit" value="退会する方はこちら" class="btn">
+					</div>	
+				</form>
 			</div>
+			
 			<!-- EMPLOYEE権限を持っている人のみに表示 -->
 			<!-- sec:authorize="hasAuthority()"が指定した権限を持っている人に表示させる -->
 			<div sec:authorize="hasAuthority('EMPLOYEE')">
 				<a th:href="@{/search/user}">管理者用ユーザー検索ページ</a>
 			</div>
 		</div>
+		
 	</main>
+	<footer th:insert="~{footer :: footer_area}"></footer>
 </body>
 </html>
