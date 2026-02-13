@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -251,13 +250,6 @@ public class UserController {
 	    return "user/success";
 
 	}
-	//例外ハンドラー
-	@ExceptionHandler(Exception.class)
-	public String handlerException(Exception e, Model model) {
-		model.addAttribute("error", "システムエラーが発生しました");
-		e.printStackTrace();
-		
-		return "error/error";
-	}
+
 	
 }
