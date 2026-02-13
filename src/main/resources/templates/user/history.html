@@ -26,6 +26,7 @@
 								<th>監督名</th>
 								<th>ポイント</th>
 								<th>レンタル日</th>
+								<th>返却状況</th>
 							</tr>
 							<th:block th:each="history : ${historyFormList}">
 								<th:block th:each="item : ${history.rentalItems}">
@@ -38,6 +39,7 @@
 										<td th:text="${item.itemForm.director }" class="director"></td>
 										<td th:text="${item.itemForm.itemPoint }" class="itemPoint"></td>
 										<td th:text="${history.rentalDate }" class="date"></td>
+										<td th:text="${item.return_flag} ? '返却済み' : '未返却'"></td>
 										<!--返却済みの場合のみ履歴非表示ボタンを表示-->
 										<th:block th:if="${item.return_flag}">
 											<form th:action="@{/history/delete}" method="post">
@@ -45,6 +47,7 @@
 												<button type="submit" class="btn">非表示にする</button>
 											</form>
 										</th:block>
+										<!--管理者のみ返却フラグ切り替えボタンを表示（管理者操作用の別ページを作成後消去予定-->
 										<div sec:authorize="hasAuthority('EMPLOYEE')">
 											<form th:action="@{/history/return}" method="post">
 												<input type="hidden" name="rentalItemId" value="${item.itemId}">
