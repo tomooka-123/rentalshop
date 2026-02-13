@@ -76,8 +76,6 @@ public class CartRepository {
 	}
 	
 	
-	
-	
 	//商品をcart_itemに追加
 	public int addCart(int itemId, int cartId) {
 		String sql = "INSERT INTO cart_item (item_id, cart_id) VALUES (?, ?)";
@@ -87,4 +85,11 @@ public class CartRepository {
 	}
 	
 	
+	//商品をcart_itemから削除
+	public int deleteItem(int itemId, int cartId) {
+		String sql = "DELETE FROM cart_item WHERE item_id = ? AND cart_id = ?";
+		
+		int numberOfRow = jdbcTemplate.update(sql,itemId, cartId);
+		return numberOfRow;		
+	}
 }
