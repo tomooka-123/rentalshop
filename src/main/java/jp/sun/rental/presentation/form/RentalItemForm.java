@@ -15,5 +15,7 @@ public class RentalItemForm implements Serializable {
 	
 	private String returnFlag;
 	
+	private String deleteFlag;
+	
 	private ItemForm itemForm;
 }

@@ -35,6 +35,7 @@ public class RentalRepository {
 		sb.append(" LEFT OUTER JOIN item i");
 		sb.append(" ON ri.item_id = i.item_id");
 		sb.append(" WHERE r.user_id = ?");
+		sb.append(" AND (ri.delete_flag = 0 OR ri.delete_flag is NULL)");
 		sb.append(" ORDER BY r.rental_date");
 		
 		String sql = sb.toString();
@@ -63,16 +64,50 @@ public class RentalRepository {
 		StringBuilder sb = new StringBuilder();
 		
 		int rowItems = 0;
-		
-		sb = new StringBuilder();
-		sb.append("INSERT INTO rental_item (rental_id, item_id, return_flag");
-		sb.append(" VALUES (? ? 0)");
+
+		sb.append("INSERT INTO rental_item (rental_id, item_id, return_flag, delete_flag)");
+		sb.append(" VALUES (?, ?, 0, 0)");
 		
 		String sql = sb.toString();
 		
 		rowItems = jdbcTemplate.update(sql, rentalId, cartItemEntity.getItemId());
 		
 		return rowItems;
+	}
+	
+	//返却フラグ切り替え
+	public int changeReturnFlag(int rentalItemId)throws Exception{
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("UPDATE rental_item");
+		sb.append(" SET return_flag = NOT return_flag");
+		sb.append(" WHERE rental_item_id = ?");
+		sb.append(" AND delete_flag = 0");
+		
+		String sql = sb.toString();
+		
+		int numRow = 0;
+		
+		numRow = jdbcTemplate.update(sql, rentalItemId);
+		
+		return numRow;
+	}
+	
+	//論理削除フラグ切り替え
+	public int changeDeleteFlag(int rentalItemId)throws Exception{
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("UPDATE rental_item");
+		sb.append(" SET delete_flag = NOT delete_flag");
+		sb.append(" WHERE rental_item_id = ?");
+		sb.append(" AND delete_flag = 0");
+		String sql = sb.toString();
+		
+		int numRow = 0;
+		
+		numRow = jdbcTemplate.update(sql, rentalItemId);
+		
+		return numRow;
 	}
 	
 	public int getLastInsertId()throws Exception{

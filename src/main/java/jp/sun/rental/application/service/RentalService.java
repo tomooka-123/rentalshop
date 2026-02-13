@@ -81,6 +81,30 @@ public class RentalService {
 		return rowRental + rowItems + cartDelete;
 	}
 	
+	//返却フラグ切り替え
+	@Transactional(rollbackFor = Exception.class)
+	public int changeReturnFlag(String rentalItemId)throws Exception{
+		int itemId = Integer.parseInt(rentalItemId);
+		
+		int numRow = 0;
+		
+		numRow = rentalRepository.changeReturnFlag(itemId);
+		
+		return numRow;
+	}
+	
+	//論理削除フラグ切り替え
+	@Transactional(rollbackFor = Exception.class)
+	public int changeDeleteFlag(String rentalItemId)throws Exception{
+		int itemId = Integer.parseInt(rentalItemId);
+		
+		int numRow = 0;
+		
+		numRow = rentalRepository.changeDeleteFlag(itemId);
+		
+		return numRow;
+	}
+	
 	private RentalHistoryForm convert(RentalHistoryEntity historyEntity) {
 		
 		RentalHistoryForm historyForm = new RentalHistoryForm();

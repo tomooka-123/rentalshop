@@ -27,8 +27,8 @@
 								<th>ポイント</th>
 								<th>レンタル日</th>
 							</tr>
-							<td:block th:each="history : ${historyFormList}">
-								<td:block th:each="item : ${historyFormList.cartItems}">
+							<th:block th:each="history : ${historyFormList}">
+								<th:block th:each="item : ${history.rentalItems}">
 									<tr>
 										<td th:text="${item.itemForm.itemName }" class="itemName"></td>
 										<!--<td th:text="${item.genreId }" class="genreId"></td>-->
@@ -39,8 +39,8 @@
 										<td th:text="${item.itemForm.itemPoint }" class="itemPoint"></td>
 										<td th:text="${history.rentalDate }" class="date"></td>
 									</tr>
-								</td:block>
-							</td:block>
+								</th:block>
+							</th:block>
 						</table>
 					</div>
 				</div>

@@ -13,5 +13,7 @@ public class RentalItemEntity {
 	
 	private boolean returnFlag;
 	
+	private boolean deleteFlag;
+	
 	private ItemEntity itemEntity;
 }
