@@ -19,9 +19,7 @@
 						<table>
 							<tr>
 								<th>商品名</th>
-								<!--<th>カテゴリ名</th>--><!--カテゴリIDでカテゴリ名を取得する必要がある-->
 								<th>商品画像</th>
-								<!--<th>商品情報更新日</th>-->
 								<th>アーティスト名</th>
 								<th>監督名</th>
 								<th>ポイント</th>
@@ -32,12 +30,9 @@
 								<th:block th:each="item : ${history.rentalItems}">
 									<tr>
 										<td th:text="${item.itemForm.itemName }" class="itemName"></td>
-										<!--<td th:text="${item.genreId }" class="genreId"></td>-->
 										<td>
-										<img th:src="@{${item.itemForm.itemImg}}">
+										<img th:src="@{${item.itemForm.itemImg}}" width="120px" height="auto">
 										</td>
-<!--										<td th:text="${item.itemForm.itemImg }" class="itemImg"></td>-->
-										<!--<td th:text="${#dates.format(#strings.replace(item.itemUpdate, '-', '/'), 'yyyy年MM月dd日') }" class="itemUpdate"></td>-->
 										<td th:text="${item.itemForm.artist }" class="artist"></td>
 										<td th:text="${item.itemForm.director }" class="director"></td>
 										<td th:text="${item.itemForm.itemPoint }" class="itemPoint"></td>
