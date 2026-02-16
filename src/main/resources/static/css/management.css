@@ -271,8 +271,6 @@ input:focus {
 .btn-detail {
     background: linear-gradient(90deg, #d4af37, #b8860b);
     color: #fff;
-    background: linear-gradient(90deg, #d4af37, #b8860b);
-    color: #fff;
     border: none;
     transition: all 0.3s ease;
 }
@@ -311,7 +309,6 @@ input:focus {
     font-size: 14px;
 }
 
-
 /* ===== スクロールバー全体（Chrome, Edge） ===== */
 ::-webkit-scrollbar {
     width: 10px;   /* 縦スクロール幅 */
@@ -341,6 +338,78 @@ html {
     display: flex;
     gap: 15px; /* ボタン間の余白 */
  }
+
+/* カテゴリータブ用 */
+
+.category-wrapper {
+    position: relative;
+}
+
+.category-tabs {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none;
+    /* Firefox */
+    scrollbar-width: none;
+}
+
+.category-tabs a {
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    background-color: #eee;
+    color: #333;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.category-tabs a:hover {
+    background-color: #ccc;
+}
+
+.category-tabs a.active {
+    background-color: #333;
+    color: #fff;
+}
+
+/* Chrome / Edge / Safari */
+.category-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.category-tabs::-webkit-scrollbar-thumb {
+    background: transparent;
+}
+
+.category-tabs:hover::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.3);
+}
+
+/* 左フェード */
+.category-wrapper::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 40px;
+    height: 100%;
+    pointer-events: none;
+    background: linear-gradient(to right, white, transparent);
+}
+
+/* 右フェード */
+.category-wrapper::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 40px;
+    height: 100%;
+    pointer-events: none;
+    background: linear-gradient(to left, white, transparent);
+}
 
 /* ===== エラーメッセージ ===== */
 .errors {

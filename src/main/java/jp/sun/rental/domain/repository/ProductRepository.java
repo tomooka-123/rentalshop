@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import jp.sun.rental.domain.entity.GenreEntity;
 import jp.sun.rental.domain.entity.ItemEntity;
 
 @Repository
@@ -89,5 +90,38 @@ public class ProductRepository {
         );
     }
 
+    public List<GenreEntity> findGenreAll() {
 
+        String sql = """
+            SELECT genre_id, genre_name
+            FROM category
+        """;
+
+        return jdbcTemplate.query(
+                sql,
+                new BeanPropertyRowMapper<>(GenreEntity.class)
+        );
+    }
+    
+  //
+  	public int itemRegist( ItemEntity itemEntity) {
+  		//usersテーブルに登録する
+  		StringBuilder sb = new StringBuilder();
+  		sb.append("INSERT INTO item (item_name, genre_id, item_img, artist, director, item_point, item_update)");
+  		sb.append(" VALUES (?, ?, ?, ?, ?, ?, ?)");
+  		String sql = sb.toString();
+  		
+  		Object[] itemParameters = { itemEntity.getItemName(),
+  									itemEntity.getGenreId(),
+  									itemEntity.getItemImg(),
+  									itemEntity.getArtist(),
+  									itemEntity.getDirector(),
+  									itemEntity.getItemPoint(),
+  								    itemEntity.getItemUpdate()};
+  		
+  		int numberOfRow = 0;
+  		numberOfRow = jdbcTemplate.update(sql,itemParameters);
+
+  		return numberOfRow;
+  	}
 }
