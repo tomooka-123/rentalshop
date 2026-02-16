@@ -18,7 +18,7 @@ public class SecurityConfig {
 	protected SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
 		http.authorizeHttpRequests(authorize -> authorize
 				.requestMatchers("/search/user").authenticated()
-				.requestMatchers("/user/update").authenticated()
+				.requestMatchers("/user/update/**").authenticated()
 				.requestMatchers("/deactivate").authenticated()	//退会
 				.requestMatchers("/cart/**").authenticated()
 				.requestMatchers("/login").permitAll()
