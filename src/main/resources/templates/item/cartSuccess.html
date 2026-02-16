@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<link th:href="@{/css/management.css}" rel="stylesheet" type="text/css">
+	<title>レンタル確定</title>
+</head>
+<body>
+	<div id="wrapper">
+		<header th:insert="~{header :: header_area}"></header>
+		<main>
+			<p>
+				<span th:text="${message}"></span>
+			</p>
+			
+			<a href="/top">トップ</a>
+			
+		</main>
+		<footer th:insert="~{footer :: footer_area}"></footer>
+	</div>
+</body>
+</html>
