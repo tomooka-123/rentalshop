@@ -25,15 +25,17 @@
 								<th>商品画像</th>
 								<th>アーティスト名</th>
 								<th>監督名</th>
+								<th>ポイント</th>
 							</tr>
 							<td:block th:each="item : ${cartForm.cartItems}">
 								<tr>
 									<td th:text="${item.itemForm.itemName }" class="itemName"></td>
 									<td>
-										<img th:src="@{${item.itemForm.itemImg}}">
+										<img th:src="@{${item.itemForm.itemImg}}" width="180" height="auto">
 									</td>
 									<td th:text="${item.itemForm.artist }" class="artist"></td>
 									<td th:text="${item.itemForm.director }" class="director"></td>
+									<td th:text="${item.itemForm.itemPoint }" class="itemPoint"></td>
 								</tr>
 							</td:block>
 						</table>

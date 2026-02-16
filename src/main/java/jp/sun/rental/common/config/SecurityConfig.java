@@ -19,7 +19,8 @@ public class SecurityConfig {
 		http.authorizeHttpRequests(authorize -> authorize
 				.requestMatchers("/search/user").authenticated()
 				.requestMatchers("/user/update").authenticated()   
-				.requestMatchers("/cart/**").authenticated()   
+				.requestMatchers("/cart/**").authenticated()  
+				.requestMatchers("/history/**").authenticated()
 				.requestMatchers("/login").permitAll()
 				.anyRequest().permitAll());
 		
