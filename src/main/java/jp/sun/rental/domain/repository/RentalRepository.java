@@ -27,8 +27,8 @@ public class RentalRepository {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("SELECT");
-		sb.append(" r.rental_id, r.user_id, r.rental_date, r.address, r.address_name");
-		sb.append(" ri.rental_item_id, ri.rental_id, ri.item_id AS ri_item_id, ri.return_flag,");
+		sb.append(" r.rental_id, r.user_id, r.rental_date, r.address, r.address_name,");
+		sb.append(" ri.rental_item_id, ri.rental_id, ri.item_id AS ri_item_id, ri.return_flag, ri.delete_flag,");
 		sb.append(" i.item_id AS i_item_id, i.item_name, i.genre_id, i.item_img, i.item_update, i.artist, i.director, i.item_point");
 		sb.append(" FROM rental r");
 		sb.append(" LEFT OUTER JOIN rental_item ri");

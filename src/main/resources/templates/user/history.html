@@ -33,31 +33,39 @@
 									<tr>
 										<td th:text="${item.itemForm.itemName }" class="itemName"></td>
 										<!--<td th:text="${item.genreId }" class="genreId"></td>-->
-										<td th:text="${item.itemForm.itemImg }" class="itemImg"></td>
+										<td>
+										<img th:src="@{${item.itemForm.itemImg}}">
+										</td>
+<!--										<td th:text="${item.itemForm.itemImg }" class="itemImg"></td>-->
 										<!--<td th:text="${#dates.format(#strings.replace(item.itemUpdate, '-', '/'), 'yyyy年MM月dd日') }" class="itemUpdate"></td>-->
 										<td th:text="${item.itemForm.artist }" class="artist"></td>
 										<td th:text="${item.itemForm.director }" class="director"></td>
 										<td th:text="${item.itemForm.itemPoint }" class="itemPoint"></td>
 										<td th:text="${history.rentalDate }" class="date"></td>
-										<td th:text="${item.return_flag} ? '返却済み' : '未返却'"></td>
+										<td th:text="${item.returnFlag} ? '返却済み' : '未返却'"></td>
 										<!--返却済みの場合のみ履歴非表示ボタンを表示-->
-										<th:block th:if="${item.return_flag}">
+										<td th:if="${item.returnFlag}">
 											<form th:action="@{/history/delete}" method="post">
-												<input type="hidden" name="rentalItemId" value="${item.rentalItemId}">
-												<button type="submit" class="btn">非表示にする</button>
+												<input type="hidden" name="rentalItemId" th:value="${item.rentalItemId}">
+												<button type="submit" class="btn">削除</button>
 											</form>
-										</th:block>
+										</td>
 										<!--管理者のみ返却フラグ切り替えボタンを表示（管理者操作用の別ページを作成後消去予定-->
-										<div sec:authorize="hasAuthority('EMPLOYEE')">
-											<form th:action="@{/history/return}" method="post">
-												<input type="hidden" name="rentalItemId" value="${item.itemId}">
-												<button type="submit" class="btn">返却、未返却切り替え</button>
-											</form>
-										</div>
+										<td>
+											<div sec:authorize="hasAuthority('EMPLOYEE')">
+												<form th:action="@{/history/return}" method="post">
+													<input type="hidden" name="rentalItemId" th:value="${item.itemId}">
+													<button type="submit" class="btn">返却、未返却切り替え</button>
+												</form>
+											</div>
+										</td>
 									</tr>
 								</th:block>
 							</th:block>
 						</table>
+					</div>
+					<div th:if="${#lists.isEmpty(historyFormList)}">
+						履歴がありません
 					</div>
 				</div>
 			</div>

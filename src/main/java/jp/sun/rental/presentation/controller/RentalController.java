@@ -29,7 +29,7 @@ public class RentalController {
 		
 		model.addAttribute("historyFormList", historyFormList);
 		
-		return "history";
+		return "user/history";
 	}
 	
 	@PostMapping(value = "/history/return")
