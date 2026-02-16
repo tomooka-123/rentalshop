@@ -25,7 +25,7 @@ public class CartRepository {
 		
 		sb.append("SELECT");
 		sb.append(" c.cart_id, c.user_id,");
-		sb.append(" ci.cart_item_id, ci.item_id, ci.cart_id,");
+		sb.append(" ci.cart_item_id, ci.item_id, ci.cart_id, ci.priority,");
 		sb.append(" i.item_id, i.item_name, i.genre_id, i.item_img, i.item_update, i.artist, i.director, i.item_point");
 		sb.append(" FROM cart c");
 		sb.append(" LEFT OUTER JOIN cart_item ci");
@@ -33,7 +33,7 @@ public class CartRepository {
 		sb.append(" LEFT OUTER JOIN item i");
 		sb.append(" ON ci.item_id = i.item_id");
 		sb.append(" WHERE c.user_id = ?");
-		sb.append(" ORDER BY ci.item_id");
+		sb.append(" ORDER BY ci.priority");
 		
 		String sql = sb.toString();
 		
@@ -93,10 +93,10 @@ public class CartRepository {
 	}
 	
 	//商品1件をcart_itemに追加
-	public int addCart(int itemId, int cartId) {
-		String sql = "INSERT INTO cart_item (item_id, cart_id) VALUES (?, ?)";
+	public int addCart(int itemId, int cartId, int priority) {
+		String sql = "INSERT INTO cart_item (item_id, cart_id, priority) VALUES (?, ?, ?)";
 		
-		int numberOfRow = jdbcTemplate.update(sql,itemId, cartId);
+		int numberOfRow = jdbcTemplate.update(sql,itemId, cartId, priority);
 		return numberOfRow;
 	}
 
