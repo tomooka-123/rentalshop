@@ -31,7 +31,7 @@
 									<tr>
 										<td th:text="${item.itemForm.itemName }" class="itemName"></td>
 										<td>
-											<img th:src="@{${item.itemForm.itemImg}}">
+											<img th:src="@{${item.itemForm.itemImg}}" width="180" height="auto">
 										</td>
 										<td th:text="${item.itemForm.artist }" class="artist"></td>
 										<td th:text="${item.itemForm.director }" class="director"></td>
@@ -45,6 +45,9 @@
 								</form>
 							</td:block>
 						</table>
+						<form th:action="@{/cart/deleteall}" method="post">
+							<button type="submit" class="btn">カートの中身を全削除</button>
+						</form>
 					</div>
 					<button type="button" class="btn" onclick="location.href='/cart/confirm'">レンタル希望確認</button>
 				</div>

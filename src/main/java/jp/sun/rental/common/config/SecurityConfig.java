@@ -21,6 +21,7 @@ public class SecurityConfig {
 				.requestMatchers("/user/update/**").authenticated()
 				.requestMatchers("/deactivate").authenticated()	//退会
 				.requestMatchers("/cart/**").authenticated()
+				.requestMatchers("/history/**").authenticated()
 				.requestMatchers("/login").permitAll()
 				.anyRequest().permitAll());
 		

@@ -81,7 +81,7 @@
 					<div class="form-row">
 						<div class="title"><label for="password">パスワード</label></div>
 						<div class="content">
-							<input th:field="*{password}">
+							<input type="password" th:field="*{password}">
 							<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="errors"></span>
 						</div>
 					</div>
@@ -89,7 +89,7 @@
 					<div class="form-row">
 						<div class="title"><label for="confirmPassword">パスワード<br>(確認用)</label></div>
 						<div class="content">
-							<input th:field="*{confirmPassword}">
+							<input type="password" th:field="*{confirmPassword}">
 							<span th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="errors"></span>
 						</div>
 					</div>
