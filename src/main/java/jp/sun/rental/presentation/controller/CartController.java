@@ -95,7 +95,7 @@ public class CartController {
 	@GetMapping(value = "/cart/confirm")
 	public String cartComfirm(Model model, Authentication authentication)throws Exception{
 		
-		CartForm cartForm = cartService.getCartByUserName(authentication.getName());
+		CartForm cartForm = cartService.getCartByUserNameWherePriorityMaxTwo(authentication.getName());
 		
 		model.addAttribute("cartForm",cartForm);
 		
