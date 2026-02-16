@@ -133,7 +133,32 @@ public class CartRepository {
 		return numberOfRow;		
 	}
 	
-	
+	//受け取ったユーザーIDのカートの中身から優先度が高い２件を削除
+		public int deleteCartItemsByUserIdWherePriorityMaxTwo(int userId) throws Exception{
+				
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append("DELETE");
+			sb.append(" FROM cart_item");
+			sb.append(" WHERE cart_item_id IN");
+			sb.append(" (SELECT cart_item_id FROM ");
+			sb.append(" (SELECT ci.cart_item_id");
+			sb.append(" FROM cart_item ci");
+			sb.append(" INNER JOIN cart c");
+			sb.append(" ON ci.cart_id = c.cart_id");
+			sb.append(" WHERE c.user_id = ?");
+			sb.append(" ORDER BY ci.priority ASC");
+			sb.append(" LIMIT 2)");
+			sb.append(" AS tmp)");
+			
+			String sql = sb.toString();
+			
+			int numOfRow = 0;
+			
+			numOfRow = jdbcTemplate.update(sql, userId);
+			
+			return numOfRow;
+		}
 	
 	//受け取ったユーザーIDのカートの中身を全削除
 	public int deleteCartItemsByUserId(int userId) throws Exception{

@@ -32,4 +32,15 @@ public class CartDeleteService {
 		int numberOfRow = cartRepository.deleteItem(itemId, cartId);
 		return numberOfRow;
 	}
+	
+	//カートの中身を全削除
+	@Transactional(rollbackFor = Exception.class)
+	public int deleteAllItem(String username) throws Exception{
+		int userId = userRepository.getUserIdByUserName(username);
+		
+		int numOfRow = cartRepository.deleteCartItemsByUserId(userId);
+		
+		return numOfRow;
+	}
+	
 }

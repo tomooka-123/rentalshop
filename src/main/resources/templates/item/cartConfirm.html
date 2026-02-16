@@ -11,6 +11,8 @@
 		<main>
 			<div id="form-area">
 				<div class="form-row">
+					<span th:if="${#lists.size(cartForm.cartItems) < 2}" th:text="'レンタル希望は2件必要です。'"></span>
+    				<span th:if="${#lists.size(cartForm.cartItems) == 2}" th:text="'以下の2件をレンタルします。よろしいですか？'"></span>
 					<span th:text="${error}" class="errors"></span>
 					<span th:text="${message}"></span>
 				</div>
@@ -37,7 +39,8 @@
 						</table>
 					</div>
 				</div>
-				<button type="button" class="btn" onclick="location.href='/cart/success'">確定</button>
+				<a href="/cart">戻る</a>
+				<button type="button" class="btn" th:disabled="${#lists.size(cartForm.cartItems) < 2}" onclick="location.href='/cart/success'">確定</button>
 			</div>
 			
 		</main>

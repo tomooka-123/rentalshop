@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.sun.rental.application.service.CartDeleteService;
 import jp.sun.rental.application.service.CartInsertService;
@@ -89,6 +90,20 @@ public class CartController {
 		model.addAttribute("cartForm",cartForm);
 		return "item/cart";
 
+	}
+	
+	//カートの中身を全削除する
+	@PostMapping(value = "/cart/deleteall")
+	public String cartItemAllDelete(Authentication authentication, RedirectAttributes redirectAttributes)throws Exception{
+		String username = authentication.getName();
+		int numOfRow = cartDeleteService.deleteAllItem(username);
+		
+		if(numOfRow == 0) {
+			redirectAttributes.addFlashAttribute("messag", "削除に失敗しました");
+		}else {
+			redirectAttributes.addFlashAttribute("message", "レンタル希望を全削除しました");
+		}
+		return "redirect:/cart";
 	}
 	
 	//レンタル希望を確認する

@@ -45,6 +45,9 @@
 								</form>
 							</td:block>
 						</table>
+						<form th:action="@{/cart/deleteall}" method="post">
+							<button type="submit" class="btn">カートの中身を全削除</button>
+						</form>
 					</div>
 					<button type="button" class="btn" onclick="location.href='/cart/confirm'">レンタル希望確認</button>
 				</div>
