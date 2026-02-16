@@ -75,6 +75,22 @@ public class CartRepository {
 		}
 	}
 	
+	//カート内の最大優先度を取得
+	public int getMaxPriority(int cartId) {
+		String sql = "SELECT MAX(priority) FROM cart_item WHERE cart_id = ?";
+		
+		Integer maxPriority = jdbcTemplate.queryForObject(sql,Integer.class, cartId);
+		
+		int priority = 0;
+		
+		if(maxPriority == null) {
+			priority = 1;
+		}else {
+			priority = maxPriority + 1;
+		}
+		
+		return priority;
+	}
 	
 	//商品1件をcart_itemに追加
 	public int addCart(int itemId, int cartId) {
