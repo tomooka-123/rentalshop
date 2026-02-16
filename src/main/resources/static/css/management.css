@@ -1,4 +1,89 @@
-/* ===== ヘッダー ===== */
+@charset "UTF-8";
+
+/* ---------- 全体 ---------- */
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: "Helvetica Neue", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+	background-color: #f4f6f9;
+	color: #222;
+	letter-spacing: 0.5px;
+}
+
+main {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 60px 40px;
+}
+
+h1 {
+	font-size: 32px;
+	font-weight: 600;
+	margin-bottom: 40px;
+}
+
+h2 {
+	font-size: 22px;
+	font-weight: 500;
+	margin: 80px 0 30px;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 16px auto;
+	font-size: 14px;
+}
+
+th, td {
+	border: 1px solid #ffffff;
+	padding: 4px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+th {
+	padding: 10px;
+	background-color: #4a90e2;
+	color: white;
+}
+
+td {
+/*	border-bottom: 1px solid #e0e0e0;*/
+	padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #f9fbfd;
+}
+
+tr:hover {
+    background-color: #eef5ff;
+}
+
+label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+#wrapper {
+    width: 90%;
+    max-width: 1100px;
+    margin: 30px auto;
+    background: #ffffff;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border-radius: 8px;
+}
+
+#result-area {
+    margin-top: 20px;
+}
+
+
+/* ---------- ヘッダー ---------- */
+
 .login-info {
 	margin-left: auto;	/* 右寄せ */ 
 }
@@ -11,84 +96,50 @@
     padding-bottom: 10px;
 }
 
-/* ===== 全体 ===== */
-body {
-    margin: 0;
-    font-family: "Helvetica Neue", "Hiragino Kaku Gothic ProN", sans-serif;
-    background-color: #f8f8f8;
-    color: #222;
-    letter-spacing: 0.5px;
-}
 
-main {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 60px 40px;
-}
+/* ---------- フッター ---------- */
 
-h1 {
-    font-size: 32px;
-    font-weight: 600;
-    margin-bottom: 40px;
-}
-
-h2 {
-    font-size: 22px;
-    font-weight: 500;
-    margin: 80px 0 30px;
-}
-
-/* ===== テーブル ===== */
-table {
-	width: 810px;
-    border-collapse: collapse;
-    margin: 16px auto;
-}
-
-th, td {
-    border: 1px solid #ffffff;
-    padding: 4px;
+footer {
 	text-align: center;
-	vertical-align: middle;
+	margin-top: 40px;
+	color: #888;
+	font-size: 13px;
 }
 
-th {
-	background-color: #bbddff;
-}
 
-td {
-	background-color: #f0f5ff;
-}
+/* ---------- フォームエリア ---------- */
 
-/* ===== フォームエリア ===== */
 #form-area {
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 30px 40px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+	background-color: #fff;
+	border-radius: 10px;
+	padding: 30px 40px;
+	margin-bottom: 40px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-/* ===== 各行 ===== */
 .form-row {
-    display: flex;
-    align-items: center;
-    margin-bottom: 18px;
+	display: flex;
+	align-items: center;
+	margin-bottom: 15px;
+	font-size: 14px;
 }
+
 
 .form-row:last-child {
-    margin-top: 30px;
+	margin-top: 30px;
 }
 
-/* ===== 左ラベル ===== */
 .form-row .title {
-    width: 160px;
-    font-weight: 600;
-    color: #555;
+	width: 160px;
+	font-weight: 600;
+	color: #555;
 }
 
-/* ===== 入力エリア ===== */
+
+/* ---------- 入力エリア ---------- */
+
 .form-row .content {
-    flex: 1;
+	flex: 1;
 }
 
 input[type="text"],
@@ -98,10 +149,10 @@ input[type="password"],
 input[type="number"],
 input[type="radio"],
 input {
-    padding: 8px 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 14px;
+	padding: 8px 10px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	font-size: 14px;
 }
 
 input[type="text"],
@@ -109,18 +160,31 @@ input[type="email"],
 input[type="tel"],
 input[type="password"],
 input[type="number"] {
-    width: 100%;
-    max-width: 400px;
+	width: 100%;
+	max-width: 400px;
 }
 
-/* フォーカス時 */
+input[type="text"],
+input[type="search"],
+input[type="password"],
+input[type="email"],
+input[type="number"] {
+	padding: 8px 10px;
+	width: 250px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 14px;
+}
+
 input:focus {
-    outline: none;
-    border-color: #4a90e2;
-    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.15);
+	outline: none;
+	border-color: #4a90e2;
+	box-shadow: 0 0 4px rgba(74, 144, 226, 0.4);
 }
 
-/* ===== ラジオボタン ===== */
+
+/* ---------- ラジオボタン ---------- */
+
 .form-row input[type="radio"] {
     margin-right: 5px;
 }
@@ -130,189 +194,229 @@ input:focus {
     cursor: pointer;
 }
 
-/* ===== ボタン ===== */
-.btn {
-    display: inline-block;
-    margin-top: 12px;
-    padding: 8px 18px;
-    border: 1px solid #222;
-    background: transparent;
-    color: #222;
-    border-radius: 30px;
-    font-size: 13px;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
 
-    background-color: #4a90e2;
-    color: #fff;
-    border: none;
-    margin-left: 20px;
-    padding: 10px 28px;
-    border-radius: 20px;
-    font-size: 15px;
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.1s ease;
+/* ---------- ボタン ---------- */
+
+.btn {
+	display: inline-block;
+	margin-top: 12px;
+	padding: 8px 18px;
+	border: 1px solid #222;
+	border-radius: 30px;
+	background: transparent;
+	color: #222;
+	font-size: 13px;
+	letter-spacing: 1px;
+	transition: all 0.3s ease;
+
 	margin: 3px;
+	margin-left: 20px;
+	padding: 10px 28px;
+	border: none;
+	border-radius: 20px;
+	background: #4a90e2;
+	color: #fff;
+	font-size: 15px;
+	cursor: pointer;
+	transition: background-color 0.2s ease, transform 0.1s ease;
+
+	padding: 8px 18px;
+	border: none;
+	border-radius: 4px;
+	background: #4a90e2;
+	color: #ffffff;
+	font-size: 14px;
+	cursor: pointer;	
+	transition: background-color 0.3s ease;
 }
 
 .btn:hover {
-    background: #222;
-    color: #fff;
+	background: #357ab8;
+	color: #fff;
 }
 
-
 .btn:active {
-    transform: translateY(1px);
+	transform: translateY(1px);
 }
 
 .btn-area {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
+	display: flex;
+	justify-content: space-between;
+	margin-top: 30px;
 }
 
 .back-btn {
-    background-color: #ccc;
-    color: #333;
-    text-decoration: none;
-    padding: 8px 20px;
-    border-radius: 4px;
+	background-color: #ccc;
+	color: #333;
+	text-decoration: none;
+	padding: 8px 20px;
+	border-radius: 4px;
 }
 
 .back-btn:hover {
-    background-color: #aaa;
+	background-color: #aaa;
 }
 
-/* ===== 商品一覧 product ===== */
+
+/* ---------- 商品一覧 product ---------- */
 
 /* 商品一覧全体 */
 .product-list {
-    display: flex;
-    gap: 30px;
-    overflow-x: auto;
-    padding-bottom: 20px;
+	display: flex;
+	gap: 30px;
+	overflow-x: auto;
+	padding-bottom: 20px;
 }
 
 .product-list-container {
-    margin-bottom: 100px;
+	margin-bottom: 100px;
 }
 
 
 /* 商品カード1ブロック */
 .product-card {
-    min-width: 240px;
-    flex: 0 0 auto;
-    background: #fff;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.05);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+	min-width: 240px;
+	flex: 0 0 auto;
+	background: #fff;
+	border-radius: 12px;
+	padding: 20px;
+	box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .product-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+	transform: translateY(-6px);
+	box-shadow: 0 12px 30px rgba(0,0,0,0.1);
 }
 
 .product-card:hover img {
-    transform: scale(1.03);
-    transition: 0.4s ease;
+	transform: scale(1.03);
+	transition: 0.4s ease;
 }
 
 
 /* 画像サイズ調整 */
 .product-img img {
-    width: 100%;
-    height: 280px;
-    object-fit: cover;
-    border-radius: 10px;
+	width: 100%;
+	height: 280px;
+	object-fit: cover;
+	border-radius: 10px;
 }
 
 
 /* 商品名 */
 .product-name {
-    font-size: 15px;
-    font-weight: 500;
-    margin-top: 15px;
+	font-size: 15px;
+	font-weight: 500;
+	margin-top: 15px;
 }
 
 .product-info p {
-    margin: 4px 0;
-    font-size: 13px;
-    color: #777;
+	margin: 4px 0;
+	font-size: 13px;
+	color: #777;
 }
 
 
 /* ボタン */
 .product-card .btn {
-    display: inline-block;
-    padding: 6px 12px;
-    background: #0078d7;
-    color: white;
-    text-decoration: none;
-    border-radius: 25px;
+	display: inline-block;
+	padding: 6px 12px;
+	background: #0078d7;
+	color: white;
+	text-decoration: none;
+	border-radius: 25px;
 }
 
 /* ボタン横並び */
 .product-buttons {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
+	display: flex;
+	gap: 10px;
+	margin-top: 10px;
 }
 
 /* 共通ボタン幅を揃える */
 .product-buttons .btn {
-    flex: 1;
-    text-align: center;
-    font-size: 13px;
+	flex: 1;
+	text-align: center;
+	font-size: 13px;
 }
+
 
 /* 詳細ボタン（高級感ゴールド） */
 .btn-detail {
-    background: linear-gradient(90deg, #d4af37, #b8860b);
-    color: #fff;
-    background: linear-gradient(90deg, #d4af37, #b8860b);
-    color: #fff;
-    border: none;
-    transition: all 0.3s ease;
+	background: linear-gradient(90deg, #d4af37, #b8860b);
+	color: #fff;
+	background: linear-gradient(90deg, #d4af37, #b8860b);
+	color: #fff;
+	border: none;
+	transition: all 0.3s ease;
 }
 
 .btn-detail:hover {
-    background: linear-gradient(90deg, #b8860b, #d4af37);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 22px rgba(0,0,0,0.25);
+	background: linear-gradient(90deg, #b8860b, #d4af37);
+	transform: translateY(-2px);
+	box-shadow: 0 8px 22px rgba(0,0,0,0.25);
 }
 
 
 /* カートボタン（ブラック系） */
 .btn-cart {
-    background: #111;
-    color: #fff;
-    border: 1px solid #d4af37;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
+	background: #111;
+	color: #fff;
+	border: 1px solid #d4af37;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
 }
 
 .btn-cart:hover {
-    background: #d4af37;
-    color: #000;
+	background: #d4af37;
+	color: #000;
 }
 
 .btn-cart:hover i {
-    transform: translateX(2px);
-    transition: 0.2s ease;
+	transform: translateX(2px);
+	transition: 0.2s ease;
 }
 
 
 .btn i {
-    margin-right: 6px;
-    font-size: 14px;
+	margin-right: 6px;
+	font-size: 14px;
 }
 
 
-/* ===== スクロールバー全体（Chrome, Edge） ===== */
+/* ---------- レスポンシブ ---------- */
+@media (max-width: 768px) {
+	input[type="text"] {
+		width: 100%;
+		margin-top: 5px;
+	}
+
+	table {
+		font-size: 12px;
+	}
+
+	th, td {
+		padding: 6px;
+	}
+}
+
+
+/* ---------- エラーメッセージ ---------- */
+
+.errors {
+	display: block;
+	margin-top: 5px;
+	font-size: 13px;
+	color: #d93025;
+}
+
+
+/* ---------- スクロールバー全体（Chrome, Edge） ---------- */
+
 ::-webkit-scrollbar {
     width: 10px;   /* 縦スクロール幅 */
     height: 10px;  /* 横スクロール高さ */
@@ -331,7 +435,9 @@ input:focus {
     background: #000;     /* ホバー時 */
 }
 
-/* ===== Firefox用 ===== */
+
+/* ---------- Firefox用 ---------- */
+
 html {
     scrollbar-width: thin;
     scrollbar-color: #333 #f1f1f1;
@@ -341,19 +447,3 @@ html {
     display: flex;
     gap: 15px; /* ボタン間の余白 */
  }
-
-/* ===== エラーメッセージ ===== */
-.errors {
-    display: block;
-    margin-top: 5px;
-    font-size: 13px;
-    color: #d93025;
-}
-
-/* ===== フッター ===== */
-footer {
-    text-align: center;
-    margin-top: 40px;
-    color: #888;
-    font-size: 13px;
-}
