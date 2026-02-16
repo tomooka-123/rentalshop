@@ -54,12 +54,12 @@ public class RentalService {
 		return historyFormList;
 	}
 	
-	//カート情報から履歴に追加、追加後カートの破棄
+	//カート情報から履歴に追加、追加後カート内の優先度が高い２件を破棄
 	@Transactional(rollbackFor = Exception.class)
 	public int registHistory(String username)throws Exception{
 		int userId = userRepository.getUserIdByUserName(username);
 		
-		CartEntity cart = cartRepository.getCartItemsListByUserId(userId);
+		CartEntity cart = cartRepository.getCartItemsListByUserIdWherePriorityMaxTwo(userId);
 		
 		if(cart == null || cart.getCartItems().isEmpty()) {
 			throw new Exception("カートが空です");
@@ -83,7 +83,7 @@ public class RentalService {
 		//カートの中身を破棄
 		int cartDelete = 0;
 		
-		cartDelete = cartRepository.deleteCartItemsByUserId(userId);
+		cartDelete = cartRepository.deleteCartItemsByUserIdWherePriorityMaxTwo(userId);
 		
 		return rowRental + rowItems + cartDelete;
 	}

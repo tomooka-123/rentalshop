@@ -25,7 +25,7 @@ public class CartRepository {
 		
 		sb.append("SELECT");
 		sb.append(" c.cart_id, c.user_id,");
-		sb.append(" ci.cart_item_id, ci.item_id, ci.cart_id,");
+		sb.append(" ci.cart_item_id, ci.item_id, ci.cart_id, ci.priority,");
 		sb.append(" i.item_id, i.item_name, i.genre_id, i.item_img, i.item_update, i.artist, i.director, i.item_point");
 		sb.append(" FROM cart c");
 		sb.append(" LEFT OUTER JOIN cart_item ci");
@@ -33,7 +33,7 @@ public class CartRepository {
 		sb.append(" LEFT OUTER JOIN item i");
 		sb.append(" ON ci.item_id = i.item_id");
 		sb.append(" WHERE c.user_id = ?");
-		sb.append(" ORDER BY ci.item_id");
+		sb.append(" ORDER BY ci.priority");
 		
 		String sql = sb.toString();
 		
@@ -42,7 +42,31 @@ public class CartRepository {
 		return cartEntity;
 	}
 	
-	
+	//ユーザーIDから優先度が高い２件のカートの中身を検索
+		public CartEntity getCartItemsListByUserIdWherePriorityMaxTwo(int userId) throws Exception{
+			
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append("SELECT");
+			sb.append(" c.cart_id, c.user_id,");
+			sb.append(" ci.cart_item_id, ci.item_id, ci.cart_id, ci.priority,");
+			sb.append(" i.item_id, i.item_name, i.genre_id, i.item_img, i.item_update, i.artist, i.director, i.item_point");
+			sb.append(" FROM cart c");
+			sb.append(" LEFT OUTER JOIN cart_item ci");
+			sb.append(" ON ci.cart_id = c.cart_id");
+			sb.append(" LEFT OUTER JOIN item i");
+			sb.append(" ON ci.item_id = i.item_id");
+			sb.append(" WHERE c.user_id = ?");
+			sb.append(" ORDER BY ci.priority");
+			sb.append(" LIMIT 2");
+			
+			String sql = sb.toString();
+			
+			CartEntity cartEntity = jdbcTemplate.query(sql, cartExtractor, userId);
+			
+			return cartEntity;
+		}
+		
 	
 	//ユーザーIDからカートIDを取得する
 	public int getCartId(int userId) {
@@ -75,12 +99,28 @@ public class CartRepository {
 		}
 	}
 	
+	//カート内の最大優先度を取得
+	public int getMaxPriority(int cartId) {
+		String sql = "SELECT MAX(priority) FROM cart_item WHERE cart_id = ?";
+		
+		Integer maxPriority = jdbcTemplate.queryForObject(sql,Integer.class, cartId);
+		
+		int priority = 0;
+		
+		if(maxPriority == null) {
+			priority = 1;
+		}else {
+			priority = maxPriority + 1;
+		}
+		
+		return priority;
+	}
 	
 	//商品1件をcart_itemに追加
-	public int addCart(int itemId, int cartId) {
-		String sql = "INSERT INTO cart_item (item_id, cart_id) VALUES (?, ?)";
+	public int addCart(int itemId, int cartId, int priority) {
+		String sql = "INSERT INTO cart_item (item_id, cart_id, priority) VALUES (?, ?, ?)";
 		
-		int numberOfRow = jdbcTemplate.update(sql,itemId, cartId);
+		int numberOfRow = jdbcTemplate.update(sql,itemId, cartId, priority);
 		return numberOfRow;
 	}
 
@@ -93,7 +133,32 @@ public class CartRepository {
 		return numberOfRow;		
 	}
 	
-	
+	//受け取ったユーザーIDのカートの中身から優先度が高い２件を削除
+		public int deleteCartItemsByUserIdWherePriorityMaxTwo(int userId) throws Exception{
+				
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append("DELETE");
+			sb.append(" FROM cart_item");
+			sb.append(" WHERE cart_item_id IN");
+			sb.append(" (SELECT cart_item_id FROM ");
+			sb.append(" (SELECT ci.cart_item_id");
+			sb.append(" FROM cart_item ci");
+			sb.append(" INNER JOIN cart c");
+			sb.append(" ON ci.cart_id = c.cart_id");
+			sb.append(" WHERE c.user_id = ?");
+			sb.append(" ORDER BY ci.priority ASC");
+			sb.append(" LIMIT 2)");
+			sb.append(" AS tmp)");
+			
+			String sql = sb.toString();
+			
+			int numOfRow = 0;
+			
+			numOfRow = jdbcTemplate.update(sql, userId);
+			
+			return numOfRow;
+		}
 	
 	//受け取ったユーザーIDのカートの中身を全削除
 	public int deleteCartItemsByUserId(int userId) throws Exception{

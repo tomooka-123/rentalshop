@@ -29,13 +29,16 @@ public class CartInsertService {
 		//アイテムIDを取得
 		int itemId = Integer.parseInt(cartItemForm.getItemId());
 		
+		//優先度を取得
+		int priority = cartRepository.getMaxPriority(cartId);
+		
 		//同じアイテムIDが既に登録されているかチェック。true=既に登録されている
 		if(cartRepository.exists(itemId, cartId)) {
 			throw new IllegalStateException("DUPLICATE_ITEM");
 		} 
 		
 		//DBに登録
-		int numberOfRow = cartRepository.addCart(itemId, cartId);
+		int numberOfRow = cartRepository.addCart(itemId, cartId, priority);
 		return numberOfRow;
 
 	}
