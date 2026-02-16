@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ja">
-	<head>
-		<meta charset="UTF-8">
-		<title>RENTAL SHOP</title>
-	</head>
+<head>
+	<meta charset="UTF-8">
+	<title>退会完了</title>
+	<link th:href="@{/css/management.css}" rel="stylesheet" type="text/css">
+</head>
 <body>
 	<div id="wrapper">
-		<header>
-			<h1>退会完了画面</h1>
-			<hr>
-		</header>
+		<header th:insert="~{header :: header_area}"></header>
 		<main>
 			<div id="form-area">
 				<div class="form-row">退会いたしました。</div>
@@ -19,7 +17,7 @@
 				</div>
 			</div>
 		</main>
-		<footer></footer>
+		<footer th:insert="~{footer :: footer_area}"></footer>
 	</div>
 </body>
 </html>
