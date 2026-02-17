@@ -36,9 +36,14 @@ public class ProductRepository {
 
         String sql = """
             SELECT *
-            FROM item
-            ORDER BY item_update DESC
-            LIMIT 5
+				FROM (
+				    SELECT *
+				    FROM item
+				    ORDER BY item_update DESC
+				    LIMIT 12
+				) AS latest_items
+				ORDER BY RAND()
+				LIMIT 5;
         """;
 
         return jdbcTemplate.query(sql,
@@ -47,12 +52,17 @@ public class ProductRepository {
     
     public List<ItemEntity> findOldTop5() {
 
-        String sql = """
-            SELECT *
-            FROM item
-            ORDER BY item_point DESC
-            LIMIT 5
-        """;
+    	String sql = """
+                SELECT *
+    				FROM (
+    				    SELECT *
+    				    FROM item
+    				    ORDER BY item_point DESC
+    				    LIMIT 12
+    				) AS latest_items
+    				ORDER BY RAND()
+    				LIMIT 5;
+            """;
 
         return jdbcTemplate.query(sql,
             new BeanPropertyRowMapper<>(ItemEntity.class));
@@ -65,7 +75,6 @@ public class ProductRepository {
             FROM item
             WHERE genre_id = ?
             ORDER BY item_id DESC
-            LIMIT 5
         """;
 
         return jdbcTemplate.query(sql,
