@@ -53,9 +53,16 @@ public class ItemController {
 	
 	//商品の「詳細を見る」
 	@GetMapping(value = "/item/detail")
-	public String itemDetail(@RequestParam("itemId") Integer itemId, Model model) {
-		
-		ItemForm itemForm = itemSearchService.getItem(itemId);
+	public String itemDetail(@RequestParam("itemId") String itemId, Model model) {
+		Integer id;
+		try {
+			id = Integer.parseInt(itemId);
+		}catch(NumberFormatException e){
+			model.addAttribute("error", "不正な値が入力されました。");
+			e.printStackTrace();
+			return "error/error";
+		}
+		ItemForm itemForm = itemSearchService.getItem(id);
 		model.addAttribute("itemForm", itemForm);
 		
 		return "item/detail";
