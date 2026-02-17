@@ -82,21 +82,28 @@ public class UserController {
 	// 管理者ログイン時の商品登録
 	@GetMapping("/admin/product/new")
 	@PreAuthorize("hasAuthority('EMPLOYEE')")
-	public String showProductForm(Model model, ItemForm itemForm) {
+	public String showProductForm(@ModelAttribute("itemForm") ItemForm itemForm, Model model) {
 		
-	    model.addAttribute("itemForm", new ItemForm());
-	    
-	    //初期値登録
-	    itemForm.setItemPoint("25");
+		//初期値登録
+		itemForm.setItemPoint("25");
+		itemForm.setItemImg("/images/");
+		
+	    model.addAttribute("genreList", productService.getCategoryList());
 	    
 	    return "admin/product-form";
 	}
 	
 	@PostMapping("/admin/product/save")
 	@PreAuthorize("hasAuthority('EMPLOYEE')")
-	public String saveProduct(@Validated(ValidGroupOrder.class) @ModelAttribute ItemForm form,  BindingResult result) {
+	public String saveProduct(@ModelAttribute("genreList") GenreEntity genreEntity,
+							@Validated(ValidGroupOrder.class) @ModelAttribute ItemForm form,  
+							BindingResult result,
+							Model model) {
 
 		if (result.hasErrors()) {
+			
+			model.addAttribute("genreList", productService.getCategoryList());
+			
 			return "admin/product-form";
 		}
 		

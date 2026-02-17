@@ -81,9 +81,7 @@
 						        <div class="product-img">
 						            <img th:src="@{|${product.itemImg}|}">
 						        </div>
-						        
-						        <p th:text="${product.itemName}"></p>
-						        
+						          
 						    	<div class="product-info">
 									<p class="product-name" 
 										th:text="${product.itemName}">商品名</p>
@@ -124,8 +122,6 @@
 						            <img th:src="@{|${product.itemImg}|}">
 						        </div>
 						        
-						        <p th:text="${product.itemName}"></p>
-						        
 							    <div class="product-info">
 					                <p class="product-name" 
 					                   th:text="${product.itemName}">商品名</p>
@@ -136,7 +132,7 @@
 					                <p class="product-name" 
 					                   th:text="${product.director}">監督名</p>
 					
-					                <div class="product-buttons">
+					         <div class="product-buttons">
 <!--									<a th:href="@{'/products/' + ${product.itemId}}" class="btn btn-detail">詳細を見る</a>
 -->										<form th:action="@{/item/detail}" method="get">
 											<input type="hidden" name="itemId" th:value="${product.itemId}">
@@ -155,48 +151,9 @@
 										</form>
 										</div>
 									</div>
-					            </div>
+					       </div>
 							</div>
 					    </div>
-						
-					<h2>Music</h2>
-					<div class="product-list">
-						
-					    <div class="product-card" th:each="product : ${musicList}">
-					        <img th:src="@{|${product.itemImg}|}">
-					        <p th:text="${product.itemName}"></p>
-					    
-					    	<div class="product-info">
-				                <p class="product-name" 
-				                   th:text="${product.itemName}">商品名</p>
-				                   
-				                <p class="product-name" 
-				                   th:text="${product.artist}">アーティスト名</p>
-				                   
-				                <p class="product-name" 
-				                   th:text="${product.director}">監督名</p>
-				
-				                <div class="product-buttons">
-<!--								<a th:href="@{'/products/' + ${product.itemId}}" class="btn btn-detail">詳細を見る</a>
--->									<form th:action="@{/item/detail}" method="get">
-										<input type="hidden" name="itemId" th:value="${product.itemId}">
-										<input type="submit" value="詳細を見る" class="btn btn-cart">
-									</form>
-									<!--ログインしている人にのみ表示-->
-										<div sec:authorize="isAuthenticated()">
-										    <form th:action="@{/cart/insert}" method="post">
-										    <input type="hidden" name="itemId" th:value="${product.itemId}">
-										    
-										    <button type="submit" class="btn btn-cart">
-										        <i class="fa-solid fa-cart-shopping"></i>
-										        カートに追加
-										    </button>
-											</form>
-										</div>
-									</div>
-								</div>
-				            </div>
-						</div>
 				    </div>
 				<!-- カテゴリごとの表示 -->
 				<h2>カテゴリー一覧</h2> 
@@ -218,7 +175,6 @@
 						<div class="product-img">
 				        	<img th:src="@{|${product.itemImg}|}">
 				        </div>
-				        <p th:text="${product.itemName}"></p>
 				    
 				    	<div class="product-info">
 			                <p class="product-name" 
@@ -230,9 +186,25 @@
 			                <p class="product-name" 
 			                   th:text="${product.director}">監督名</p>
 
-					    </div>
+							<div class="product-buttons">
+				               	<a th:href="@{'/products/' + ${product.itemId}}" 
+				                  		class="btn btn-detail">詳細を見る</a>
+								<!--ログインしている人にのみ表示-->
+									<div sec:authorize="isAuthenticated()">
+									    <form th:action="@{/cart/insert}" method="post">
+									    <input type="hidden" name="itemId" th:value="${product.itemId}">
+									    
+									    <button type="submit" class="btn btn-cart">
+									        <i class="fa-solid fa-cart-shopping"></i>
+									        カートに追加
+									    </button>
+										</form>
+									</div>
+								</div>
+							</div>
+					  </div>
 					</div>
-				
+				</div>
 			</div>
 			<!--ログインしていない人にのみ表示-->
 			<!--sec:authorize="isAnonymous"が未ログインの時に表示させる-->
