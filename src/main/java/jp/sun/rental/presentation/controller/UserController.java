@@ -305,6 +305,14 @@ public class UserController {
 	    return "user/success";
 
 	}
+	
+	//例外ハンドラーで拾えないフィルター部分（403）エラー
+	@GetMapping("/access-denied")
+	public String accessDenied(Model model) {
+	    model.addAttribute("error", "権限がありません。トップへ戻ります。");
+	    return "error/error";
+	}
+	
 	//例外ハンドラー
 	@ExceptionHandler(Exception.class)
 	public String handlerException(Exception e, Model model) {

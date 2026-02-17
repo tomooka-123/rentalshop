@@ -166,7 +166,9 @@
 				<div class="product-list">
 					
 				    <div class="product-card" th:each="product : ${musicList}">
-				        <img th:src="@{|${product.itemImg}|}">
+						<div class="product-img">
+				        	<img th:src="@{|${product.itemImg}|}">
+				        </div>
 				        <p th:text="${product.itemName}"></p>
 				    
 				    	<div class="product-info">
