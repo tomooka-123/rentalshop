@@ -18,7 +18,7 @@ public class ItemForm implements Serializable {
 	private String itemName;
 	
 	@NotEmpty(message = "カテゴリ番号は必須です", groups = ValidGroup1.class)
-	@Pattern(regexp = "^[0-9]{1,2}$", message = "カテゴリ番号は２桁以下、数値で入力してください")
+	@Pattern(regexp = "^[0-9]{1,2}$", message = "カテゴリ番号は２桁以下、数値で入力してください", groups = ValidGroup2.class)
 	private String genreId;
 	
 	@NotEmpty(message = "商品画像は必須です", groups = ValidGroup1.class)
@@ -30,5 +30,11 @@ public class ItemForm implements Serializable {
 	
 	private String director;
 	
+	@NotEmpty(message = "ポイントは必須です", groups = ValidGroup1.class)
+	@Pattern(
+	  regexp = "^[0-9]{1,5}$",
+	  message = "ポイントは5桁以下の数値で入力してください",
+	  groups = ValidGroup2.class
+	)
 	private String itemPoint;
 }

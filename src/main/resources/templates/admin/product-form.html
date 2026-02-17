@@ -11,18 +11,76 @@
 <body>
 	<header th:insert="~{header :: header_area}"></header>
 	<main>
-		<form th:action="@{/admin/product/save}" method="post">
+		<form th:action="@{/admin/product/save}" th:object="${itemForm}" method="post">
+			
+			<!-- CSRFトークン -->
+			<input type="hidden"
+		       th:name="${_csrf.parameterName}"
+		       th:value="${_csrf.token}" />
+		       
+		    <!-- 商品名 -->
+		    <div>
+		        <input type="text"
+		               th:field="*{itemName}"
+		               placeholder="商品名">
+		        <div class="error"
+		             th:if="${#fields.hasErrors('itemName')}"
+		             th:errors="*{itemName}"></div>
+		    </div>
+		
+		    <!-- カテゴリ番号 -->
+		    <div>
+		        <select th:field="*{genreId}">
+				    <option th:each="genre : ${genreList}"
+				            th:value="${genre.genreId}"
+				            th:text="${genre.genreName}">
+				    </option>
+				</select>
 
-		    <input type="text" name="itemName" placeholder="商品名">
-		    <input type="text" name="genreId" placeholder="カテゴリ番号">
-		    <input type="text" name="itemImg" placeholder="商品画像">
-		    <input type="text" name="itemUpdate" placeholder="商品更新時間">
-		    <input type="text" name="artist" placeholder="アーティスト">
-		    <input type="text" name="director" placeholder="監督名">
-		    <input type="text" name="itemPoint" placeholder="付与ポイント数">
+		    </div>
+		
+		    <!-- 商品画像 -->
+		    <div>
+		        <input type="text"
+		               th:field="*{itemImg}"
+		               placeholder="商品画像">
+		        <div class="error"
+		             th:if="${#fields.hasErrors('itemImg')}"
+		             th:errors="*{itemImg}"></div>
+		    </div>
+		
+		    <!-- 更新時間 -->
+		    <div>
+		        <input type="text"
+		               th:field="*{itemUpdate}"
+		               placeholder="商品更新時間">
+		    </div>
+		
+		    <!-- アーティスト -->
+		    <div>
+		        <input type="text"
+		               th:field="*{artist}"
+		               placeholder="アーティスト">
+		    </div>
+		
+		    <!-- 監督 -->
+		    <div>
+		        <input type="text"
+		               th:field="*{director}"
+		               placeholder="監督名">
+		    </div>
+		
+		    <!-- ポイント -->
+		    <div>
+		        <input type="text"
+		               th:field="*{itemPoint}"
+		               placeholder="付与ポイント数">
+		        <div class="error"
+		             th:if="${#fields.hasErrors('itemPoint')}"
+		             th:errors="*{itemPoint}"></div>
+		    </div>
 		
 		    <button type="submit">登録</button>
-		
 		</form>
 	</main>
 	<footer th:insert="~{footer :: footer_area}"></footer>
