@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ja">
 <head>
-<meta charset="UTF-8">
-<link th:href="@{/css/management.css}" rel="stylesheet" type="text/css">
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-<title>Topページ</title>
+	<meta charset="UTF-8">
+	<link th:href="@{/css/management.css}" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+	<title>Topページ</title>
 </head>
 <body>
 	<div id="wrapper">
@@ -14,24 +12,24 @@
 		<main>
 			<div class="form-area">
 				<form th:if="${itemForm != null}" th:action="@{/search/item}" th:object="${itemForm}" method="post">
-						<div class="form-row">
-							検索条件を指定する場合は「商品名」を入力してください。
-						</div>
-						<div class="form-row">
-							
-							<label for="itemName">商品名</label>
-							<input th:field="*{itemName}">
-							
-							<input type="submit" value="検索する" name="user" class="btn">
-						</div>
+					<div class="form-row">
+						検索条件を指定する場合は「商品名」を入力してください。
+					</div>
+					<div class="form-row">
+						
+						<label for="itemName">商品名</label>
+						<input th:field="*{itemName}">
+						
+						<input type="submit" value="検索する" name="user" class="btn">
+					</div>
 					<th:block th:each="error : ${#fields.detailedErrors()}">
 						<span th:text="${error.message}" class="errors"></span><br>		
 					</th:block>
 					<span th:text="${errors}" class="errors"></span>
 				</form>
 			</div>
-			<!-- 商品一覧表示 -->
 			
+			<!-- 商品一覧表示 -->
 			<div>
 				<div class="product-list-container">
 	
@@ -40,23 +38,18 @@
 						<div class="product-card" th:each="product : ${products}">
 
 							<div class="product-img">
-								<img th:src="@{|${product.itemImg}|}" 
-									th:alt="${product.itemName}">
+								<img th:src="@{|${product.itemImg}|}" th:alt="${product.itemName}">
 							</div>
 
 							<div class="product-info">
-								<p class="product-name" 
-									th:text="${product.itemName}">商品名</p>
-
-								<p class="product-name" 
-									th:text="${product.artist}">アーティスト名</p>
-
-								<p class="product-name" 
-									th:text="${product.director}">監督名</p>
+								<p class="product-name" th:text="${product.itemName}">商品名</p>
+								
+								<p class="product-name" th:text="${product.artist}">アーティスト名</p>
+								
+								<p class="product-name" th:text="${product.director}">監督名</p>
 
 								<div class="product-buttons">
-<!--									<a th:href="@{'/products/' + ${product.itemId}}" class="btn btn-detail">詳細を見る</a>
--->									<form th:action="@{/item/detail}" method="get">
+									<form th:action="@{/item/detail}" method="get">
 										<input type="hidden" name="itemId" th:value="${product.itemId}">
 										<input type="submit" value="詳細を見る" class="btn btn-cart">
 									</form>
@@ -76,156 +69,128 @@
 					</div>
 					
 					<h2>新作人気商品 TOP5</h2>
-						<div class="product-list">
-						    <div class="product-card" th:each="product : ${newTop5}">
-						        <div class="product-img">
-						            <img th:src="@{|${product.itemImg}|}">
-						        </div>
-						          
-						    	<div class="product-info">
-									<p class="product-name" 
-										th:text="${product.itemName}">商品名</p>
-					                   
-					                <p class="product-name" 
-					                   th:text="${product.artist}">アーティスト名</p>
-					                   
-					                <p class="product-name" 
-					                   th:text="${product.director}">監督名</p>
-					
-					                <div class="product-buttons">
-<!--									<a th:href="@{'/products/' + ${product.itemId}}" class="btn btn-detail">詳細を見る</a>
--->										<form th:action="@{/item/detail}" method="get">
+					<div class="product-list">
+					    <div class="product-card" th:each="product : ${newTop5}">
+					        <div class="product-img">
+					            <img th:src="@{|${product.itemImg}|}">
+					        </div>
+					          
+					    	<div class="product-info">
+								<p class="product-name" th:text="${product.itemName}">商品名</p>
+				                   
+				                <p class="product-name" th:text="${product.artist}">アーティスト名</p>
+				                   
+				                <p class="product-name" th:text="${product.director}">監督名</p>
+				
+				                <div class="product-buttons">
+									<form th:action="@{/item/detail}" method="get">
+										<input type="hidden" name="itemId" th:value="${product.itemId}">
+										<input type="submit" value="詳細を見る" class="btn btn-cart">
+									</form>
+									<!--ログインしている人にのみ表示-->
+									<div sec:authorize="isAuthenticated()">
+									    <form th:action="@{/cart/insert}" method="post">
 											<input type="hidden" name="itemId" th:value="${product.itemId}">
-											<input type="submit" value="詳細を見る" class="btn btn-cart">
+											
+											<button type="submit" class="btn btn-cart">
+												<i class="fa-solid fa-cart-shopping"></i>
+												カートに追加
+											</button>
 										</form>
-										<!--ログインしている人にのみ表示-->
-										<div sec:authorize="isAuthenticated()">
-										    <form th:action="@{/cart/insert}" method="post">
-										    <input type="hidden" name="itemId" th:value="${product.itemId}">
-										    
-										    <button type="submit" class="btn btn-cart">
-										        <i class="fa-solid fa-cart-shopping"></i>
-										        カートに追加
-										    </button>
-										</form>
-										</div>
 									</div>
-				            	</div>
-						    </div>
-						</div>
+								</div>
+			            	</div>
+					    </div>
+					</div>
 						
 					<h2>旧作人気商品 TOP5</h2>
-						<div class="product-list">
-						    <div class="product-card" th:each="product : ${oldTop5}">
-								
-						        <div class="product-img">
-						            <img th:src="@{|${product.itemImg}|}">
-						        </div>
-						        
-							    <div class="product-info">
-					                <p class="product-name" 
-					                   th:text="${product.itemName}">商品名</p>
-					                   
-					                <p class="product-name" 
-					                   th:text="${product.artist}">アーティスト名</p>
-					                   
-					                <p class="product-name" 
-					                   th:text="${product.director}">監督名</p>
-					
-					         <div class="product-buttons">
-<!--									<a th:href="@{'/products/' + ${product.itemId}}" class="btn btn-detail">詳細を見る</a>
--->										<form th:action="@{/item/detail}" method="get">
+					<div class="product-list">
+					    <div class="product-card" th:each="product : ${oldTop5}">
+							
+					        <div class="product-img">
+					            <img th:src="@{|${product.itemImg}|}">
+					        </div>
+					        
+						    <div class="product-info">
+				                <p class="product-name" th:text="${product.itemName}">商品名</p>
+				                   
+				                <p class="product-name" th:text="${product.artist}">アーティスト名</p>
+				                   
+				                <p class="product-name" th:text="${product.director}">監督名</p>
+				
+				      			<div class="product-buttons">
+									<form th:action="@{/item/detail}" method="get">
+										<input type="hidden" name="itemId" th:value="${product.itemId}">
+										<input type="submit" value="詳細を見る" class="btn btn-cart">
+									</form>
+									<!-- カートへ追加用のリンクあとから追加-->
+									<!--ログインしている人にのみ表示-->
+									<div sec:authorize="isAuthenticated()">
+									    <form th:action="@{/cart/insert}" method="post">
 											<input type="hidden" name="itemId" th:value="${product.itemId}">
-											<input type="submit" value="詳細を見る" class="btn btn-cart">
+									    
+											<button type="submit" class="btn btn-cart">
+									 	       <i class="fa-solid fa-cart-shopping"></i>
+									 	       カートに追加
+											</button>
 										</form>
-										<!-- カートへ追加用のリンクあとから追加-->
-										<!--ログインしている人にのみ表示-->
-										<div sec:authorize="isAuthenticated()">
-										    <form th:action="@{/cart/insert}" method="post">
-										    <input type="hidden" name="itemId" th:value="${product.itemId}">
-										    
-										    <button type="submit" class="btn btn-cart">
-										        <i class="fa-solid fa-cart-shopping"></i>
-										        カートに追加
-										    </button>
-										</form>
-										</div>
 									</div>
-					       </div>
-							</div>
-					    </div>
+								</div>
+				   		    </div>
+						</div>
 				    </div>
+				</div>
+				
 				<!-- カテゴリごとの表示 -->
 				<h2>カテゴリー一覧</h2> 
 				<form method="get" th:action="@{/top}">
-				    
 					<div class="category-tabs">
-					
 					    <a th:each="category : ${categoryList}"
 					       th:href="@{/top(genreId=${category.genreId})}"
 					       th:text="${category.genreName}"
 					       th:classappend="${category.genreId == selectedGenreId} ? ' active' : ''">
 					    </a>
-					
 					</div>
 				</form>
+				
 				<div class="product-list">
-					
 				    <div class="product-card" th:each="product : ${musicList}">
 						<div class="product-img">
 				        	<img th:src="@{|${product.itemImg}|}">
 				        </div>
 				    
 				    	<div class="product-info">
-			                <p class="product-name" 
-			                   th:text="${product.itemName}">商品名</p>
+			                <p class="product-name" th:text="${product.itemName}">商品名</p>
 			                   
-			                <p class="product-name" 
-			                   th:text="${product.artist}">アーティスト名</p>
+			                <p class="product-name" th:text="${product.artist}">アーティスト名</p>
 			                   
-			                <p class="product-name" 
-			                   th:text="${product.director}">監督名</p>
+			                <p class="product-name" th:text="${product.director}">監督名</p>
 
 							<div class="product-buttons">
-				               	<a th:href="@{'/products/' + ${product.itemId}}" 
-				                  		class="btn btn-detail">詳細を見る</a>
+								<form th:action="@{/item/detail}" method="get">
+									<input type="hidden" name="itemId" th:value="${product.itemId}">
+									<input type="submit" value="詳細を見る" class="btn btn-cart">
+								</form>
 								<!--ログインしている人にのみ表示-->
-									<div sec:authorize="isAuthenticated()">
-									    <form th:action="@{/cart/insert}" method="post">
-									    <input type="hidden" name="itemId" th:value="${product.itemId}">
-									    
-									    <button type="submit" class="btn btn-cart">
-									        <i class="fa-solid fa-cart-shopping"></i>
-									        カートに追加
-									    </button>
-										</form>
-									</div>
+								<div sec:authorize="isAuthenticated()">
+								    <form th:action="@{/cart/insert}" method="post">
+										<input type="hidden" name="itemId" th:value="${product.itemId}">
+								    
+										<button type="submit" class="btn btn-cart">
+											<i class="fa-solid fa-cart-shopping"></i>
+											カートに追加
+										</button>
+									</form>
 								</div>
 							</div>
-					  </div>
+						</div>
 					</div>
 				</div>
 			</div>
-			<!--ログインしていない人にのみ表示-->
-			<!--sec:authorize="isAnonymous"が未ログインの時に表示させる-->
-	<!--		<div sec:authorize="isAnonymous()">-->
-	<!--			<form th:action="@{/login}" method="get">-->
-	<!--				<div>-->
-	<!--					<input type="submit" value="ログイン" class="btn">-->
-	<!--				</div>	-->
-	<!--			</form>-->
-	<!--		</div>-->
 			
 			<!--ログインしている人にのみ表示-->
 			<!--sec:authorize="isAuthenicated()"がログインしている時に表示させる-->
 			<div sec:authorize="isAuthenticated()">
-				<!-- ログイン情報表示＆ログアウトボタン
-				<form th:action="@{/logout}" method="post">
-					<div>
-						<span sec:authentication="name"></span>さんログイン中
-						<input type="submit" value="ログアウト" class="btn">
-					</div>	
-				</form> -->		
 				<div class="button-group">
 					<form th:action="@{/cart}" method="get">
 						<div>
@@ -243,20 +208,18 @@
 						</div>	
 					</form>
 					<form th:action="@{/history}">
-					<div>
-						<input type="submit" value="履歴確認" class="btn">
-					</div>
-				</form>
+						<div>
+							<input type="submit" value="履歴確認" class="btn">
+						</div>
+					</form>
 				</div>
 			
 				<!-- EMPLOYEE権限を持っている人のみに表示 -->
 				<!-- sec:authorize="hasAuthority()"が指定した権限を持っている人に表示させる -->
-				<div sec:authorize="hasAuthority('EMPLOYEE')">
-					<a th:href="@{/search/user}">管理者用ユーザー検索ページ</a>
+				<div sec:authorize="hasAuthority('EMPLOYEE')"  class="button-group">
+					<a th:href="@{/search/user}" class="btn btn-admin">管理者用ユーザー検索ページ</a>
 					<div>
-					    <a th:href="@{/admin/product/new}" class="btn btn-admin">
-					        商品登録
-					    </a>
+					    <a th:href="@{/admin/product/new}" class="btn btn-admin">商品登録</a>
 					</div>
 				</div>
 			</div>
