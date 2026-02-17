@@ -21,6 +21,18 @@ public class GlobalExceptionHandler {
         return "error/error";
     }
     
+    @ExceptionHandler(NumberFormatException.class)
+    public String handleBadRequest(NumberFormatException e, Model model) {
+        model.addAttribute("error", e.getMessage());
+        return "error/error";
+    }
+    
+    @ExceptionHandler(NullPointerException.class)
+    public String handleBadRequest(NullPointerException e, Model model) {
+        model.addAttribute("error", e.getMessage());
+        return "error/error";
+    }
+    
     
     
 	@ExceptionHandler(EmptyResultDataAccessException.class)	

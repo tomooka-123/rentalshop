@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ja">
+<head>
+<meta charset="UTF-8">
+<link th:href="@{/css/management.css}" rel="stylesheet" type="text/css">
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<title>Topページ</title>
+</head>
+<body>
+	<header th:insert="~{header :: header_area}"></header>
+	<main>
+		<form th:action="@{/admin/product/save}" method="post">
+
+		    <input type="text" name="itemName" placeholder="商品名">
+		    <input type="text" name="genreId" placeholder="カテゴリ番号">
+		    <input type="text" name="itemImg" placeholder="商品画像">
+		    <input type="text" name="itemUpdate" placeholder="商品更新時間">
+		    <input type="text" name="artist" placeholder="アーティスト">
+		    <input type="text" name="director" placeholder="監督名">
+		    <input type="text" name="itemPoint" placeholder="付与ポイント数">
+		
+		    <button type="submit">登録</button>
+		
+		</form>
+	</main>
+	<footer th:insert="~{footer :: footer_area}"></footer>
+</body>
+</html>

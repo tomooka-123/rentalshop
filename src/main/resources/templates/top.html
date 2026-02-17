@@ -185,6 +185,40 @@
 									</div>
 								</div>
 				            </div>
+						</div>
+				    </div>
+				<!-- カテゴリごとの表示 -->
+				<h2>カテゴリー一覧</h2> 
+				<form method="get" th:action="@{/top}">
+				    
+					<div class="category-tabs">
+					
+					    <a th:each="category : ${categoryList}"
+					       th:href="@{/top(genreId=${category.genreId})}"
+					       th:text="${category.genreName}"
+					       th:classappend="${category.genreId == selectedGenreId} ? ' active' : ''">
+					    </a>
+					
+					</div>
+				</form>
+				<div class="product-list">
+					
+				    <div class="product-card" th:each="product : ${musicList}">
+						<div class="product-img">
+				        	<img th:src="@{|${product.itemImg}|}">
+				        </div>
+				        <p th:text="${product.itemName}"></p>
+				    
+				    	<div class="product-info">
+			                <p class="product-name" 
+			                   th:text="${product.itemName}">商品名</p>
+			                   
+			                <p class="product-name" 
+			                   th:text="${product.artist}">アーティスト名</p>
+			                   
+			                <p class="product-name" 
+			                   th:text="${product.director}">監督名</p>
+
 					    </div>
 					</div>
 				
@@ -231,10 +265,16 @@
 					</div>
 				</form>
 				</div>
+			
 				<!-- EMPLOYEE権限を持っている人のみに表示 -->
 				<!-- sec:authorize="hasAuthority()"が指定した権限を持っている人に表示させる -->
 				<div sec:authorize="hasAuthority('EMPLOYEE')">
 					<a th:href="@{/search/user}">管理者用ユーザー検索ページ</a>
+					<div>
+					    <a th:href="@{/admin/product/new}" class="btn btn-admin">
+					        商品登録
+					    </a>
+					</div>
 				</div>
 			</div>
 			

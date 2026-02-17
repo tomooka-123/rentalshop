@@ -22,6 +22,8 @@ public class SecurityConfig {
 				.requestMatchers("/cart/**").authenticated()
 				.requestMatchers("/history/**").authenticated()
 				.requestMatchers("/login").permitAll()
+				.requestMatchers("/admin/**").hasAuthority("EMPLOYEE")
+				.requestMatchers("/access-denied").permitAll()
 				.anyRequest().permitAll());
 		
 		http.formLogin(login -> login
@@ -36,6 +38,12 @@ public class SecurityConfig {
 				.invalidateHttpSession(true)
 				.deleteCookies("JSESSIONID")
 				.permitAll());
+		
+		http.exceptionHandling(ex -> ex
+	            .accessDeniedHandler((request, response, accessDeniedException) -> {
+	                response.sendRedirect("/access-denied");
+	            })
+	        );
 		
 		http.sessionManagement(session -> session
 				.maximumSessions(1)
