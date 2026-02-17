@@ -256,6 +256,14 @@ public class UserController {
 	    return "user/success";
 
 	}
+	
+	//権限不足でページに飛ぼうとした場合にエラーページへ飛ばす
+	@GetMapping(value = "/error/403")
+	public String accessDeined(Model model) {
+		model.addAttribute("error", "権限が不足しているため接続が拒否されました");
+		
+		return "error/error";
+	}
 
 	
 }
