@@ -31,11 +31,8 @@
 					<div th:if="!${#lists.isEmpty(itemFormList)}">
 						<table>
 							<tr>
-								<!--<th>商品ID</th>-->
 								<th>商品名</th>
-								<!--<th>カテゴリ名</th>-->
 								<th>商品画像</th>
-								<!--<th>商品情報更新日</th>-->
 								<th>アーティスト名</th>
 								<th>監督名</th>
 								<th>ポイント</th>
@@ -44,11 +41,10 @@
 							<td:block th:each="items : ${itemFormList}">
 								<form th:action="@{/cart/insert}" th:object="${cartItemForm}" method="post">
 									<tr>
-										<!--<td th:text="${items.itemId }" class="itemId"></td>-->
 										<td th:text="${items.itemName }" class="itemName"></td>
-										<!--<td th:text="${items.genreId }" class="genreId"></td>-->
-										<td th:text="${items.itemImg }" class="itemImg"></td>
-										<!--<td th:text="${#dates.format(#strings.replace(items.itemUpdate, '-', '/'), 'yyyy年MM月dd日') }" class="itemUpdate"></td>-->
+										<td>
+										<img th:src="@{${items.itemImg}}" width="120px" height="auto">
+										</td>
 										<td th:text="${items.artist }" class="artist"></td>
 										<td th:text="${items.director }" class="director"></td>
 										<td th:text="${items.itemPoint }" class="itemPoint"></td>

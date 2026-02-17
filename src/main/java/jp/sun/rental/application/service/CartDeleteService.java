@@ -8,19 +8,18 @@ import jp.sun.rental.domain.repository.UserRepository;
 import jp.sun.rental.presentation.form.CartItemForm;
 
 @Service
-public class CartInsertService {
+public class CartDeleteService {
 	
 	private CartRepository cartRepository;
 	private UserRepository userRepository;
 	
-	public CartInsertService(CartRepository cartRepository, UserRepository userRepository) {
+	public CartDeleteService(CartRepository cartRepository, UserRepository userRepository) {
 		this.cartRepository = cartRepository;
 		this.userRepository = userRepository;
 	}
 	
-	//商品をレンタル希望に追加する
 	@Transactional(rollbackFor = Exception.class)
-	public int addCart(String userName,CartItemForm cartItemForm) throws Exception{
+	public int deleteItem(String userName,CartItemForm cartItemForm) throws Exception{
 		
 		//カートIDを取得
 		int userId = userRepository.getUserIdByUserName(userName);
@@ -29,18 +28,19 @@ public class CartInsertService {
 		//アイテムIDを取得
 		int itemId = Integer.parseInt(cartItemForm.getItemId());
 		
-		//優先度を取得
-		int priority = cartRepository.getMaxPriority(cartId);
-		
-		//同じアイテムIDが既に登録されているかチェック。true=既に登録されている
-		if(cartRepository.exists(itemId, cartId)) {
-			throw new IllegalStateException("DUPLICATE_ITEM");
-		} 
-		
-		//DBに登録
-		int numberOfRow = cartRepository.addCart(itemId, cartId, priority);
+		//DBから削除
+		int numberOfRow = cartRepository.deleteItem(itemId, cartId);
 		return numberOfRow;
-
 	}
-
+	
+	//カートの中身を全削除
+	@Transactional(rollbackFor = Exception.class)
+	public int deleteAllItem(String username) throws Exception{
+		int userId = userRepository.getUserIdByUserName(username);
+		
+		int numOfRow = cartRepository.deleteCartItemsByUserId(userId);
+		
+		return numOfRow;
+	}
+	
 }

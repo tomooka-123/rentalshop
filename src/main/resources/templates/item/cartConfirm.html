@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>レンタル希望確認</title>
+	<link th:href="@{/css/management.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<div id="wrapper">
+		<header th:insert="~{header :: header_area}"></header>
+		<main>
+			<div id="form-area">
+				<div class="form-row">
+					<span th:if="${#lists.size(cartForm.cartItems) < 2}" th:text="'レンタル希望は2件必要です。'"></span>
+    				<span th:if="${#lists.size(cartForm.cartItems) == 2}" th:text="'以下の2件をレンタルします。よろしいですか？'"></span>
+					<span th:text="${error}" class="errors"></span>
+					<span th:text="${message}"></span>
+				</div>
+				
+				<div id="result-area">
+					<div th:if="!${#lists.isEmpty(cartForm.cartItems)}">
+						<table>
+							<tr>
+								<th>商品名</th>
+								<th>商品画像</th>
+								<th>アーティスト名</th>
+								<th>監督名</th>
+								<th>ポイント</th>
+							</tr>
+							<td:block th:each="item : ${cartForm.cartItems}">
+								<tr>
+									<td th:text="${item.itemForm.itemName }" class="itemName"></td>
+									<td>
+										<img th:src="@{${item.itemForm.itemImg}}" width="180" height="auto">
+									</td>
+									<td th:text="${item.itemForm.artist }" class="artist"></td>
+									<td th:text="${item.itemForm.director }" class="director"></td>
+									<td th:text="${item.itemForm.itemPoint }" class="itemPoint"></td>
+								</tr>
+							</td:block>
+						</table>
+					</div>
+				</div>
+				<a href="/cart">戻る</a>
+				<button type="button" class="btn" th:disabled="${#lists.size(cartForm.cartItems) < 2}" onclick="location.href='/cart/success'">確定</button>
+			</div>
+			
+		</main>
+		<footer th:insert="~{footer :: footer_area}"></footer>
+	</div>
+</body>
+</html>

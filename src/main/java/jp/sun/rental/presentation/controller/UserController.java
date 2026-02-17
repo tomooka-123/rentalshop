@@ -1,7 +1,6 @@
 package jp.sun.rental.presentation.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -106,16 +104,6 @@ public class UserController {
 	    return "redirect:/top";
 	}
 
-
-	//ログイン画面を表示する
-	@GetMapping(value = "/login")
-	public String login(@RequestParam Optional<String> error, Model model) {
-		if(error.isPresent()) {
-			model.addAttribute("error", "ユーザー名、またはパスワードが異なっているか、ログインの上限に達しています");
-		}
-		return "login";
-	}
-	
 	//ユーザー登録用セッションオブジェクトの生成
 	@ModelAttribute("userInsertForm")
 	public UserInsertForm setupUserInsertForm() {
@@ -276,13 +264,21 @@ public class UserController {
 	    if (result.hasErrors()) {
 	        return "user/update";
 	    }
+		
+		//会員プラン表示用
+		String plan = form.getPlan();
+		model.addAttribute("plan", setPlan(plan));
+		
+		//クレジットカード番号表示用
+		String card = form.getCard();
+		model.addAttribute("card", setCard(card));
 
 	    // 確認画面に表示するだけ
 	    model.addAttribute("userUpdateForm", form);
 	    return "user/updateConfirm";
 	}
 
-	// ユーザー情報更新確認用
+	// ユーザー情報更新実行用
 	@PostMapping(value = "/user/update/confirm")
 	public String userUpdate(
 		Authentication authentication,
@@ -306,20 +302,13 @@ public class UserController {
 
 	}
 	
-	//例外ハンドラーで拾えないフィルター部分（403）エラー
-	@GetMapping("/access-denied")
-	public String accessDenied(Model model) {
-	    model.addAttribute("error", "権限がありません。トップへ戻ります。");
-	    return "error/error";
-	}
-	
-	//例外ハンドラー
-	@ExceptionHandler(Exception.class)
-	public String handlerException(Exception e, Model model) {
-		model.addAttribute("error", "システムエラーが発生しました");
-		e.printStackTrace();
-		
+	//権限不足でページに飛ぼうとした場合にエラーページへ飛ばす
+	@GetMapping(value = "/error/403")
+	public String accessDeined(Model model) {
+		model.addAttribute("error", "権限が不足しているため接続が拒否されました");
+
 		return "error/error";
 	}
+
 	
 }

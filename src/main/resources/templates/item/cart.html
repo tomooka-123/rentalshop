@@ -12,6 +12,7 @@
 			<div id="form-area">
 				<div class="form-row">
 					<span th:text="${error}" class="errors"></span>
+					<span th:text="${message}"></span>
 				</div>
 				
 				<div id="result-area">
@@ -19,37 +20,37 @@
 						<table>
 							<tr>
 								<th>商品名</th>
-								<!--<th>カテゴリ名</th>--><!--カテゴリIDでカテゴリ名を取得する必要がある-->
 								<th>商品画像</th>
-								<!--<th>商品情報更新日</th>-->
 								<th>アーティスト名</th>
 								<th>監督名</th>
 								<th>ポイント</th>
+								<th>レンタル希望から削除</th>
 							</tr>
 							<td:block th:each="item : ${cartForm.cartItems}">
-								<tr>
-									<td th:text="${item.itemForm.itemName }" class="itemName"></td>
-									<!--<td th:text="${item.genreId }" class="genreId"></td>-->
-									<td th:text="${item.itemForm.itemImg }" class="itemImg"></td>
-									<!--<td th:text="${#dates.format(#strings.replace(item.itemUpdate, '-', '/'), 'yyyy年MM月dd日') }" class="itemUpdate"></td>-->
-									<td th:text="${item.itemForm.artist }" class="artist"></td>
-									<td th:text="${item.itemForm.director }" class="director"></td>
-									<td th:text="${item.itemForm.itemPoint }" class="itemPoint"></td>
-								</tr>
+								<form th:action="@{/cart/delete}" th:object="${cartItemForm}" method="post">
+									<tr>
+										<td th:text="${item.itemForm.itemName }" class="itemName"></td>
+										<td>
+											<img th:src="@{${item.itemForm.itemImg}}" width="180" height="auto">
+										</td>
+										<td th:text="${item.itemForm.artist }" class="artist"></td>
+										<td th:text="${item.itemForm.director }" class="director"></td>
+										<td th:text="${item.itemForm.itemPoint }" class="itemPoint"></td>
+										<td>
+											<input type="hidden" name="itemId" th:value="${item.itemForm.itemId}">
+											<input type="submit" value="削除">
+											<span th:text="${error}" class="errors"></span>
+										</td>
+									</tr>
+								</form>
 							</td:block>
 						</table>
+						<form th:action="@{/cart/deleteall}" method="post">
+							<button type="submit" class="btn">カートの中身を全削除</button>
+						</form>
 					</div>
+					<button type="button" class="btn" onclick="location.href='/cart/confirm'">レンタル希望確認</button>
 				</div>
-			</div>
-			
-			<!--ログインしていない人にのみ表示-->
-			<!--sec:authorize="isAnonymous"が未ログインの時に表示させる-->
-			<div sec:authorize="isAnonymous()">
-				<form th:action="@{/login}" method="get">
-					<div>
-						<input type="submit" value="ログイン" class="btn">
-					</div>	
-				</form>
 			</div>
 			
 		</main>

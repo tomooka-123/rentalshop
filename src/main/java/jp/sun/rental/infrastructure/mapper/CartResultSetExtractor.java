@@ -43,6 +43,7 @@ public class CartResultSetExtractor implements ResultSetExtractor<CartEntity> {
 				
 				cartItemEntity.setCartItemId(rs.getInt("cart_item_id"));
 				cartItemEntity.setItemId(rs.getInt("item_id"));
+				cartItemEntity.setPriority(rs.getInt("priority"));
 				cartItemEntity.setItemEntity(itemEntity);
 				
 				cartItems.add(cartItemEntity);

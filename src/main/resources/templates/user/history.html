@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>レンタル希望</title>
+	<link th:href="@{/css/management.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<div id="wrapper">
+		<header th:insert="~{header :: header_area}"></header>
+		<main>
+			<div id="form-area">
+				<div class="form-row">
+					<span th:text="${error}" class="errors"></span>
+				</div>
+				
+				<div id="result-area">
+					<div th:if="!${#lists.isEmpty(historyFormList)}">
+						<table>
+							<tr>
+								<th>商品名</th>
+								<th>商品画像</th>
+								<th>アーティスト名</th>
+								<th>監督名</th>
+								<th>ポイント</th>
+								<th>レンタル日</th>
+								<th>返却状況</th>
+							</tr>
+							<th:block th:each="history : ${historyFormList}">
+								<th:block th:each="item : ${history.rentalItems}">
+									<tr>
+										<td th:text="${item.itemForm.itemName }" class="itemName"></td>
+										<td>
+										<img th:src="@{${item.itemForm.itemImg}}" width="120px" height="auto">
+										</td>
+										<td th:text="${item.itemForm.artist }" class="artist"></td>
+										<td th:text="${item.itemForm.director }" class="director"></td>
+										<td th:text="${item.itemForm.itemPoint }" class="itemPoint"></td>
+										<td th:text="${history.rentalDate }" class="date"></td>
+										<td th:text="${item.returnFlag} ? '返却済み' : '未返却'"></td>
+										<!--返却済みの場合のみ履歴非表示ボタンを表示-->
+										<td th:if="${item.returnFlag}">
+											<form th:action="@{/history/delete}" method="post">
+												<input type="hidden" name="rentalItemId" th:value="${item.rentalItemId}">
+												<button type="submit" class="btn">削除</button>
+											</form>
+										</td>
+										<!--管理者のみ返却フラグ切り替えボタンを表示（管理者操作用の別ページを作成後消去予定-->
+										<td>
+											<div sec:authorize="hasAuthority('EMPLOYEE')">
+												<form th:action="@{/history/return}" method="post">
+													<input type="hidden" name="rentalItemId" th:value="${item.itemId}">
+													<button type="submit" class="btn">返却、未返却切り替え</button>
+												</form>
+											</div>
+										</td>
+									</tr>
+								</th:block>
+							</th:block>
+						</table>
+					</div>
+					<div th:if="${#lists.isEmpty(historyFormList)}">
+						履歴がありません
+					</div>
+				</div>
+			</div>
+		</main>
+		<footer th:insert="~{footer :: footer_area}"></footer>
+	</div>
+</body>
+</html>

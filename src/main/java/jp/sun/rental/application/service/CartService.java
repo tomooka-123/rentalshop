@@ -43,6 +43,22 @@ public class CartService {
 		
 	}
 	
+	//ユーザ名からそのユーザが所持しているカートの情報を取得
+		public CartForm getCartByUserNameWherePriorityMaxTwo(String username) throws Exception{
+			
+			CartEntity cartEntity = null;
+			CartForm cartForm = null;
+			
+			int userId = userRepository.getUserIdByUserName(username);
+			
+			cartEntity = cartRepository.getCartItemsListByUserIdWherePriorityMaxTwo(userId);
+			
+			cartForm = convert(cartEntity);
+			
+			return cartForm;
+			
+		}
+	
 	//エンティティをフォームに変換
 	private CartForm convert(CartEntity entity){
 		

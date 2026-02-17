@@ -2,22 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ja">
 <head>
 	<meta charset="UTF-8">
-	<title>退会確認</title>
 	<link th:href="@{/css/management.css}" rel="stylesheet" type="text/css">
+	<title>レンタル確定</title>
 </head>
 <body>
 	<div id="wrapper">
 		<header th:insert="~{header :: header_area}"></header>
 		<main>
-			<form th:action="@{/deactivate}" object="${userUpdateToForm}" method="post">
-				<div id="form-area">
-					<div class="form-row">本当に退会しますか？</div>
-				
-					<div class="form-row">
-						<input type="submit" value="退会する" class="btn">
-					</div>
-				</div>
-			</form>
+			<p>
+				<span th:text="${message}"></span>
+			</p>
+			
+			<a href="/top">トップ</a>
+			
 		</main>
 		<footer th:insert="~{footer :: footer_area}"></footer>
 	</div>

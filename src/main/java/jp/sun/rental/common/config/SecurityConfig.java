@@ -4,8 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 
@@ -17,9 +16,11 @@ public class SecurityConfig {
 	@Bean
 	protected SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
 		http.authorizeHttpRequests(authorize -> authorize
-				.requestMatchers("/search/user").authenticated()
-				.requestMatchers("/user/update").authenticated()   
-				.requestMatchers("/cart/**").authenticated()   
+				.requestMatchers("/search/user").hasAuthority("EMPLOYEE")
+				.requestMatchers("/user/update/**").authenticated()
+				.requestMatchers("/deactivate").authenticated()	//退会
+				.requestMatchers("/cart/**").authenticated()
+				.requestMatchers("/history/**").authenticated()
 				.requestMatchers("/login").permitAll()
 				.requestMatchers("/admin/**").hasAuthority("EMPLOYEE")
 				.requestMatchers("/access-denied").permitAll()
@@ -48,6 +49,9 @@ public class SecurityConfig {
 				.maximumSessions(1)
 				.maxSessionsPreventsLogin(true));
 		
+		http.exceptionHandling(ex -> ex
+				.accessDeniedPage("/error/403"));
+		
 		return http.build();
 	}
 	
@@ -56,19 +60,19 @@ public class SecurityConfig {
 		return new HttpSessionEventPublisher();
 	}
 	
-	@Bean
-	@SuppressWarnings("deprecation")
-	PasswordEncoder passwordEncoder() {
-	    // パスワードをハッシュ化せずに、文字列をそのまま比較する設定
-	    return NoOpPasswordEncoder.getInstance();
-	}
+//	@Bean
+//	@SuppressWarnings("deprecation")
+//	PasswordEncoder passwordEncoder() {
+//	    // パスワードをハッシュ化せずに、文字列をそのまま比較する設定
+//	    return NoOpPasswordEncoder.getInstance();
+//	}
 	
-	/*//パスワードをハッシュ化する際に使用
+	//パスワードをハッシュ化する際に使用
 	@Bean
 	protected BCryptPasswordEncoder passwordEncoder() {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		return passwordEncoder;
 	}
-	*/
+	
 
 }
