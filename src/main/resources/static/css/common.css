@@ -1,55 +1,112 @@
-/* 
-	SpringBoot講座スタイルシート
-	SpringSampleプロジェクト以降共通
-*/
-
-@charset "UTF-8";
-
-/* ----- body設定 ----- */
-body {
-	margin-top: 10px;
-	padding: 0;
-}
-
-/* ----- 画面サイズ ----- */
-#wrapper {
-	margin: 0px auto;
-	width: 1000px;
-}
-
-/* ----- main領域 ----- */
+/* =========================
+   管理者 商品登録フォーム専用
+   ========================= */
+ 
 main {
-	margin: 10px 0px;
+    display: flex;
+    justify-content: center;
+    padding: 50px 20px;
+}
+ 
+main form {
+    width: 100%;
+    max-width: 520px;
+    background: #ffffff;
+    padding: 35px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+ 
+/* タイトルをCSSで追加（HTML変更なし） */
+main form::before {
+    content: "商品登録（管理者）";
+    display: block;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 25px;
+    text-align: center;
+    color: #333;
+}
+ 
+/* 入力フィールド */
+main form input[type="text"] {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 16px;
+}
+ 
+/* プレースホルダーを少し薄く */
+main form input::placeholder {
+    color: #999;
+    font-size: 13px;
+}
+ 
+/* 登録ボタン専用（既存 .btn と競合しない） */
+main form button {
+    width: 100%;
+    margin-top: 10px;
+    background-color: #4a90e2;
+    color: #fff;
+    border: none;
+    padding: 12px;
+    border-radius: 25px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+ 
+main form button:hover {
+    background-color: #357abd;
+}
+ 
+main form button:active {
+    transform: translateY(1px);
 }
 
-/* ----- エラーメッセージ用 ----- */
-.errors {
-	color: #ff0000;
+select {
+    appearance: none;          /* デフォルト矢印削除 */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    width: 250px;
+    padding: 10px 40px 10px 15px;
+    margin-bottom: 15px;
+    font-size: 16px;
+
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-/* ----- フォームレイアウト ----- */
-#form-area {
-	width: 850px;
-	margin: 0px auto;
+/* ホバー */
+select:hover {
+    border-color: #666;
 }
 
-/* ----- form内一行レイアウト ----- */
-.form-row {
-	margin: 8px auto;
+/* フォーカス時 */
+select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0,123,255,0.5);
 }
 
-/* ----- formラベルタイトルレイアウト ----- */
-.disp-block {
-	display: block;
+.select-wrapper {
+    position: relative;
+    display: inline-block;
 }
 
-/* ----- ボタンレイアウト ----- */
-.btn {
-	background: #0066ff;
-	border: 0;
-	border-radius: 4px;
-	color: #fff;
-	font-size: 1em;
-	padding: 4px 16px;
-	cursor: pointer;
+.select-wrapper::after {
+    content: "\f078"; /* ▼アイコン */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #666;
 }
+
