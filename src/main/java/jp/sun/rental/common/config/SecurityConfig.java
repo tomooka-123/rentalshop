@@ -39,12 +39,6 @@ public class SecurityConfig {
 				.deleteCookies("JSESSIONID")
 				.permitAll());
 		
-		http.exceptionHandling(ex -> ex
-	            .accessDeniedHandler((request, response, accessDeniedException) -> {
-	                response.sendRedirect("/access-denied");
-	            })
-	        );
-		
 		http.sessionManagement(session -> session
 				.maximumSessions(1)
 				.maxSessionsPreventsLogin(true));
