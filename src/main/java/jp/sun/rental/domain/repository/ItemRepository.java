@@ -48,6 +48,20 @@ public class ItemRepository {
 		return itemsList;
 	}
 	
+	
+	//商品IDで商品データを検索
+	public ItemEntity getItem(Integer itemId) {
+		StringBuilder sb = createCommonSQL();
+		sb.append(" WHERE item_id = ?");
+		String sql = sb.toString();
+		
+		ItemEntity entity = jdbcTemplate.queryForObject(sql, userMapper, itemId);
+		
+		return entity;
+	}
+	
+	
+	
 	//SELECT文のテンプレート記述
 	public StringBuilder createCommonSQL() {
 		

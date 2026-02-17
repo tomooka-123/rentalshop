@@ -519,19 +519,3 @@ html {
     pointer-events: none;
     background: linear-gradient(to left, white, transparent);
 }
-
-/* ===== エラーメッセージ ===== */
-.errors {
-    display: block;
-    margin-top: 5px;
-    font-size: 13px;
-    color: #d93025;
-}
-
-/* ===== フッター ===== */
-footer {
-    text-align: center;
-    margin-top: 40px;
-    color: #888;
-    font-size: 13px;
-}

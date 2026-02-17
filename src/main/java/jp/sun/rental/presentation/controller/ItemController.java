@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jp.sun.rental.application.service.ItemSearchService;
 import jp.sun.rental.presentation.form.ItemForm;
@@ -37,7 +38,7 @@ public class ItemController {
 	@PostMapping(value = "/search/item")
 	public String searchUsers(@ModelAttribute ItemForm itemForm, BindingResult result, Model model) throws Exception {
 		if (result.hasErrors()) {
-			return "itemSearch";
+			return "item/search";
 		}else {
 			List<ItemForm> formList = itemSearchService.getItemsList(itemForm);
 			if (formList != null && !formList.isEmpty()) {
@@ -49,5 +50,15 @@ public class ItemController {
 	}
 	
 	
+	
+	//商品の「詳細を見る」
+	@GetMapping(value = "/item/detail")
+	public String itemDetail(@RequestParam("itemId") Integer itemId, Model model) {
+		
+		ItemForm itemForm = itemSearchService.getItem(itemId);
+		model.addAttribute("itemForm", itemForm);
+		
+		return "item/detail";
+	}
 	
 }
