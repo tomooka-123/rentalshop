@@ -41,7 +41,18 @@ public class ItemSearchService {
 		return formList;
 	}
 	
-	//DBから取得したエンティティをhtml出力用のフォームに変換
+	
+	//商品IDで商品データを検索
+	public ItemForm getItem(Integer itemId) {
+		
+		ItemEntity entity = itemRepository.getItem(itemId);
+		ItemForm itemForm = convert(entity);
+		return itemForm;
+	}
+	
+	
+	
+	//DBから取得したエンティティリストをhtml出力用のフォームリストに変換
 	private List<ItemForm> convert(List<ItemEntity> entityList){
 		
 		List<ItemForm> formList = new ArrayList<ItemForm>();
@@ -53,4 +64,12 @@ public class ItemSearchService {
 		
 		return formList;
 	}
+	
+	//DBから取得したエンティティをフォームに変換
+	private ItemForm convert(ItemEntity entity) {
+		ItemForm form = modelMapper.map(entity, ItemForm.class);
+		return form;
+	}
+	
+	
 }

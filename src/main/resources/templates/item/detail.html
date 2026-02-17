@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<link th:href="@{/css/management.css}" rel="stylesheet" type="text/css">
+	<title>商品詳細</title>
+</head>
+<body>
+	<div id="wrapper">
+		<header th:insert="~{header :: header_area}"></header>
+		<main>
+			<div id="form-area">
+				<div id="result-area">
+					<table>
+						<tr>
+							<th>商品名</th>
+							<th>商品画像</th>
+							<th>アーティスト名</th>
+							<th>監督名</th>
+							<th>ポイント</th>
+							<th>レンタル希望</th>
+						</tr>
+						<tr>
+							<td th:text="${itemForm.itemName }" class="itemName"></td>
+							<td>
+								<img th:src="@{${itemForm.itemImg}}" width="120px" height="auto">
+							</td>
+							<td th:text="${itemForm.artist }" class="artist"></td>
+							<td th:text="${itemForm.director }" class="director"></td>
+							<td th:text="${itemForm.itemPoint }" class="itemPoint"></td>
+							<td>
+								<form th:action="@{/cart/insert}" th:object="${cartItemForm}" method="post">
+									<input type="hidden" name="itemId" th:value="${itemForm.itemId}">
+									<input type="submit" value="追加">
+									<span th:text="${error}" class="errors"></span>
+								</form>
+							</td>
+						</tr>
+					</table>
+				</div>
+				
+				<a href="/top">トップ</a>
+			</div>
+		</main>
+		<footer th:insert="~{footer :: footer_area}"></footer>
+	</div>
+</body>
+</html>
