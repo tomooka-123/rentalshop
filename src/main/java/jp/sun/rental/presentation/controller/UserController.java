@@ -2,6 +2,7 @@ package jp.sun.rental.presentation.controller;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
@@ -19,6 +21,7 @@ import jp.sun.rental.application.service.UserInsertService;
 import jp.sun.rental.application.service.UserSearchService;
 import jp.sun.rental.application.service.UserUpdateService;
 import jp.sun.rental.common.validator.groups.ValidGroupOrder;
+import jp.sun.rental.domain.entity.GenreEntity;
 import jp.sun.rental.domain.entity.ItemEntity;
 import jp.sun.rental.presentation.form.ItemForm;
 import jp.sun.rental.presentation.form.MemberForm;
@@ -34,7 +37,7 @@ public class UserController {
 	private UserInsertService userInsertService;
 	private UserSearchService userSearchService;
 	private UserUpdateService userUpdateService;
-	private final ProductService productService;
+	private ProductService productService;
 
 	//コンストラクター
 	public UserController(UserInsertService userInsertService, UserSearchService userSearchService, UserUpdateService userUpdateService, ProductService productService) {
@@ -46,7 +49,19 @@ public class UserController {
 	
 	//TOP画面を表示する
 	@GetMapping(value = "/top")
-	public String toTop(Model model) {
+	public String toTop(@RequestParam(required = false) Integer genreId
+						,Model model) {
+		
+		Integer selectedId = (genreId != null) ? genreId : 1;
+		
+		List<GenreEntity> categoryList = productService.getCategoryList();
+
+	    String selectedGenreName = categoryList.stream()
+	            .filter(c -> c.getGenreId().equals(selectedId))
+	            .findFirst()
+	            .map(GenreEntity::getGenreName)
+	            .orElse("");
+	    
 		ItemForm itemForm = new ItemForm();
 		
 		List<ItemEntity> products = productService.getProductList();
@@ -54,11 +69,41 @@ public class UserController {
 		model.addAttribute("products", products);
 		model.addAttribute("newTop5", productService.getNewTop5());
 		model.addAttribute("oldTop5", productService.getOldTop5());
-		model.addAttribute("musicList", productService.getRandomByGenre(1));
-
+		
+		model.addAttribute("categoryList", productService.getCategoryList());
+		model.addAttribute("selectedGenreId", selectedId);
+	    model.addAttribute("selectedGenreName", selectedGenreName);
+	    model.addAttribute("musicList",
+	            productService.getRandomByGenre(selectedId));
+	    
 		return "top";
 	}
 	
+	// 管理者ログイン時の商品登録
+	@GetMapping("/admin/product/new")
+	@PreAuthorize("hasAuthority('EMPLOYEE')")
+	public String showProductForm(Model model, ItemForm itemForm) {
+		
+	    model.addAttribute("itemForm", new ItemForm());
+	    
+	    //初期値登録
+	    itemForm.setItemPoint("25");
+	    
+	    return "admin/product-form";
+	}
+	
+	@PostMapping("/admin/product/save")
+	@PreAuthorize("hasAuthority('EMPLOYEE')")
+	public String saveProduct(@Validated(ValidGroupOrder.class) @ModelAttribute ItemForm form,  BindingResult result) {
+
+		if (result.hasErrors()) {
+			return "admin/product-form";
+		}
+		
+	    productService.save(form);
+	    return "redirect:/top";
+	}
+
 	//ユーザー登録用セッションオブジェクトの生成
 	@ModelAttribute("userInsertForm")
 	public UserInsertForm setupUserInsertForm() {
@@ -255,6 +300,14 @@ public class UserController {
 		
 	    return "user/success";
 
+	}
+	
+	//権限不足でページに飛ぼうとした場合にエラーページへ飛ばす
+	@GetMapping(value = "/error/403")
+	public String accessDeined(Model model) {
+		model.addAttribute("error", "権限が不足しているため接続が拒否されました");
+
+		return "error/error";
 	}
 
 	

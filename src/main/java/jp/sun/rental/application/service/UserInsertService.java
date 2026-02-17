@@ -1,6 +1,7 @@
 package jp.sun.rental.application.service;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,13 +16,13 @@ public class UserInsertService {
 	//フィールド
 	private UserRepository userRepository;
 	private ModelMapper modelMapper;
-	//private BCryptPasswordEncoder passwordEncoder;
+	private BCryptPasswordEncoder passwordEncoder;
 
 	//コンストラクター
-	public UserInsertService(UserRepository userRepository, ModelMapper modelMapper/*, BCryptPasswordEncoder passwordEncoder*/) {
+	public UserInsertService(UserRepository userRepository, ModelMapper modelMapper, BCryptPasswordEncoder passwordEncoder) {
 		this.userRepository = userRepository;
 		this.modelMapper = modelMapper;
-		//this.passwordEncoder = passwordEncoder;
+		this.passwordEncoder = passwordEncoder;
 	}
 	
 	//ユーザー情報をDBに登録するメソッド
@@ -36,7 +37,7 @@ public class UserInsertService {
 		memberEntity = convertMember(form);
 		
 		//パスワードをハッシュ化
-		//userEntity.setPassword(passwordEncoder.encode(form.getPassword()));
+		userEntity.setPassword(passwordEncoder.encode(form.getPassword()));
 		
 		//authorityが未設定の場合、一般ユーザーに設定する
 		if(userEntity.getAuthority() == null) {
