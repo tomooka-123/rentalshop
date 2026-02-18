@@ -12,7 +12,7 @@ import jp.sun.rental.infrastructure.mapper.ItemRowMapper;
 @Repository
 public class ItemRepository {
 
-	private RowMapper<ItemEntity> userMapper = new ItemRowMapper();
+	private RowMapper<ItemEntity> itemMapper = new ItemRowMapper();
 	private JdbcTemplate jdbcTemplate;
 	
 	public ItemRepository (JdbcTemplate jdbcTemplate) {
@@ -26,7 +26,7 @@ public class ItemRepository {
 		sb.append(" ORDER BY item_id");
 		String sql = sb.toString();
 		
-		List<ItemEntity> itemsList = jdbcTemplate.query(sql, userMapper);
+		List<ItemEntity> itemsList = jdbcTemplate.query(sql, itemMapper);
 		
 		return itemsList;
 	}
@@ -43,7 +43,7 @@ public class ItemRepository {
 		name = name.replaceAll("%", "\\%");
 		name = "%" + name + "%";
 		
-		List<ItemEntity> itemsList = jdbcTemplate.query(sql, userMapper, name);
+		List<ItemEntity> itemsList = jdbcTemplate.query(sql, itemMapper, name);
 		
 		return itemsList;
 	}
@@ -55,7 +55,7 @@ public class ItemRepository {
 		sb.append(" WHERE item_id = ?");
 		String sql = sb.toString();
 		
-		ItemEntity entity = jdbcTemplate.queryForObject(sql, userMapper, itemId);
+		ItemEntity entity = jdbcTemplate.queryForObject(sql, itemMapper, itemId);
 		
 		return entity;
 	}
