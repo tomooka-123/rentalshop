@@ -36,7 +36,7 @@ public class ItemController {
 	}
 	
 	@PostMapping(value = "/search/item")
-	public String searchUsers(@ModelAttribute ItemForm itemForm, BindingResult result, Model model) throws Exception {
+	public String searchItems(@ModelAttribute ItemForm itemForm, BindingResult result, Model model) throws Exception {
 		if (result.hasErrors()) {
 			return "item/search";
 		}else {
