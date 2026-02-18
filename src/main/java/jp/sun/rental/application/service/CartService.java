@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import jp.sun.rental.domain.entity.CartEntity;
 import jp.sun.rental.domain.entity.CartItemEntity;
@@ -28,6 +29,7 @@ public class CartService {
 	}
 	
 	//ユーザ名からそのユーザが所持しているカートの情報を取得
+	@Transactional(rollbackFor = Exception.class)
 	public CartForm getCartByUserName(String username) throws Exception{
 		
 		CartEntity cartEntity = null;

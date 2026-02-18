@@ -22,6 +22,17 @@ public class CartRepository {
 	public CartEntity getCartItemsListByUserId(int userId) throws Exception{
 		
 		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT cart_id FROM cart WHERE user_id = ?");
+		
+		String sql = sb.toString();
+		try {
+			jdbcTemplate.queryForObject(sql, int.class, userId);
+		} catch (EmptyResultDataAccessException e) {
+			// カートが無ければ作成
+			jdbcTemplate.update("INSERT INTO cart(user_id) VALUES (?)", userId);
+	    }
+		
+		sb = new StringBuilder();
 		
 		sb.append("SELECT");
 		sb.append(" c.cart_id, c.user_id,");
@@ -35,9 +46,9 @@ public class CartRepository {
 		sb.append(" WHERE c.user_id = ?");
 		sb.append(" ORDER BY ci.priority");
 		
-		String sql = sb.toString();
+		sql = sb.toString();
 		
-		CartEntity cartEntity = jdbcTemplate.query(sql, cartExtractor, userId);
+		CartEntity 	cartEntity = jdbcTemplate.query(sql, cartExtractor, userId);
 		
 		return cartEntity;
 	}
