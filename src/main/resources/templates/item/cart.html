@@ -16,7 +16,7 @@
 				</div>
 				
 				<div id="result-area">
-					<div th:if="!${#lists.isEmpty(cartForm.cartItems)}">
+					<!--<div th:if="!${#lists.isEmpty(cartForm.cartItems)}">-->
 						<table>
 							<tr>
 								<th>商品名</th>
@@ -48,7 +48,7 @@
 						<form th:action="@{/cart/deleteall}" method="post">
 							<button type="submit" class="btn">カートの中身を全削除</button>
 						</form>
-					</div>
+					<!--</div>-->
 					<button type="button" class="btn" onclick="location.href='/cart/confirm'">レンタル希望確認</button>
 				</div>
 			</div>
