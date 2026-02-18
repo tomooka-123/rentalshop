@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ja">
 <head>
 	<meta charset="UTF-8">
-	<title>UserSerach</title>
+	<title>ユーザー検索</title>
 	<link th:href="@{/css/management.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -10,28 +10,19 @@
 		<header th:insert="~{header :: header_area}"></header>
 		<main>
 			<div id="form-area">
-				<form th:action="@{/logout}" method="post">
-					<div>
-						<span sec:authentication="name"></span>さんログイン中
-						<input type="submit" value="ログアウト" class="btn">
-					</div>	
-				</form>
-				
 				<form th:if="${userForm != null}" th:action="@{/search/user}" th:object="${userForm}" method="post">
 					<div class="form-row">
 						検索条件を指定する場合は「氏名」を入力してください。
 					</div>
 					<div class="form-row">
-						
 						<label for="userId">氏名</label>
 						<input th:field="*{userName}">
-						
 						<input type="submit" value="検索する" name="user" class="btn">
 					</div>
-				<th:block th:each="error : ${#fields.detailedErrors()}">
-					<span th:text="${error.message}" class="errors"></span><br>		
-				</th:block>
-				<span th:text="${errors}" class="errors"></span>
+					<th:block th:each="error : ${#fields.detailedErrors()}">
+						<span th:text="${error.message}" class="errors"></span><br>		
+					</th:block>
+					<span th:text="${errors}" class="errors"></span>
 				</form>
 				
 				<div id="result-area">
@@ -49,9 +40,8 @@
 								<th>住所</th>
 								<th>郵便番号</th>
 								<th>契約プラン</th>
-								
 							</tr>
-							<td:block th:each="users : ${userFormList}">
+							<th:block th:each="users : ${userFormList}">
 								<tr>
 									<td th:text="${users.userId }" class="userId"></td>
 									<td th:text="${users.userName}" class="userName"></td>
