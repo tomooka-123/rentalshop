@@ -52,10 +52,10 @@ public class CartController {
 		
 		try {
 			cartInsertService.addCart(userName, cartItemForm);
-		    model.addAttribute("message", "レンタル希望に追加しました。");
-		    
+			model.addAttribute("message", "レンタル希望に追加しました。");
+			
 		} catch (IllegalStateException e) {
-		    model.addAttribute("message", "既に登録されています。");
+			model.addAttribute("message", "既に登録されています。");
 			
 		} catch (Exception e) {
 			model.addAttribute("error","レンタル希望の登録に失敗しました。");
@@ -63,17 +63,14 @@ public class CartController {
 			return "error/error";
 		}
 		
-		//レンタル希望画面を表示する処理
-		CartForm cartForm = cartService.getCartByUserName(authentication.getName());		
-		model.addAttribute("cartForm",cartForm);
-		return "item/cart";
+		return "redirect:/cart";
 	}
 	
 	
 	//商品をレンタル希望から削除する
 	@PostMapping(value = "/cart/delete")
 	public String deleteItem(@ModelAttribute CartItemForm cartItemForm, Authentication authentication, Model model) throws Exception {
-
+		
 		// ログイン中のユーザー名を取得
 		String userName = authentication.getName();
 		
@@ -85,11 +82,7 @@ public class CartController {
 			model.addAttribute("message", "レンタル希望から削除しました。");
 		}
 		
-		//レンタル希望画面を表示する処理
-		CartForm cartForm = cartService.getCartByUserName(authentication.getName());		
-		model.addAttribute("cartForm",cartForm);
-		return "item/cart";
-
+		return "redirect:/cart";
 	}
 	
 	//カートの中身を全削除する
@@ -99,7 +92,7 @@ public class CartController {
 		int numOfRow = cartDeleteService.deleteAllItem(username);
 		
 		if(numOfRow == 0) {
-			redirectAttributes.addFlashAttribute("messag", "削除に失敗しました");
+			redirectAttributes.addFlashAttribute("message", "削除に失敗しました");
 		}else {
 			redirectAttributes.addFlashAttribute("message", "レンタル希望を全削除しました");
 		}
