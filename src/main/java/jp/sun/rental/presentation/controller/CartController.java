@@ -1,5 +1,7 @@
 package jp.sun.rental.presentation.controller;
 
+import java.util.List;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,7 @@ import jp.sun.rental.application.service.CartService;
 import jp.sun.rental.application.service.RentalService;
 import jp.sun.rental.presentation.form.CartForm;
 import jp.sun.rental.presentation.form.CartItemForm;
+import jp.sun.rental.presentation.form.RentalHistoryForm;
 
 @Controller
 public class CartController {
@@ -104,8 +107,10 @@ public class CartController {
 	public String cartComfirm(Model model, Authentication authentication)throws Exception{
 		
 		CartForm cartForm = cartService.getCartByUserNameWherePriorityMaxTwo(authentication.getName());
+		List<RentalHistoryForm> historyForms = rentalService.getHistoryListByUserName(authentication.getName());
 		
 		model.addAttribute("cartForm",cartForm);
+		model.addAttribute("historyForms",historyForms);
 		
 		return "item/cartConfirm";
 	}

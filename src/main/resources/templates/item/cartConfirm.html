@@ -13,6 +13,9 @@
 				<div class="form-row">
 					<span th:if="${#lists.size(cartForm.cartItems) < 2}" th:text="'レンタル希望は2件必要です。'"></span>
     				<span th:if="${#lists.size(cartForm.cartItems) == 2}" th:text="'以下の2件をレンタルします。よろしいですか？'"></span>
+    				<div th:if="${#lists.size(historyForms.?[#lists.size(rentalItems.?[!returnFlag]) > 0]) > 0}">
+						 未返却の商品があるためレンタルできません。
+					</div>
 					<span th:text="${error}" class="errors"></span>
 					<span th:text="${message}"></span>
 				</div>
@@ -42,7 +45,8 @@
 					</div>
 				</div>
 				<a href="/cart">戻る</a>
-				<button type="button" class="btn" th:disabled="${#lists.size(cartForm.cartItems) < 2}" onclick="location.href='/cart/success'">確定</button>
+				<button type="button" class="btn" th:disabled="${#lists.size(cartForm.cartItems) < 2 || 
+				#lists.size(historyForms.?[#lists.size(rentalItems.?[!returnFlag]) > 0]) > 0}" onclick="location.href='/cart/success'">確定</button>
 			</div>
 			
 		</main>
